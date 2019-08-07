@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run scss && node ./bin/www",
+    "start": "npm run serve:scss && npm run serve:run",
     "serve": "npm-run-all -p serve:*",
     "serve:scss": "gulp sass",
     "serve:watch": "gulp sass:watch",
