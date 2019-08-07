@@ -12,10 +12,6 @@ Desktop.ini
 .directory
 *~
 
-
-# bin
-bin/
-
 # npm
 node_modules
 package-lock.json
@@ -28,3 +24,7 @@ coverage
 
 # Benchmarking
 benchmarks/graphs
+
+
+# Compiled css
+public/css/!style.css
