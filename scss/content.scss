@@ -4,4 +4,13 @@ body {
 
     color: $text-color;
     background-color: $background-color;
+
+    font-family: sans-serif;
+}
+
+nav {
+    padding: $padding-medium $padding-large;
+
+    border-bottom: 1px solid $border-color;
+    background-color: $foreground-color;
 }

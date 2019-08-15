@@ -10,7 +10,7 @@ gulp.task('sass', function () {
         .pipe(autoprefixer({
             cascade: false
         }))
-        .pipe(gulp.dest('public/stylesheets/'));
+        .pipe(gulp.dest('public/css/'));
 });
 
 gulp.task('sass:watch', function () {

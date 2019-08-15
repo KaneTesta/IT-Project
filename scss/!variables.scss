@@ -1,2 +1,23 @@
+// Colors
 $background-color: #fafafa;
-$text-color: rgba(0, 0, 0, 0.9);
+$foreground-color: #ffffff;
+$text-color: rgba(0, 0, 0, 0.87);
+$icon-color: rgba(0, 0, 0, 0.6);
+$icon-color-back: rgba(0, 0, 0, 0.08);
+$accent-color: #3c71d3;
+$accent-color-hover: lighten($accent-color, 10%);
+$accent-color-active: darken($accent-color, 5%);
+$accent-text-color: #ffffff;
+
+// Layout
+$padding-tiny: 0.2rem;
+$padding-small: 0.4rem;
+$padding-medium: 0.8rem;
+$padding-large: 1.2rem;
+
+// Borders
+$border-radius: 0.2rem;
+$border-color: rgba(0, 0, 0, 0.1);
+
+// Shadow
+$shadow-dropdown: 0 2px 6px rgba(0, 0, 0, 0.4);

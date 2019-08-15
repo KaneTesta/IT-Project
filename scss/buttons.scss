@@ -1,0 +1,92 @@
+button {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+    background-color: transparent;
+}
+
+.button,
+.button-icon,
+.button-menu {
+    position: relative;
+
+    display: flex;
+
+    cursor: pointer;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.02rem;
+    text-transform: uppercase;
+
+    color: $text-color;
+
+    font-size: 0.9rem;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.button-icon {
+    z-index: 1;
+
+    color: $icon-color;
+
+    i {
+        pointer-events: none;
+
+        font-size: 1.5rem;
+    }
+
+    &::before {
+        position: absolute;
+        z-index: -1;
+        left: -$padding-tiny;
+        right: -$padding-tiny;
+        top: -$padding-tiny;
+        bottom: -$padding-tiny;
+
+        content: "";
+        transition: opacity 0.1s ease-in, transform 0.1s ease-in;
+        transform: scale(0.75);
+
+        opacity: 0;
+        border-radius: 50%;
+        background-color: $icon-color-back;
+    }
+
+    &:hover,
+    &:focus {
+        color: $accent-color;
+    }
+
+    &:active::before {
+        transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+        transform: scale(1);
+
+        opacity: 1;
+    }
+}
+
+.button-menu {
+    display: block;
+
+    width: 100%;
+    padding: $padding-small $padding-medium;
+
+    text-align: left;
+
+    &:hover,
+    &:focus {
+        color: $accent-text-color;
+        background-color: $accent-color-hover;
+    }
+
+    &:active {
+        color: $accent-text-color;
+        background-color: $accent-color-active;
+    }
+}
