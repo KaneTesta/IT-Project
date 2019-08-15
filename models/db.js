@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const { MONGO_HOST, MONGO_USER, MONGO_PASS } = process.env;
+const { MONGODB_HOST, MONGODB_USER, MONGODB_PASS } = process.env;
 
-const dbURI = `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@${MONGO_HOST}`;
+const dbURI = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}`;
 
 const options = {
   useNewUrlParser: true,
