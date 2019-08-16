@@ -24,7 +24,7 @@ function getUser(req, callback) {
 /* GET home page. */
 router.get('/', function (req, res, next) {
     getUser(req, function (user) {
-        res.render('index', { title: 'IT Project', user: user });
+        res.render('index', { title: 'Inherit That', user: user });
     });
 });
 

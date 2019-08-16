@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "npm run serve:scss && node ./bin/www",
+    "eslint": "./node_modules/.bin/eslint ./",
+    "eslint:fix": "./node_modules/.bin/eslint ./ --fix",
     "serve": "npm-run-all -p serve:*",
     "serve:scss": "gulp sass",
     "serve:watch": "gulp sass:watch",
@@ -23,13 +25,13 @@
     "mongoose": "^5.6.8",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
-    "passport-google-oauth": "^2.0.0",
-    "eslint": "^6.1.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2"
+    "passport-google-oauth": "^2.0.0"
   },
   "devDependencies": {
     "dotenv": "^8.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "nodemon": "^1.19.1",
     "npm-run-all": "^4.1.5"
   }
