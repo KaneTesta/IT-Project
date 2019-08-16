@@ -15,31 +15,38 @@ $dropdown-offset-v: 1.0rem;
     min-width: 10rem;
 
     transition: opacity 0.1s ease-in, transform 0.1s ease-in;
-    transform: translateY(-0.5rem) scaleY(0.9);
+    transform: translateY(-0.5rem) scale(0.9);
     transform-origin: 50% 0;
 
     opacity: 0;
+    border: none;
     border-radius: $border-radius;
     background-color: $foreground-color;
     box-shadow: $shadow-dropdown;
 
     &.dropdown-left {
         left: calc(50% - #{$dropdown-offset-h});
+
+        transform-origin: 0 0;
     }
 
     &.dropdown-right {
         right: calc(50% - #{$dropdown-offset-h});
+
+        transform-origin: 100% 0;
     }
 
     &.visible {
         transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-        transform: translateY(0) scaleY(1);
+        transform: translateY(0) scale(1);
 
         opacity: 1;
     }
 }
 
 .dropdown-panel {
+    padding: $padding-medium 0;
+
     border-bottom: 1px solid $border-color;
 
     &:last-child {
@@ -47,8 +54,9 @@ $dropdown-offset-v: 1.0rem;
     }
 
     &.dropdown-heading {
-        padding: $padding-small $padding-medium;
+        padding: $padding-medium $padding-medium;
 
+        font-family: $font-subheading;
         font-weight: 700;
     }
 }

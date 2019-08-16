@@ -1,6 +1,6 @@
 <nav class="flex-horizontal flex-center">
     <a href="/">
-        <h1><%= title %></h1>
+        <h2><%= title %></h2>
     </a>
 
     <div class="flex-fill"></div>
@@ -18,7 +18,8 @@
                 </div>
                 <div class="dropdown-panel">
                     <a class="button-menu" href="/auth/google">Switch User</a>
-                    <button class="button-menu" data-post="/user/logout">Log Out</button>
+                    <button class="button-menu" data-post="/user/logout" data-post-text="Logging Out"
+                        data-post-reload="true">Log Out</button>
                 </div>
             </div>
         </div>

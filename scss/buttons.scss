@@ -8,6 +8,10 @@ button {
     background-color: transparent;
 }
 
+:focus {
+    outline: none;
+}
+
 .button,
 .button-icon,
 .button-menu {
@@ -28,6 +32,29 @@ button {
 
     align-items: center;
     justify-content: center;
+}
+
+.button {
+    padding: $padding-small $padding-medium;
+
+    transition: background-color 0.1s ease, box-shadow 0.1s ease;
+
+    color: $accent-text-color;
+    border: none;
+    border-radius: $border-radius;
+    background-color: $accent-color;
+    box-shadow: $shadow-button;
+
+    &:hover,
+    &:focus {
+        background-color: $accent-color-hover;
+        box-shadow: $shadow-button-hover;
+    }
+
+    &:active {
+        background-color: $accent-color-active;
+        box-shadow: $shadow-button-active;
+    }
 }
 
 .button-icon {

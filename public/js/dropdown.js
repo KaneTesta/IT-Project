@@ -31,12 +31,17 @@ $(function () {
                 // Find dropdown
                 let dropdownId = $button.attr("data-dropdown");
                 let $dropdown = $("#" + dropdownId);
-                $dropdown.removeClass("visible");
-                setTimeout(function () {
-                    if (!$dropdown.hasClass("visible")) {
-                        $dropdown.css("visibility", "hidden");
+                if ($dropdown.hasClass("visible")) {
+                    // Check target isn't a child of the dropdown
+                    if ($target.closest($dropdown).length === 0) {
+                        $dropdown.removeClass("visible");
+                        setTimeout(function () {
+                            if (!$dropdown.hasClass("visible")) {
+                                $dropdown.css("visibility", "hidden");
+                            }
+                        }, 200);
                     }
-                }, 200);
+                }
             });
         }
     }

@@ -4,8 +4,8 @@ $foreground-color: #ffffff;
 $text-color: rgba(0, 0, 0, 0.87);
 $icon-color: rgba(0, 0, 0, 0.6);
 $icon-color-back: rgba(0, 0, 0, 0.08);
-$accent-color: #3c71d3;
-$accent-color-hover: lighten($accent-color, 10%);
+$accent-color: #1180e7;
+$accent-color-hover: lighten($accent-color, 5%);
 $accent-color-active: darken($accent-color, 5%);
 $accent-text-color: #ffffff;
 
@@ -15,9 +15,18 @@ $padding-small: 0.4rem;
 $padding-medium: 0.8rem;
 $padding-large: 1.2rem;
 
+// Fonts
+$font-heading: "Merriweather";
+$font-subheading: "Merriweather";
+$font-body: "Source Sans Pro";
+
 // Borders
-$border-radius: 0.2rem;
-$border-color: rgba(0, 0, 0, 0.1);
+$border-radius: 0.4rem;
+$border-color: rgba(0, 0, 0, 0.15);
 
 // Shadow
 $shadow-dropdown: 0 2px 6px rgba(0, 0, 0, 0.4);
+$shadow-dialog: 0 4px 12px rgba(0, 0, 0, 0.4);
+$shadow-button: 0 1px 2px rgba(0, 0, 0, 0.25);
+$shadow-button-hover: 0 1px 4px rgba(0, 0, 0, 0.4);
+$shadow-button-active: 0 1px 2px rgba(0, 0, 0, 0.25);
