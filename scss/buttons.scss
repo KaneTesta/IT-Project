@@ -18,6 +18,7 @@ button {
     position: relative;
 
     display: flex;
+    flex-direction: row;
 
     cursor: pointer;
     transition: background-color 0.1s ease, color 0.1s ease;
@@ -58,8 +59,6 @@ button {
 }
 
 .button-icon {
-    z-index: 1;
-
     color: $icon-color;
 
     i {
@@ -78,12 +77,7 @@ button {
     }
 
     .button-icon-dropdown {
-        position: absolute;
-        right: calc(100% - #{$padding-tiny});
-        top: 0;
-        bottom: 0;
-
-        margin: auto;
+        width: calc(1.5rem - #{$padding-small});
 
         transition: transform 0.15s ease-in-out;
         transform: rotateX(0deg);
@@ -95,35 +89,6 @@ button {
         .button-icon-dropdown {
             transform: rotateX(180deg);
         }
-    }
-
-    &::before {
-        position: absolute;
-        z-index: -1;
-        left: -$padding-tiny;
-        right: -$padding-tiny;
-        top: -$padding-tiny;
-        bottom: -$padding-tiny;
-
-        content: "";
-        transition: opacity 0.1s ease-in, transform 0.1s ease-in;
-        transform: scale(0.75);
-
-        opacity: 0;
-        border-radius: 50%;
-        background-color: $icon-color-back;
-    }
-
-    &:hover,
-    &:focus {
-        color: $accent-color;
-    }
-
-    &:active::before {
-        transition: opacity 0.1s ease-out, transform 0.1s ease-out;
-        transform: scale(1);
-
-        opacity: 1;
     }
 }
 
@@ -144,5 +109,46 @@ button {
     &:active {
         color: $accent-text-color;
         background-color: $accent-color-active;
+    }
+
+    &::before {
+        content: none;
+    }
+}
+
+
+a,
+.button-icon {
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        position: absolute;
+        z-index: -1;
+        left: -$padding-small;
+        right: -$padding-small;
+        top: -$padding-small;
+        bottom: -$padding-small;
+
+        content: "";
+        transition: opacity 0.1s ease-in, transform 0.1s ease-in;
+        transform: scale(0.9);
+
+        opacity: 0;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        background-color: $focus-color;
+    }
+
+    &:hover {
+        color: $accent-color;
+    }
+
+    &:active::before,
+    &:focus::before {
+        transition: opacity 0.05s ease-out, transform 0.05s ease-out;
+        transform: scale(1);
+
+        opacity: 1;
     }
 }
