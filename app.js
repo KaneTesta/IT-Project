@@ -60,7 +60,7 @@ passport.use(new GoogleStrategy(
 		userController.findOrCreateUser(profile, (msg) => {
 			let user = null;
 			if (msg.result && msg.result.length > 0) {
-				user = msg.result[0];
+				[user] = msg.result;
 			}
 
 			// Update display name
@@ -71,21 +71,20 @@ passport.use(new GoogleStrategy(
 					profilePicture = profile.photos[0].value;
 				}
 
-				console.log(profilePicture);
 				// Check that user data is up to date from Google account
-				if (user.display_name !== profile.displayName ||
-					user.display_picture !== profilePicture) {
+				if (user.display_name !== profile.displayName
+					|| user.display_picture !== profilePicture) {
 					// Update user data from Google account data
 					user.display_name = profile.displayName;
 					user.display_picture = profilePicture;
 					userController.updateUser(user.user_id, user, (msgUpdate) => {
-						return done(msg.error, [user])
+						done(msg.error, [user]);
 					});
 				} else {
-					return done(msg.error, msg.result);
+					done(msg.error, msg.result);
 				}
 			} else {
-				return done(msg.error, msg.result);
+				done(msg.error, msg.result);
 			}
 		});
 	}),

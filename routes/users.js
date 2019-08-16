@@ -14,7 +14,7 @@ function sendResponse(msg, res) {
 	} else {
 		res.json(msg.result);
 	}
-};
+}
 
 router.post('/delete', (req, res) => {
 	if (req.session && req.session.passport && req.session.passport.user) {
