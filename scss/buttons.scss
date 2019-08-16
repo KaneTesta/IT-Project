@@ -131,8 +131,8 @@ a,
         bottom: -$padding-small;
 
         content: "";
-        transition: opacity 0.1s ease-in, transform 0.1s ease-in;
-        transform: scale(0.9);
+        transition: opacity 0.1s ease-in, background-color 0.1s ease-in, transform 0.1s ease-in;
+        transform: scale(0.95);
 
         opacity: 0;
         border: 1px solid $border-color;
@@ -140,15 +140,18 @@ a,
         background-color: $focus-color;
     }
 
-    &:hover {
-        color: $accent-color;
-    }
-
-    &:active::before,
-    &:focus::before {
-        transition: opacity 0.05s ease-out, transform 0.05s ease-out;
+    &:hover::before,
+    &:focus::before,
+    &:active::before {
+        transition: opacity 0.05s ease-out, background-color 0.1s ease-out, transform 0.05s ease-out;
         transform: scale(1);
 
         opacity: 1;
+    }
+
+    &:active::before {
+        transition: opacity 0.05s ease-out, background-color 0.1s ease-out, transform 0.05s ease-out;
+
+        background-color: $focus-color-active;
     }
 }
