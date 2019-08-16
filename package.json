@@ -12,6 +12,7 @@
     "serve:run": "nodemon ./bin/www"
   },
   "dependencies": {
+    "dotenv": "^8.0.0",
     "connect-mongodb-session": "^2.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -24,11 +25,11 @@
     "http-errors": "~1.6.2",
     "mongoose": "^5.6.8",
     "morgan": "~1.9.0",
+    "node-sass": "^4.12.0",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0"
   },
   "devDependencies": {
-    "dotenv": "^8.0.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",

@@ -9,7 +9,13 @@
         <p class="nav-user-description"><%= user.display_name %></p>
         <div class="dropdown-container">
             <button class="button-icon" data-dropdown="DropdownUser">
-                <i class="material-icons">account_circle</i>
+                <% if (user.display_picture) { %>
+                    <img src="<%= user.display_picture %>"/>
+                <% } else { %>
+                    <i class="material-icons">account_circle</i>
+                <% }; %>
+                
+                <i class="material-icons button-icon-dropdown">arrow_drop_down</i>
             </button>
 
             <div id="DropdownUser" class="dropdown-content dropdown-right">

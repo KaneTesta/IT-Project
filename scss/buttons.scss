@@ -68,6 +68,35 @@ button {
         font-size: 1.5rem;
     }
 
+    img {
+        width: 1.5rem;
+        height: 1.5rem;
+
+        pointer-events: none;
+
+        border-radius: 1.5rem;
+    }
+
+    .button-icon-dropdown {
+        position: absolute;
+        right: calc(100% - #{$padding-tiny});
+        top: 0;
+        bottom: 0;
+
+        margin: auto;
+
+        transition: transform 0.15s ease-in-out;
+        transform: rotateX(0deg);
+
+        font-size: 1.5rem;
+    }
+
+    &.button-dropdown-visible {
+        .button-icon-dropdown {
+            transform: rotateX(180deg);
+        }
+    }
+
     &::before {
         position: absolute;
         z-index: -1;

@@ -1,7 +1,7 @@
 $(() => {
 	// Setup post buttons
-	$('[data-post]').each(() => {
-		const $button = $(this);
+	$('[data-post]').each((i, el) => {
+		const $button = $(el);
 		const postUrl = $button.attr('data-post');
 		// Post and reload on click
 		$button.on('click', () => {
@@ -11,7 +11,7 @@ $(() => {
 			const dialog = window.dialogManager.createNewLoadingDialog(dialogText);
 			dialog.show();
 
-			$.post(postUrl, null, () => {
+			$.post(postUrl, null, (data) => {
 				$button.removeClass('loading');
 				// Reload page, or hide the dialog, depending on button
 				if ($button.attr('data-post-reload')) {

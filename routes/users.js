@@ -1,36 +1,44 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const userController = require('../controllers/userController');
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
+const router = express.Router();
+
+/**
+ * Send a response message using a given msg object and a Response object
+ * @param {{error, result}} msg The msg object to use as a response
+ * @param {Response} res The Response to send the message over
+ */
+function sendResponse(msg, res) {
+	if (msg.error) {
+		res.status(500).send(msg.error);
+	} else {
+		res.json(msg.result);
+	}
+};
+
+router.post('/delete', (req, res) => {
+	if (req.session && req.session.passport && req.session.passport.user) {
+		const userId = req.session.passport.user;
+		userController.deleteUser(userId, (msg) => { sendResponse(msg, res); });
+	} else {
+		res.status(500).send('User not logged in');
+	}
 });
 
-router.post('/delete', function (req, res) {
-  if (req.session && req.session.passport && req.session.passport.user) {
-    let user_id = req.session.passport.user;
-    userController.deleteUser(user_id, function (msg) { sendResponse(msg, res); });
-  } else {
-    res.status(500).send("User not logged in");
-  }
-});
-
-router.post('/logout', function (req, res) {
-  req.logout();
-  req.session.destroy(function (err) {
-    console.log(err);
-    if (err) {
-      res.status(500).send("Error logging out");
-    } else {
-      res.send("Logged out");
-    }
-  });
+router.post('/logout', (req, res) => {
+	req.logout();
+	req.session.destroy((err) => {
+		if (err) {
+			res.status(500).send('Error logging out');
+		} else {
+			res.send('Logged out');
+		}
+	});
 });
 
 /* GET error with user login */
-router.get('/loginerror', function (req, res, next) {
-  console.log(JSON.stringify(req));
-  res.render('user/loginerror');
+router.get('/loginerror', (req, res, next) => {
+	res.render('user/loginerror');
 });
 
 module.exports = router;
