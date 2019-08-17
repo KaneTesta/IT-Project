@@ -14,6 +14,7 @@ button {
 
 .button,
 .button-icon,
+.button-icon-noborder,
 .button-menu {
     position: relative;
 
@@ -62,7 +63,8 @@ button {
     }
 }
 
-.button-icon {
+.button-icon,
+.button-icon-noborder {
     color: $icon-color;
 
     i {

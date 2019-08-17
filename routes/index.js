@@ -24,7 +24,11 @@ function getUser(req, callback) {
 /* GET home page. */
 router.get('/', (req, res, next) => {
 	getUser(req, (user) => {
-		res.render('index', { title: 'Inherit That', user });
+		if (user) {
+			res.render('dashboard', { title: 'Inherit That', user });
+		} else {
+			res.render('index', { title: 'Inherit That', user });
+		}
 	});
 });
 

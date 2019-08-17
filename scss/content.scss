@@ -10,4 +10,22 @@ nav {
 
     border-bottom: 1px solid $border-color;
     background-color: $foreground-color;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    a {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.page-content {
+    max-width: 84rem;
+    margin: auto;
+    padding: $padding-medium $padding-large;
 }

@@ -7,6 +7,10 @@ const userSchema = mongoose.Schema({
 	},
 	display_name: String,
 	display_picture: String,
+	pages: {
+		type: Array,
+		ref: 'itempage',
+	},
 });
 
-mongoose.model('user', userSchema, 'users');
+mongoose.model('user', userSchema);

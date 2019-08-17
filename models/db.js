@@ -22,6 +22,7 @@ mongoose.connect(dbURI, options).then(
 );
 
 require('./artefact');
+require('./itempage');
 require('./user');
 
 module.exports = {

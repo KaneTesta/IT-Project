@@ -22,19 +22,37 @@ button {
 }
 
 h1 {
+    margin-bottom: $padding-large;
+
+    color: $text-color;
+
     font-family: $font-heading;
     font-size: 2.5rem;
     font-weight: 400;
 }
 
 h2 {
+    margin-bottom: $padding-medium;
+
+    color: $text-color;
+
     font-family: $font-subheading;
     font-size: 1.5rem;
     font-weight: 400;
 }
 
-a {
+h3 {
+    margin-bottom: $padding-small;
+
     color: $text-color;
+
+    font-family: $font-subheading;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+a {
+    color: $accent-color;
 }
 
 button {

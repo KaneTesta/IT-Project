@@ -15,6 +15,11 @@ $padding-tiny: 0.2rem;
 $padding-small: 0.4rem;
 $padding-medium: 0.8rem;
 $padding-large: 1.2rem;
+// Breakpoints
+$breakpoint-large: 1200px;
+$breakpoint-medium: 800px;
+$breakpoint-small: 540px;
+$breakpoint-tiny: 360px;
 
 // Fonts
 $font-heading: "Merriweather";
@@ -26,6 +31,7 @@ $border-radius: 0.4rem;
 $border-color: rgba(0, 0, 0, 0.15);
 
 // Shadow
+$shadow-card: 0 2px 6px rgba(0, 0, 0, 0.25);
 $shadow-dropdown: 0 2px 6px rgba(0, 0, 0, 0.4);
 $shadow-dialog: 0 4px 12px rgba(0, 0, 0, 0.4);
 $shadow-button: 0 1px 2px rgba(0, 0, 0, 0.25);

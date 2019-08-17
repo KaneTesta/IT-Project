@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+    <% include includes/head %>
+
+    <body>
+
+        <% include includes/elements/navigation %>
+
+        <div class="page-content">
+            <h1>Dashboard</h1>
+
+            <h2>My Item Pages</h2>
+            <div id="DashboardGridMyPages" class="dashboard-grid">
+                <% if (user && user.pages) { %>
+                    <% for (let i = 0; i < user.pages.length; ++i) { %>
+                        <div class="dashboard-page" style="background-color: <%= user.pages[i].page_color %>">
+                            <button class="button-icon-noborder">
+                                <p class="dashboard-page-title"><%= user.pages[i].page_name %></p>
+                            </button>
+                        </div>
+                    <% }; %>
+
+                    <div class="dashboard-page page-action">
+                        <button id="DashboardButtonAddPage" class="button-icon-noborder">
+                            <i class="material-icons">add</i>
+                            <p>New Item Page</p>
+                        </button>
+                    </div>
+                <% }; %>
+            </div>
+
+            <h2>Shared Pages</h2>
+            <div id="DashboardGridSharedPages" class="dashboard-grid">
+            </div>
+        </div>
+
+        <% include includes/dialogs/dialogAddPage %>
+
+        <script defer src="/js/dashboard.js"></script>
+        <% include includes/scripts %>
+        
+    </body>
+
+</html>

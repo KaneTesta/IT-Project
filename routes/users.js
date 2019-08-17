@@ -12,10 +12,16 @@ function sendResponse(msg, res) {
 	if (msg.error) {
 		res.status(500).send(msg.error);
 	} else {
-		res.json(msg.result);
+		res.redirect("/");
 	}
 }
 
+/* GET error with user login */
+router.get('/loginerror', (req, res, next) => {
+	res.render('user/loginerror');
+});
+
+/* POST delete user */
 router.post('/delete', (req, res) => {
 	if (req.session && req.session.passport && req.session.passport.user) {
 		const userId = req.session.passport.user;
@@ -25,6 +31,7 @@ router.post('/delete', (req, res) => {
 	}
 });
 
+/* POST logout user */
 router.post('/logout', (req, res) => {
 	req.logout();
 	req.session.destroy((err) => {
@@ -36,9 +43,13 @@ router.post('/logout', (req, res) => {
 	});
 });
 
-/* GET error with user login */
-router.get('/loginerror', (req, res, next) => {
-	res.render('user/loginerror');
+/* POST create new item page for current user */
+router.post('/createpage', (req, res) => {
+	if (req.session && req.session.passport && req.session.passport.user) {
+		userController.createPage(req, (msg) => { sendResponse(msg, res); });
+	} else {
+		res.status(500).send('User not logged in');
+	}
 });
 
 module.exports = router;
