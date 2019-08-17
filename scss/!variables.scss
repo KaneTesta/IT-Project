@@ -2,6 +2,7 @@
 $background-color: #fafafa;
 $foreground-color: #ffffff;
 $text-color: rgba(0, 0, 0, 0.87);
+$text-color-detail: rgba(0, 0, 0, 0.6);
 $icon-color: rgba(0, 0, 0, 0.6);
 $focus-color: rgba(0, 0, 0, 0.02);
 $focus-color-active: rgba(0, 0, 0, 0.05);
@@ -9,6 +10,10 @@ $accent-color: #1180e7;
 $accent-color-hover: lighten($accent-color, 5%);
 $accent-color-active: darken($accent-color, 5%);
 $accent-text-color: #ffffff;
+// Status colors
+$success-color: #1f9c1a;
+$warning-color: #9c5f1a;
+$error-color: #9c1a1a;
 
 // Layout
 $padding-tiny: 0.2rem;

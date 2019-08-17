@@ -1,25 +1,16 @@
 $(() => {
-	// Setup post buttons
-	$('[data-post]').each((i, el) => {
-		const $button = $(el);
-		const postUrl = $button.attr('data-post');
+	// Setup form submit buttons
+	$('form[method="post"]').each((i, el) => {
+		const $form = $(el);
 		// Post and reload on click
-		$button.on('click', () => {
-			$button.addClass('loading');
-			// Create dialog
-			const dialogText = $button.attr('data-post-text') || '';
-			const dialog = window.dialogManager.createNewLoadingDialog(dialogText);
-			dialog.show();
-
-			$.post(postUrl, null, (data) => {
-				$button.removeClass('loading');
-				// Reload page, or hide the dialog, depending on button
-				if ($button.attr('data-post-reload')) {
-					window.location.reload();
-				} else {
-					dialog.hideAndRemove();
-				}
-			});
+		$form.on('submit', () => {
+			const postText = $form.attr('data-post-text');
+			if (postText) {
+				// Create dialog
+				const dialogText = postText;
+				const dialog = window.dialogManager.createNewLoadingDialog(dialogText);
+				dialog.show();
+			}
 		});
 	});
 });

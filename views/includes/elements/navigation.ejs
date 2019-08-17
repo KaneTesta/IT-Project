@@ -24,8 +24,10 @@
                 </div>
                 <div class="dropdown-panel">
                     <a class="button-menu" href="/auth/google">Switch User</a>
-                    <button class="button-menu" data-post="/user/logout" data-post-text="Logging Out"
-                        data-post-reload="true">Log Out</button>
+                    
+                    <form action="/user/logout" method="post" data-post-text="Logging Out">
+                        <input type="submit" value="Log Out" class="button-menu">
+                    </form>
                 </div>
             </div>
         </div>

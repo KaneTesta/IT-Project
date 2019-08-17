@@ -28,11 +28,24 @@ window.dialogManager = {
 			}, 500);
 		};
 
-		// Close dialog on background click
+		// Setup dialog cancels
 		if (dialog.getAttribute('data-dialog-cancelable')) {
+			// Close dialog on background click
 			$(dialog).find('.dialog-background').on('click', () => {
 				dialog.hide();
 			});
+
+			const closeButton = $(
+				'<button class="button-icon dialog-button-close">'
+				+ '<i class="material-icons">close</i>'
+				+ '</button>',
+			);
+
+			$(closeButton).on('click', () => {
+				dialog.hide();
+			});
+
+			$(dialog).find('.dialog-content').append(closeButton);
 		}
 	},
 
@@ -65,7 +78,9 @@ window.dialogManager = {
 	 * @param {String} loadingText The text to display while loading
 	 */
 	createNewLoadingDialog(loadingText) {
-		return this.createNewDialog(`<p>${loadingText}</p>`);
+		let dialog = this.createNewDialog(`<p>${loadingText}</p>`);
+		dialog.classList.add('dialog-small');
+		return dialog;
 	},
 };
 

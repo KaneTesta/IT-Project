@@ -12,7 +12,7 @@ function sendResponse(msg, res) {
 	if (msg.error) {
 		res.status(500).send(msg.error);
 	} else {
-		res.redirect("/");
+		res.redirect('/');
 	}
 }
 
@@ -38,15 +38,25 @@ router.post('/logout', (req, res) => {
 		if (err) {
 			res.status(500).send('Error logging out');
 		} else {
-			res.send('Logged out');
+			res.redirect('/');
 		}
 	});
 });
+
 
 /* POST create new item page for current user */
 router.post('/createpage', (req, res) => {
 	if (req.session && req.session.passport && req.session.passport.user) {
 		userController.createPage(req, (msg) => { sendResponse(msg, res); });
+	} else {
+		res.status(500).send('User not logged in');
+	}
+});
+
+/* POST delete an existing item page */
+router.post('/deletepage/:id', (req, res) => {
+	if (req.session && req.session.passport && req.session.passport.user) {
+		userController.deletePage(req, (msg) => { sendResponse(msg, res); });
 	} else {
 		res.status(500).send('User not logged in');
 	}

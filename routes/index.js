@@ -25,9 +25,26 @@ function getUser(req, callback) {
 router.get('/', (req, res, next) => {
 	getUser(req, (user) => {
 		if (user) {
-			res.render('dashboard', { title: 'Inherit That', user });
+			res.render('user/dashboard', { title: 'Inherit That', user });
 		} else {
 			res.render('index', { title: 'Inherit That', user });
+		}
+	});
+});
+
+/* GET page for item page. */
+router.get('/page/:id', (req, res, next) => {
+	getUser(req, (user) => {
+		if (user && user.pages) {
+			const page = user.pages.find((el) => el.page_id.toString() === req.params.id.toString());
+
+			if (page) {
+				res.render('user/page', { title: 'Inherit That', user, page });
+			} else {
+				res.status(403).send("This page doesn't exist, or you don't have permission to access it.");
+			}
+		} else {
+			res.redirect('/');
 		}
 	});
 });

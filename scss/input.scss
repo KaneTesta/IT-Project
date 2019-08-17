@@ -1,0 +1,42 @@
+input {
+    display: block;
+
+    border: none;
+    background: none;
+    background-color: transparent;
+}
+
+select,
+input[type="text"],
+input[type="submit"] {
+    width: 100%;
+}
+
+select,
+input[type="text"] {
+    box-sizing: border-box;
+    margin-bottom: $padding-medium;
+    padding: $padding-medium $padding-medium;
+
+    transition: border-color 0.1s ease;
+
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+
+    appearance: none;
+
+    &:focus {
+        border-color: $accent-color;
+    }
+}
+
+.input-heading {
+    margin-bottom: $padding-small;
+
+    letter-spacing: 0.04rem;
+    text-transform: uppercase;
+
+    color: $text-color-detail;
+
+    font-size: 0.85rem;
+}

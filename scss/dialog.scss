@@ -27,6 +27,7 @@
     .dialog-content {
         z-index: 1;
 
+        min-width: 15vw;
         padding: $padding-medium $padding-large;
 
         transition: opacity 0.12s ease-in, transform 0.12s ease-in;
@@ -37,6 +38,25 @@
         border-radius: $border-radius;
         background-color: $foreground-color;
         box-shadow: $shadow-dialog;
+
+        .dialog-heading {
+            margin-top: $padding-small;
+            padding-right: 4rem;
+
+            font-size: 1.5rem;
+        }
+
+        .dialog-button-close {
+            position: absolute;
+            right: $padding-large + $padding-small;
+            top: calc(#{$padding-medium + $padding-small} + 0.15rem);
+        }
+    }
+
+    &.dialog-small {
+        .dialog-content {
+            min-width: auto;
+        }
     }
 
     &.visible {

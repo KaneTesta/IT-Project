@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+    <% include ../includes/head %>
+
+    <body>
+
+        <% include ../includes/elements/navigation %>
+
+        <div class="page-content">
+            <h1><%= page.page_name %></h1>
+
+            <form action="/user/deletepage/<%= page.page_id %>" method="post" data-post-text="Deleting Page">
+                <input  type="submit" value="Delete Page" class="button">
+            </form>
+        </div>
+
+        <% include ../includes/scripts %>
+        
+    </body>
+
+</html>

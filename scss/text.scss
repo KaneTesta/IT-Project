@@ -14,6 +14,7 @@ h6,
 p,
 a,
 span,
+input,
 button {
     margin: 0;
     padding: 0;
@@ -22,6 +23,7 @@ button {
 }
 
 h1 {
+    margin-top: $padding-medium;
     margin-bottom: $padding-large;
 
     color: $text-color;
@@ -55,6 +57,7 @@ a {
     color: $accent-color;
 }
 
-button {
+button,
+input {
     font-family: $font-body;
 }

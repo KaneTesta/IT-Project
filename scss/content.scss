@@ -22,6 +22,10 @@ nav {
         margin: 0;
         padding: 0;
     }
+
+    .button {
+        padding: $padding-small $padding-medium;
+    }
 }
 
 .page-content {

@@ -60,40 +60,51 @@ const deleteUser = (id, callback) => {
 
 const createPage = (req, callback) => {
 	const pageName = req.body.pagename;
-	const pageColor = req.body.pagecolor;
 
 	// Check page name
-	if (!pageName || pageName === "") {
-		return callback({ error: 'Must include a page name', result: null });
-	}
-
-	// Check page color
-	if (!pageColor) {
-		return callback({ error: 'Must include a page color', result: null });
-	} else {
-		if (pageColor.length !== 7 || !pageColor.startsWith("#")) {
-			return callback({ error: 'Invalid page color', result: null });
-		}
-	}
-
-	if (req.session && req.session.passport && req.session.passport.user) {
+	if (!pageName || pageName === '') {
+		callback({ error: 'Must include a page name', result: null });
+	} else if (req.session && req.session.passport && req.session.passport.user) {
 		findUser(req.session.passport.user, (msg) => {
 			if (!msg.error && msg.result.length > 0) {
 				const user = msg.result[0];
 				if (user && user.pages) {
-					user.pages.push({ page_name: pageName, page_color: pageColor });
-					updateUser(user.user_id, user, (msgUpdate) => {
-						return callback(msgUpdate);
-					});
+					const pageId = new mongoose.Types.ObjectId();
+					user.pages.push({ page_id: pageId, page_name: pageName });
+					updateUser(user.user_id, user, (msgUpdate) => callback(msgUpdate));
 				} else {
-					return callback(msg);
+					callback(msg);
 				}
 			} else {
-				return callback(msg);
+				callback(msg);
 			}
 		});
 	} else {
-		return callback({ error: 'User not signed in', result: null });
+		callback({ error: 'User not signed in', result: null });
+	}
+};
+
+const deletePage = (req, callback) => {
+	const pageId = req.params.id;
+	// Check page name
+	if (!pageId || pageId === '') {
+		callback({ error: 'Must include a page id', result: null });
+	} else if (req.session && req.session.passport && req.session.passport.user) {
+		findUser(req.session.passport.user, (msg) => {
+			if (!msg.error && msg.result.length > 0) {
+				const user = msg.result[0];
+				if (user && user.pages) {
+					user.pages = user.pages.filter((el) => el.page_id.toString() !== pageId.toString());
+					updateUser(user.user_id, user, (msgUpdate) => callback(msgUpdate));
+				} else {
+					callback(msg);
+				}
+			} else {
+				callback(msg);
+			}
+		});
+	} else {
+		callback({ error: 'User not signed in', result: null });
 	}
 };
 
@@ -107,4 +118,5 @@ module.exports = {
 	deleteUser,
 
 	createPage,
+	deletePage,
 };

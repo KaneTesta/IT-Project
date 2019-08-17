@@ -21,6 +21,8 @@ button {
     display: flex;
     flex-direction: row;
 
+    box-sizing: border-box;
+
     cursor: pointer;
     transition: background-color 0.1s ease, color 0.1s ease;
     text-align: center;
@@ -37,7 +39,7 @@ button {
 }
 
 .button {
-    padding: $padding-small $padding-medium;
+    padding: $padding-medium $padding-medium;
 
     transition: background-color 0.1s ease, box-shadow 0.1s ease;
 

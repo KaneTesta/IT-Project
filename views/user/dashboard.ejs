@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 
-    <% include includes/head %>
+    <% include ../includes/head %>
 
     <body>
 
-        <% include includes/elements/navigation %>
+        <% include ../includes/elements/navigation %>
 
         <div class="page-content">
             <h1>Dashboard</h1>
@@ -14,10 +14,10 @@
             <div id="DashboardGridMyPages" class="dashboard-grid">
                 <% if (user && user.pages) { %>
                     <% for (let i = 0; i < user.pages.length; ++i) { %>
-                        <div class="dashboard-page" style="background-color: <%= user.pages[i].page_color %>">
-                            <button class="button-icon-noborder">
+                        <div class="dashboard-page" style="user-color-<%= user.pages[i].page_color %>">
+                            <a class="button-icon-noborder" href="/page/<%= user.pages[i].page_id %>">
                                 <p class="dashboard-page-title"><%= user.pages[i].page_name %></p>
-                            </button>
+                            </a>
                         </div>
                     <% }; %>
 
@@ -35,10 +35,10 @@
             </div>
         </div>
 
-        <% include includes/dialogs/dialogAddPage %>
+        <% include ../includes/dialogs/dialogAddPage %>
 
         <script defer src="/js/dashboard.js"></script>
-        <% include includes/scripts %>
+        <% include ../includes/scripts %>
         
     </body>
 

@@ -3,24 +3,9 @@
     <div class="dialog-content">
         <h1 class="dialog-heading">Add New Page</h1>
 
-        <form action="/user/createpage" method="post" autocomplete="off">
+        <form action="/user/createpage" method="post" autocomplete="off" data-post-text="Creating Page">
+            <p class="input-heading">Page Name</p>
             <input type="text" name="pagename" placeholder="Page Name" required>
-
-            <select name="pagecolor">
-                <option value="#ff9191" selected>Red</option>
-                <option value="#ffbd91">Amber</option>
-                <option value="#ffda91">Orange</option>
-                <option value="#fffb91">Yellow</option>
-                <option value="#d7ff91">Lime</option>
-                <option value="#a5ff91">Green</option>
-                <option value="#91ffc1">Teal</option>
-                <option value="#91fffb">Cyan</option>
-                <option value="#91d3ff">Blue</option>
-                <option value="#9195ff">Indigo</option>
-                <option value="#ae91ff">Violet</option>
-                <option value="#d991ff">Purple</option>
-                <option value="#ff91e2">Pink</option>
-            </select>
 
             <input type="submit" value="Create Page" class="button">
         </form>
