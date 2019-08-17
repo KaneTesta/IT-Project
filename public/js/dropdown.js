@@ -24,6 +24,32 @@ $(() => {
 		});
 	});
 
+	function closeDropdown($dropdown, $button) {
+		if ($dropdown.hasClass('visible')) {
+			// Check target isn't a child of the dropdown
+			$button.removeClass('button-dropdown-visible');
+			$dropdown.removeClass('visible');
+			setTimeout(() => {
+				if (!$dropdown.hasClass('visible')) {
+					$dropdown.css('visibility', 'hidden');
+				}
+			}, 200);
+		}
+	}
+
+	// Close dropdowns on 'escape' key
+	$(document).keydown((e) => {
+		if (e.key === 'Escape') {
+			$('[data-dropdown]').each((i, el) => {
+				const $button = $(el);
+				// Find dropdown
+				const dropdownId = $button.attr('data-dropdown');
+				const $dropdown = $(`#${dropdownId}`);
+				closeDropdown($dropdown, $button);
+			});
+		}
+	});
+
 	// Close dropdowns on window click
 	window.onclick = (event) => {
 		const $target = $(event.target);
@@ -33,17 +59,8 @@ $(() => {
 				// Find dropdown
 				const dropdownId = $button.attr('data-dropdown');
 				const $dropdown = $(`#${dropdownId}`);
-				if ($dropdown.hasClass('visible')) {
-					// Check target isn't a child of the dropdown
-					if ($target.closest($dropdown).length === 0) {
-						$button.removeClass('button-dropdown-visible');
-						$dropdown.removeClass('visible');
-						setTimeout(() => {
-							if (!$dropdown.hasClass('visible')) {
-								$dropdown.css('visibility', 'hidden');
-							}
-						}, 200);
-					}
+				if ($target.closest($dropdown).length === 0) {
+					closeDropdown($dropdown, $button);
 				}
 			});
 		}

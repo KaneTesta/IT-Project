@@ -78,7 +78,7 @@ window.dialogManager = {
 	 * @param {String} loadingText The text to display while loading
 	 */
 	createNewLoadingDialog(loadingText) {
-		let dialog = this.createNewDialog(`<p>${loadingText}</p>`);
+		const dialog = this.createNewDialog(`<p>${loadingText}</p>`);
 		dialog.classList.add('dialog-small');
 		return dialog;
 	},
