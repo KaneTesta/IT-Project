@@ -13,19 +13,23 @@ window.dialogManager = {
 			}, 50);
 		};
 
-		dialog.hide = () => {
-			dialog.classList.remove('visible');
-			setTimeout(() => {
-				dialog.style.visibility = 'hidden';
-			}, 500);
-		};
-
 		dialog.hideAndRemove = () => {
 			dialog.classList.remove('visible');
 			setTimeout(() => {
 				dialog.style.visibility = 'hidden';
 				dialog.remove();
 			}, 500);
+		};
+
+		dialog.hide = () => {
+			if (dialog.getAttribute('data-dialog-destroy-close')) {
+				dialog.hideAndRemove();
+			} else {
+				dialog.classList.remove('visible');
+				setTimeout(() => {
+					dialog.style.visibility = 'hidden';
+				}, 500);
+			}
 		};
 
 		// Setup dialog cancels
@@ -53,10 +57,18 @@ window.dialogManager = {
 	 * Create a dialog from HTML content
 	 * @param {String} dialogHTML The HTML to add to the inner dialog content
 	 */
-	createNewDialog(dialogHTML) {
+	createNewDialog(dialogHTML, destroyOnClose, cancelable) {
 		// Create dialog
 		const dialog = document.createElement('div');
 		dialog.classList.add('dialog');
+		if (cancelable) {
+			dialog.setAttribute('data-dialog-cancelable', cancelable);
+		}
+
+		if (destroyOnClose) {
+			dialog.setAttribute('data-dialog-destroy-close', destroyOnClose);
+		}
+
 		document.body.appendChild(dialog);
 		// Create background
 		const dialogBackground = document.createElement('div');
@@ -78,8 +90,21 @@ window.dialogManager = {
 	 * @param {String} loadingText The text to display while loading
 	 */
 	createNewLoadingDialog(loadingText) {
-		const dialog = this.createNewDialog(`<p class="dialog-body-text">${loadingText}</p>`);
+		const dialog = this.createNewDialog(`<p class="dialog-body-text">${loadingText}</p>`, true);
 		dialog.classList.add('dialog-small');
+		return dialog;
+	},
+
+	/**
+	 * Create a loading dialog with given text
+	 * @param {String} errorText The text to display while loading
+	 */
+	createNewErrorDialog(errorText) {
+		const dialog = this.createNewDialog(`
+		<h1 class='dialog-heading'>Error</h1>
+		<p class="dialog-body-text">${errorText}</p>
+		`, true, true);
+
 		return dialog;
 	},
 };

@@ -14,7 +14,8 @@
             <div id="PageGridItems" class="dashboard-grid">
                 <% if (page && page.items) { %>
                     <% for (let i = 0; i < page.items.length; ++i) { %>
-                        <button class="dashboard-page button-icon-noborder">
+                        <button class="dashboard-page page-item button-icon-noborder"
+                            data-page-id="<%= page._id %>" data-item-id="<%= page.items[i]._id %>">
                             <p class="dashboard-page-title"><%= page.items[i].name %></p>
                         </button>
                     <% }; %>
@@ -30,6 +31,8 @@
         </div>
 
         <% include ../includes/dialogs/dialogManagePage %>
+        <% include ../includes/dialogs/dialogViewItem %>
+        <% include ../includes/dialogs/dialogEditItem %>
         <% include ../includes/dialogs/dialogAddItem %>
 
         <script defer src="/js/page.js"></script>

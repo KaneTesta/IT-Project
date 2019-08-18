@@ -28,4 +28,19 @@ router.post('/:id/additem', (req, res, next) => {
 	}
 });
 
+/* POST create new item page for current user */
+router.get('/:pageid/item/:itemid', (req, res, next) => {
+	if (req.session && req.session.passport && req.session.passport.user) {
+		pageController.getItem(req, (msg) => {
+			if (msg.error) {
+				res.status(500).send(msg.error);
+			} else {
+				res.send(JSON.stringify(msg.result));
+			}
+		});
+	} else {
+		res.status(500).send("You can't do this unless you are logged in");
+	}
+});
+
 module.exports = router;
