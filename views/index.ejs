@@ -1,14 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
 
-    <% include includes/head %>
+<head>
+  <% include includes/head %>
+  
+  <!-- Links -->
+  <link rel="stylesheet" href="fonts/ionicons.min.css">
+  <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="javascript/vendor/jquery.fullpage.min.css">
+  <link rel="stylesheet" href="stylesheets/!style.css">
 
-    <body>
+  <!-- Scripts -->
+  <script src="javascript/vendor/jquery-1.12.4.min.js"></script>
 
-        <% include includes/elements/navigation %>
+  <!-- 
+    
+  fullPage - creates fullscreen scrolling sites, used the scroll bar section. Each section represented by "data-menuanchor"
+  scrollOverflow - supports the above
+  
+  -->
+  
+  <script src="javascript/vendor/scrolloverflow.min.js"></script>
+  <script src="javascript/vendor/fullPage.min.js"></script>
+  <script src="javascript/main.js"></script>
 
-        <% include includes/scripts %>
-        
-    </body>
+</head>
+
+<body id="menu" class="body-page">
+
+  <% include includes/elements/navigation %>
+
+  <!-- Header-->
+  <header class="page-header navbar page-header-alpha scrolled-white menu-right topmenu-right">
+
+    <!-- Logo stuff (Top Left)-->
+    <a class="navbar-brand" href="#home">
+      <span class="logo">
+        <img class="light-logo" src="img/logo.png" alt="Logo">
+      </span>
+    </a>
+
+    <!-- Log in Button (Top Right) -->
+    <div class="all-menu-wrapper">
+      <nav class="navbar-topmenu">
+            <a class="btn btn-outline-white btn-round" href="login.html">
+              Log In
+            </a>
+      </nav>
+
+      <!-- Side bar nav-->
+      <nav class="navbar-sidebar ">
+        <ul class="navbar-nav" id="qmenu">
+          <li class="nav-item" data-menuanchor="home">
+            <a href="#home">
+              <i class="icon ion-ios-home-outline"></i>
+              <span class="txt">Home</span>
+            </a>
+          </li>
+          <li class="nav-item" data-menuanchor="about">
+            <a href="#about">
+              <i class="icon ion-ios-information-outline"></i>
+              <span class="txt">About</span>
+            </a>
+          </li>
+          <li class="nav-item" data-menuanchor="register">
+            <a href="#register">
+              <i class="icon ion-ios-list-outline"></i>
+              <span class="txt">Register</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <main class="page-main page-fullpage main-anim" id="mainpage">
+
+    <!-- HOME -->
+    <div class="section section-home fullscreen-md fp-auto-height-responsive main-home"
+    data-section="home">
+
+      <div class="section-wrapper">
+        <div class="section-content anim">
+          <div class="row">
+
+            <!-- Left Half-->
+            <div class="col-12 col-md-6 text-left">
+              <div class="title-desc">
+                <h2 class="display-4 display-title home-title ">Got Artefacts? </h2>
+                <h4 class="">Manage them</h4>
+              </div>
+
+              <div class="btns-action ">
+                <a class="btn btn-outline-white btn-round" href="#about">
+                  Get started
+                </a>
+              </div>
+            </div>
+
+            <!-- Right Half-->
+            <div class="col-12 col-md-6 right-content hidden-sm center-vh">
+              <div class="section-content">
+                  <img class="logo" src="/img/logo_dark.png" >
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Scroll Icon on Bottom -->
+        <footer class="section-footer scrolldown">
+            <span class="txt">Scroll Down</span>
+        </footer>
+      </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <div class="section section-description fp-auto-height-responsive " data-section="about">
+      <div class="section-wrapper center-vh dir-col anim">
+        <div class="section-title text-center">
+          <h2 class="display-4 display-title ">About</h2>
+        </div>
+
+        <div class="section-content reduced anim text-center">
+          <div class="title-desc ">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquet
+              malesuada feugiat. Curabitur fermentum bibendum nulla, non dictum ipsum
+              tincidunt non. Cras vitae neque molestie, rhoncus ipsum sit amet, lobortis
+              dui. Fusce in urna sem.</p>
+          </div>
+
+        </div>
+
+        <!-- Scroll Icon -->
+        <footer class="section-footer scrolldown">
+            <span class="txt">Scroll Down</span>
+        </footer>
+      </div>
+    </div>
+
+   
+    <!-- Registration/Log In section-->
+    <div class="section section-register fp-auto-height-responsive " data-section="register">
+      <div class="section-wrapper center-vh dir-col"> 
+          <div class="item row justify-content-between">
+            <div class="col-12 col-sm-6 col-md-5">
+                <div class="section-content anim">
+                  <div class="title-desc">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquet
+                      malesuada feugiat. Curabitur fermentum bibendum nulla, non dictum
+                      ipsum tincidunt non. Quisque convallis pharetra tempor. Donec id
+                      pretium leo. Pellentesque luctus massa non elit viverra pellentesque.
+                      Cras vitae neque molestie, rhoncus ipsum sit amet, lobortis dui.
+                      Fusce in urna sem.</p>
+                  </div>
+                </div>
+              </div>
+            
+            <!-- Sign Up Form-->
+            <div class="col-12 col-sm-6 center-vh">
+              add google sign up form here
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <% include includes/scripts %>
+
+</body>
 
 </html>
