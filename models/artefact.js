@@ -6,8 +6,14 @@ const artefactSchema = mongoose.Schema({
 		required: true,
 		auto: true,
 	},
-	name: String,
-	description: String,
+	name: {
+		type: String,
+		trim: true,
+	},
+	description: {
+		type: String,
+		trim: true,
+	},
 	image: String,
 });
 
