@@ -14,5 +14,11 @@
 
             <input type="submit" value="Update Item" class="button dialog-action">
         </form>
+
+        <form action="/page/<%= page._id %>/deleteitem" method="post" autocomplete="off" data-post-text="Deleting Item">
+            <input id="EditItemDeleteId" type="hidden" name="itemid" required>
+
+            <input type="submit" value="Delete Item" class="button button-error dialog-action">
+        </form>
     </div>
 </div>

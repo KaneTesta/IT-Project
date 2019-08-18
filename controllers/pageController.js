@@ -120,9 +120,41 @@ const getItem = (req, callback) => {
 	}
 };
 
+const deleteItem = (req, callback) => {
+	const pageId = req.params.id;
+	const itemId = req.body.itemid;
+
+	// Check page name
+	if (!itemId || itemId === '') {
+		callback({ error: 'Must include an item id', result: null });
+	} else {
+		getPageForCurrentUser(req, pageId, (msg) => {
+			if (msg.error) {
+				callback(msg);
+			} else {
+				const { page } = msg.result;
+				const { user } = msg.result;
+				if (user && page) {
+					// Remove item from page
+					page.items = page.items.filter((el) => el._id && el._id.toString() !== itemId);
+					// Update page
+					for (let i = 0; i < user.pages.length; i += 1) {
+						if (user.pages[i]._id && user.pages[i]._id.toString() === pageId.toString()) {
+							user.pages[i] = page;
+						}
+					}
+
+					userController.updateUser(user.user_id, user, (msgUpdate) => callback(msgUpdate));
+				}
+			}
+		});
+	}
+};
+
 
 // Exporting callbacks
 module.exports = {
 	addItem,
 	getItem,
+	deleteItem,
 };

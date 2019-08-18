@@ -29,6 +29,15 @@ router.post('/:id/additem', (req, res, next) => {
 });
 
 /* POST create new item page for current user */
+router.post('/:id/deleteitem', (req, res, next) => {
+	if (req.session && req.session.passport && req.session.passport.user) {
+		pageController.deleteItem(req, (msg) => { sendResponse(msg, req, res, next); });
+	} else {
+		next(createError(500, "You can't do this unless you are logged in"));
+	}
+});
+
+/* POST create new item page for current user */
 router.get('/:pageid/item/:itemid', (req, res, next) => {
 	if (req.session && req.session.passport && req.session.passport.user) {
 		pageController.getItem(req, (msg) => {

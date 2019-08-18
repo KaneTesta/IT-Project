@@ -47,6 +47,7 @@ $(() => {
 					$("#EditItemId").val(item._id);
 					$("#EditItemName").val(item.name);
 					$("#EditItemDescription").val(item.description);
+					$("#EditItemDeleteId").val(item._id);
 					dialogEditItem.show();
 				});
 			}).fail(() => {
