@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const User = mongoose.model('user');
+const Page = mongoose.model('itempage');
 
 /** Insert one user into the database from a profile */
 const insertUser = (profile, callback) => {
@@ -85,8 +86,11 @@ const createPage = (req, callback) => {
 			if (!msg.error && msg.result.length > 0) {
 				const user = msg.result[0];
 				if (user && user.pages) {
-					const pageId = new mongoose.Types.ObjectId();
-					user.pages.push({ page_id: pageId, page_name: pageName });
+					const page = new Page({
+						name: pageName,
+					});
+
+					user.pages.push(page);
 					updateUser(user.user_id, user, (msgUpdate) => callback(msgUpdate));
 				} else {
 					callback(msg);
@@ -110,7 +114,7 @@ const deletePage = (req, callback) => {
 			if (!msg.error && msg.result.length > 0) {
 				const user = msg.result[0];
 				if (user && user.pages) {
-					user.pages = user.pages.filter((el) => el.page_id.toString() !== pageId.toString());
+					user.pages = user.pages.filter((el) => el._id && el._id.toString() !== pageId.toString());
 					updateUser(user.user_id, user, (msgUpdate) => callback(msgUpdate));
 				} else {
 					callback(msg);

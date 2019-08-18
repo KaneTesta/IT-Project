@@ -29,6 +29,7 @@ const store = new MongoDBStore({
 // Routes
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const pageRouter = require('./routes/page');
 
 // Controllers
 const userController = require('./controllers/userController');
@@ -131,6 +132,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+app.use('/page', pageRouter);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

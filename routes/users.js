@@ -19,7 +19,7 @@ function sendResponse(msg, res, next) {
 
 /* GET error with user login */
 router.get('/loginerror', (req, res, next) => {
-	next(createError(500, "An error occurred while logging you in"));
+	next(createError(500, 'An error occurred while logging you in'));
 });
 
 /* POST delete user */

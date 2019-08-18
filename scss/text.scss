@@ -57,7 +57,8 @@ a {
     color: $accent-color;
 }
 
-button,
-input {
-    font-family: $font-body;
+p {
+    margin-bottom: $padding-small;
+
+    line-height: 1.5;
 }

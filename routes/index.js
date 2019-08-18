@@ -18,11 +18,12 @@ router.get('/', (req, res, next) => {
 /* GET page for item page. */
 router.get('/page/:id', (req, res, next) => {
 	userController.getUser(req, (user) => {
-		if (user && user.pages) {
-			const page = user.pages.find((el) => el.page_id.toString() === req.params.id.toString());
+		if (user && user.pages && req.params.id) {
+			const page = user.pages.find((el) => el._id
+				&& el._id.toString() === req.params.id.toString());
 
 			if (page) {
-				res.render('user/page', { title: 'Error', user, page });
+				res.render('user/page', { title: page.name, user, page });
 			} else {
 				next(createError(403, "You don't have permission to access this page"));
 			}

@@ -22,11 +22,16 @@
                 <div class="dropdown-panel dropdown-heading">
                     <p><%= user.display_name %></p>
                 </div>
-                <div class="dropdown-panel">
-                    <a class="button-menu" href="/auth/google">Switch User</a>
-                    
+                <div class="dropdown-panel">                    
                     <form action="/user/logout" method="post" data-post-text="Logging Out">
                         <input type="submit" value="Log Out" class="button-menu">
+                    </form>
+                    
+                    <a class="button-menu" href="/auth/google">Switch User</a>
+                </div>
+                <div class="dropdown-panel">
+                    <form action="/user/delete" method="post" data-post-text="Deleting Account">
+                        <input type="submit" value="Delete Account" class="button-menu button-error">
                     </form>
                 </div>
             </div>

@@ -8,13 +8,31 @@
         <% include ../includes/elements/navigation %>
 
         <div class="page-content">
-            <h1><%= page.page_name %></h1>
+            <h1><%= page.name %></h1>
+            
+            <h2>Items</h2>
+            <div id="PageGridItems" class="dashboard-grid">
+                <% if (page && page.items) { %>
+                    <% for (let i = 0; i < page.items.length; ++i) { %>
+                        <button class="dashboard-page button-icon-noborder">
+                            <p class="dashboard-page-title"><%= page.items[i].name %></p>
+                        </button>
+                    <% }; %>
+                <% }; %>
 
-            <form action="/user/deletepage/<%= page.page_id %>" method="post" data-post-text="Deleting Page">
-                <input  type="submit" value="Delete Page" class="button">
-            </form>
+                <button id="PageButtonAddItem" class="dashboard-page page-action button-icon-noborder">
+                    <i class="material-icons">add</i>
+                    <p>Add Item</p>
+                </button>
+            </div>
+
+            <button id="PageButtonManagePage" class="button">Manage Page</button>
         </div>
 
+        <% include ../includes/dialogs/dialogManagePage %>
+        <% include ../includes/dialogs/dialogAddItem %>
+
+        <script defer src="/js/page.js"></script>
         <% include ../includes/scripts %>
         
     </body>

@@ -63,6 +63,45 @@ button {
     &::before {
         content: none;
     }
+
+    &.button-success {
+        background-color: $success-color;
+
+        &:hover,
+        &:focus {
+            background-color: $success-color-hover;
+        }
+
+        &:active {
+            background-color: $success-color-active;
+        }
+    }
+
+    &.button-warning {
+        background-color: $warning-color;
+
+        &:hover,
+        &:focus {
+            background-color: $warning-color-hover;
+        }
+
+        &:active {
+            background-color: $warning-color-active;
+        }
+    }
+
+    &.button-error {
+        background-color: $error-color;
+
+        &:hover,
+        &:focus {
+            background-color: $error-color-hover;
+        }
+
+        &:active {
+            background-color: $error-color-active;
+        }
+    }
 }
 
 .button-icon,
@@ -121,6 +160,51 @@ button {
 
     &::before {
         content: none;
+    }
+
+    &.button-success {
+        color: $success-color;
+
+        &:hover,
+        &:focus {
+            color: $accent-text-color;
+            background-color: $success-color-hover;
+        }
+
+        &:active {
+            color: $accent-text-color;
+            background-color: $success-color-active;
+        }
+    }
+
+    &.button-warning {
+        color: $warning-color;
+
+        &:hover,
+        &:focus {
+            color: $accent-text-color;
+            background-color: $warning-color-hover;
+        }
+
+        &:active {
+            color: $accent-text-color;
+            background-color: $warning-color-active;
+        }
+    }
+
+    &.button-error {
+        color: $error-color;
+
+        &:hover,
+        &:focus {
+            color: $accent-text-color;
+            background-color: $error-color-hover;
+        }
+
+        &:active {
+            color: $accent-text-color;
+            background-color: $error-color-active;
+        }
     }
 }
 

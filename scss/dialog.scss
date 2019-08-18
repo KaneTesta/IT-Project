@@ -51,6 +51,11 @@
             right: $padding-large + $padding-small;
             top: calc(#{$padding-medium + $padding-small} + 0.15rem);
         }
+
+        .dialog-body-text {
+            margin: 0;
+            padding: 0;
+        }
     }
 
     &.dialog-small {

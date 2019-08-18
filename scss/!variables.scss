@@ -14,8 +14,14 @@ $accent-color-active: darken($accent-color, 2%);
 $accent-text-color: #ffffff;
 // Status colors
 $success-color: #1f9c1a;
+$success-color-hover: lighten($success-color, 5%);
+$success-color-active: darken($success-color, 2%);
 $warning-color: #9c5f1a;
+$warning-color-hover: lighten($warning-color, 5%);
+$warning-color-active: darken($warning-color, 2%);
 $error-color: #9c1a1a;
+$error-color-hover: lighten($error-color, 5%);
+$error-color-active: darken($error-color, 2%);
 
 // Layout
 $padding-tiny: 0.2rem;

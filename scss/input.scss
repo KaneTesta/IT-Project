@@ -1,18 +1,28 @@
-input {
+input,
+select,
+textarea {
     display: block;
 
     border: none;
     background: none;
     background-color: transparent;
+
+    font-family: $font-body;
+}
+
+textarea {
+    resize: vertical;
 }
 
 select,
+textarea,
 input[type="text"],
 input[type="submit"] {
     width: 100%;
 }
 
 select,
+textarea,
 input[type="text"] {
     box-sizing: border-box;
     margin-bottom: $padding-medium;
@@ -31,7 +41,8 @@ input[type="text"] {
 }
 
 .input-heading {
-    margin-bottom: $padding-small;
+    margin: 0;
+    padding: 0;
 
     letter-spacing: 0.04rem;
     text-transform: uppercase;
