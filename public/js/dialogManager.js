@@ -41,7 +41,7 @@ window.dialogManager = {
 
 			const closeButton = $(
 				'<button class="button-icon dialog-button-close">'
-				+ '<i class="material-icons">close</i>'
+				+ '<i class="material-icons-outlined">close</i>'
 				+ '</button>',
 			);
 

@@ -1,0 +1,101 @@
+.navigation-top {
+    z-index: 900;
+
+    padding: $padding-medium $padding-large;
+
+    border-bottom: 1px solid $border-color;
+    background-color: $foreground-color;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .button {
+        padding: $padding-small $padding-medium;
+    }
+}
+
+.navigation-sidebar {
+    position: fixed;
+    z-index: 800;
+    left: $padding-medium;
+    top: 0;
+    bottom: 0;
+
+    ul {
+        list-style: none;
+
+        li {
+            margin: $padding-large 0;
+
+            a {
+                position: relative;
+
+                display: flex;
+                flex-direction: row;
+
+                transition: color 0.1s ease;
+                letter-spacing: 0.04rem;
+                text-transform: uppercase;
+
+                color: $text-color;
+
+                font-size: 0.9rem;
+
+                align-items: center;
+                justify-content: left;
+
+                &::before {
+                    position: absolute;
+                    right: calc(100% + #{$padding-medium});
+                    top: -$padding-small;
+                    bottom: -$padding-small;
+
+                    margin: auto;
+
+                    content: "";
+                    transition: transform 0.15s ease, opacity 0.15s ease;
+                    transform: scaleY(0);
+
+                    opacity: 0;
+                    border-left: $padding-tiny solid $accent-color;
+                }
+
+                &.active {
+                    color: $accent-color;
+
+                    &::before {
+                        transform: scaleY(1);
+
+                        opacity: 1;
+                    }
+                }
+
+                &:hover,
+                &:focus {
+                    color: $accent-color;
+                }
+
+                &:active {
+                    &::before {
+                        transform: scaleY(0.8);
+
+                        opacity: 1;
+                    }
+                }
+
+                i {
+                    padding-right: $padding-medium;
+
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+}

@@ -1,18 +1,17 @@
-'use strict';
 
-// Init all plugin when document is ready 
-$(document).on('ready', function () {
-	var contextWindow = $(window);
+// Init all plugin when document is ready
+$(document).on('ready', () => {
+	const contextWindow = $(window);
 
 	// Show and hide menu when icon is clicked
-	var menuItems = $('.all-menu-wrapper .nav-link');
-	var menuIcon = $('.menu-icon');
-	var menuBlock = $('.all-menu-wrapper');
-	var reactToMenu = $ ('.page-main, .navbar-sidebar')
-	var menuLinks = $(".navbar-sidebar a");
-	
+	const menuItems = $('.all-menu-wrapper .nav-link');
+	const menuIcon = $('.menu-icon');
+	const menuBlock = $('.all-menu-wrapper');
+	const reactToMenu = $('.page-main, .navbar-sidebar');
+	const menuLinks = $('.navbar-sidebar a');
+
 	// Menu icon clicked
-	menuIcon.on('click', function () {
+	menuIcon.on('click', () => {
 		menuIcon.toggleClass('menu-visible');
 		menuBlock.toggleClass('menu-visible');
 		menuItems.toggleClass('menu-visible');
@@ -21,7 +20,7 @@ $(document).on('ready', function () {
 	});
 
 	// Hide menu
-	menuLinks.on('click', function () {
+	menuLinks.on('click', () => {
 		menuIcon.removeClass('menu-visible');
 		menuBlock.removeClass('menu-visible');
 		menuItems.removeClass('menu-visible');
@@ -31,31 +30,34 @@ $(document).on('ready', function () {
 
 
 	// Init fullPage.js plugin
-	var pageSectionDivs = $('.page-fullpage .section');
-	var pageSections = [];
-	var pageAnchors = [];
-	var mainPage = $('#mainpage');
-	var scrollOverflow = true;
-	var css3 = true;
-	
+	const pageSectionDivs = $('.page-fullpage .section');
+	const pageSections = [];
+	const pageAnchors = [];
+	const mainPage = $('#mainpage');
+	let scrollOverflow = true;
+	let css3 = true;
+
 	// disable scroll overflow on small device
 	if (contextWindow.width() < 601) {
 		scrollOverflow = false;
 		css3 = false;
 	}
+
 	if (contextWindow.height() < 480) {
 		scrollOverflow = false;
 		css3 = false;
 	}
+
 	// Get sections name
-	for (var i = 0; i < pageSectionDivs.length; i++) {
+	for (let i = 0; i < pageSectionDivs.length; i++) {
 		pageSections.push(pageSectionDivs[i]);
 	}
-	window.asyncEach(pageSections, function (pageSection, cb) {
-		var anchor = pageSection.getAttribute('data-section');
-		pageAnchors.push(anchor + "");
+
+	window.asyncEach(pageSections, (pageSection, cb) => {
+		const anchor = pageSection.getAttribute('data-section');
+		pageAnchors.push(`${anchor}`);
 		cb();
-	}, function (err) {
+	}, (err) => {
 		// Init plugin
 		if (mainPage.width()) {
 			// config fullpage.js
@@ -63,19 +65,17 @@ $(document).on('ready', function () {
 				menu: '#qmenu',
 				anchors: pageAnchors,
 				verticalCentered: false,
-				css3: css3,
+				css3,
 				navigation: true,
 				responsiveWidth: 601,
 				responsiveHeight: 480,
-				scrollOverflow: scrollOverflow,
+				scrollOverflow,
 				scrollOverflowOptions: {
 					click: true,
 					submit: true,
 				},
 				normalScrollElements: '.section .scrollable',
 			});
-
 		}
 	});
 });
-

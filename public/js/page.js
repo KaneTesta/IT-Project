@@ -44,10 +44,10 @@ $(() => {
 					dialogViewItem.hide();
 					// Show edit item dialog
 					const dialogEditItem = document.getElementById('DialogEditItem');
-					$("#EditItemId").val(item._id);
-					$("#EditItemName").val(item.name);
-					$("#EditItemDescription").val(item.description);
-					$("#EditItemDeleteId").val(item._id);
+					$('#EditItemId').val(item._id);
+					$('#EditItemName').val(item.name);
+					$('#EditItemDescription').val(item.description);
+					$('#EditItemDeleteId').val(item._id);
 					dialogEditItem.show();
 				});
 			}).fail(() => {

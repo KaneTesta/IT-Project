@@ -15,6 +15,20 @@
     justify-content: center;
 }
 
+.flex-left {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.flex-right {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
 .flex-fill {
     flex: 1;
 }

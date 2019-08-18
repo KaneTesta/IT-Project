@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    padding: 0;
+
+    background-color: $background-color;
+}
+
+.page-content {
+    max-width: 84rem;
+    margin: auto;
+    padding: $padding-medium $padding-large;
+}
