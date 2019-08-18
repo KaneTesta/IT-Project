@@ -49,7 +49,7 @@ $(document).on('ready', () => {
 	}
 
 	// Get sections name
-	for (let i = 0; i < pageSectionDivs.length; i++) {
+	for (let i = 0; i < pageSectionDivs.length; i += 1) {
 		pageSections.push(pageSectionDivs[i]);
 	}
 
