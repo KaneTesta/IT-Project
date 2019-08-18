@@ -134,7 +134,7 @@ app.use('/user', usersRouter);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
-	next(createError(404));
+	next(createError(404, "Page doesn't exist"));
 });
 
 // Error handler
@@ -145,7 +145,9 @@ app.use((err, req, res, next) => {
 
 	// Render the error page
 	res.status(err.status || 500);
-	res.render('error');
+	userController.getUser(req, (user) => {
+		res.render('error', { title: 'Inherit That', user });
+	});
 });
 
 module.exports = app;

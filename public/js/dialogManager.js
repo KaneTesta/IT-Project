@@ -45,7 +45,7 @@ window.dialogManager = {
 				dialog.hide();
 			});
 
-			$(dialog).find('.dialog-content').append(closeButton);
+			$(dialog).find('.dialog-content').prepend(closeButton);
 		}
 	},
 

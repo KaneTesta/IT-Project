@@ -14,19 +14,15 @@
             <div id="DashboardGridMyPages" class="dashboard-grid">
                 <% if (user && user.pages) { %>
                     <% for (let i = 0; i < user.pages.length; ++i) { %>
-                        <div class="dashboard-page" style="user-color-<%= user.pages[i].page_color %>">
-                            <a class="button-icon-noborder" href="/page/<%= user.pages[i].page_id %>">
-                                <p class="dashboard-page-title"><%= user.pages[i].page_name %></p>
-                            </a>
-                        </div>
+                        <a class="dashboard-page button-icon-noborder" href="/page/<%= user.pages[i].page_id %>">
+                            <p class="dashboard-page-title"><%= user.pages[i].page_name %></p>
+                        </a>
                     <% }; %>
 
-                    <div class="dashboard-page page-action">
-                        <button id="DashboardButtonAddPage" class="button-icon-noborder">
-                            <i class="material-icons">add</i>
-                            <p>New Item Page</p>
-                        </button>
-                    </div>
+                    <button id="DashboardButtonAddPage" class="dashboard-page page-action button-icon-noborder">
+                        <i class="material-icons">add</i>
+                        <p>New Item Page</p>
+                    </button>
                 <% }; %>
             </div>
 

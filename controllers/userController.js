@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('user');
 
-// Insert one contact
+/** Insert one user into the database from a profile */
 const insertUser = (profile, callback) => {
 	const user = new User({
 		user_id: profile.id,
-		display_name: profile.displayName,
 	});
 
 	user.save((err, result) => {
@@ -55,6 +54,23 @@ const deleteUser = (id, callback) => {
 			result: 'Deleted',
 		});
 	});
+};
+
+/**
+ * Get the user that is currently logged in, or null if no user is logged in
+ */
+const getUser = (req, callback) => {
+	if (req.session && req.session.passport && req.session.passport.user) {
+		findUser(req.session.passport.user, (msg) => {
+			if (!msg.error && msg.result.length > 0) {
+				callback(msg.result[0]);
+			} else {
+				callback(null);
+			}
+		});
+	} else {
+		callback(null);
+	}
 };
 
 
@@ -111,6 +127,7 @@ const deletePage = (req, callback) => {
 
 // Exporting callbacks
 module.exports = {
+	getUser,
 	findUser,
 	insertUser,
 	findOrCreateUser,

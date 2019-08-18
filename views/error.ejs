@@ -1,3 +1,26 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+<html>
+
+    <% include includes/head %>
+
+    <body>
+
+        <% include includes/elements/navigation %>
+
+        <div class="page-content">
+            <h1>Error</h1>
+            <p><%= message %></p>
+            
+            <% if (error.status || error.stack) { %>
+                <br>
+                <h2>Debug Info</h2>
+                <h3><%= error.status %></h3>
+                <pre><%= error.stack %></pre>
+            <% }; %>
+        </div>
+
+        <% include includes/scripts %>
+        
+    </body>
+
+</html>
