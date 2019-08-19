@@ -94,11 +94,11 @@
     width: auto;
     max-width: 20vw;
     height: 20vh;
-    padding: 0 calc(#{$padding-large} + 4vw);
+    padding: $padding-large calc(#{$padding-large} + 4vw);
 
     object-fit: contain;
 
-    @media screen and (max-width: $breakpoint-small) {
+    @media screen and (max-width: $breakpoint-medium) {
         display: none;
     }
 }
