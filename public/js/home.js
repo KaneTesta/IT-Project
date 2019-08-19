@@ -15,6 +15,7 @@ $(() => {
 		paddingTop: '3rem',
 		paddingBottom: '3rem',
 
+		navigation: true,
 		menu: '#NavigationSidebar',
 		lockAnchors: false,
 		anchors,
