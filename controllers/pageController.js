@@ -13,19 +13,19 @@ function getPageForCurrentUser(req, pageId, callback) {
 			if (!msg.error && msg.result.length > 0) {
 				const user = msg.result[0];
 				if (user && user.pages) {
+					let foundPage = false;
 					// Find the page among the user's pages
 					for (let i = 0; i < user.pages.length; i += 1) {
-						let foundPage = false;
 						const itemPage = user.pages[i];
 						if (itemPage._id && itemPage._id.toString() === pageId.toString()) {
 							callback({ error: null, result: { user, page: itemPage } });
 							foundPage = true;
 							break;
 						}
+					}
 
-						if (!foundPage) {
-							callback({ error: "You don't have access to edit this page", result: null });
-						}
+					if (!foundPage) {
+						callback({ error: "You don't have access to edit this page", result: null });
 					}
 				} else {
 					callback(msg);
