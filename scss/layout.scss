@@ -67,7 +67,7 @@
     align-items: center;
     justify-content: center;
 
-    @media screen and (max-width: $breakpoint-medium) {
+    @media screen and (max-width: $breakpoint-small) {
         flex-direction: column;
     }
 
@@ -82,7 +82,7 @@
             margin-right: 0;
         }
 
-        @media screen and (max-width: $breakpoint-medium) {
+        @media screen and (max-width: $breakpoint-small) {
             margin: $padding-small 0;
 
             &:first-child {

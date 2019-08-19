@@ -2,10 +2,15 @@
     position: relative;
 
     margin: 0;
-    margin-right: $padding-large;
+    margin-right: 6rem;
     margin-left: 8rem;
 
     @media screen and (max-width: $breakpoint-large) {
+        margin-left: 6rem;
+    }
+
+    @media screen and (max-width: 600px) {
+        margin-right: $padding-large;
         margin-left: $padding-large;
     }
 
