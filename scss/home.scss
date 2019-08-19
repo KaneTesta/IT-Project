@@ -1,11 +1,12 @@
 .home-body {
     position: relative;
 
-    margin: 0 $padding-large;
+    margin: 0;
+    margin-right: $padding-large;
     margin-left: 8rem;
 
     @media screen and (max-width: $breakpoint-large) {
-        margin-left: 0;
+        margin-left: $padding-large;
     }
 
     @media screen and (max-width: $breakpoint-tiny) {
