@@ -67,7 +67,7 @@
                     transform: scaleY(0);
 
                     opacity: 0;
-                    border-left: $padding-tiny solid $accent-color;
+                    border-left: 3px solid $accent-color;
                 }
 
                 &.active {
@@ -138,7 +138,7 @@
 
                         transform: scaleX(0);
 
-                        border-bottom: $padding-tiny solid $accent-color;
+                        border-bottom: 3px solid $accent-color;
                         border-left: none;
                     }
 
@@ -156,5 +156,9 @@
                 }
             }
         }
+    }
+
+    @media screen and (max-width: $breakpoint-tiny) {
+        display: none;
     }
 }

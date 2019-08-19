@@ -9,7 +9,10 @@ $(() => {
 
 	// Configure fullpage.js
 	$main.fullpage({
-		verticalCentered: false,
+		verticalCentered: true,
+
+		paddingTop: '3rem',
+		paddingBottom: '3rem',
 
 		menu: '#NavigationSidebar',
 		lockAnchors: false,

@@ -6,6 +6,10 @@
     @media screen and (max-width: 600px) {
         margin-top: $padding-large + 1rem;
     }
+
+    @media screen and (max-width: $breakpoint-tiny) {
+        margin-top: 0;
+    }
 }
 
 .home-title {
@@ -85,9 +89,13 @@
     width: auto;
     max-width: 20vw;
     height: 20vh;
-    padding: 0 10vw;
+    padding: 0 calc(#{$padding-large} + 4vw);
 
     object-fit: contain;
+
+    @media screen and (max-width: $breakpoint-small) {
+        display: none;
+    }
 }
 
 .home-scrolldown {

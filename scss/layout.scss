@@ -58,3 +58,40 @@
 .flex-fill {
     flex: 1;
 }
+
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: $breakpoint-medium) {
+        flex-direction: column;
+    }
+
+    .button {
+        margin: 0 $padding-small;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        @media screen and (max-width: $breakpoint-medium) {
+            margin: $padding-small 0;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

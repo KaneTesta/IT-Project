@@ -39,7 +39,7 @@ button {
 }
 
 .button {
-    padding: $padding-medium $padding-medium;
+    padding: $padding-small $padding-medium;
 
     transition: background-color 0.1s ease, box-shadow 0.1s ease;
 
@@ -48,6 +48,10 @@ button {
     border-radius: $border-radius;
     background-color: $accent-color;
     box-shadow: $shadow-button;
+
+    &::before {
+        content: none;
+    }
 
     &:hover,
     &:focus {
@@ -60,8 +64,12 @@ button {
         box-shadow: $shadow-button-active;
     }
 
-    &::before {
-        content: none;
+    &.button-outline {
+        color: $accent-color;
+        border: 2px solid $accent-color;
+        background-color: transparent;
+
+        font-weight: 400;
     }
 
     &.button-success {

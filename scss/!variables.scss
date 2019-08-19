@@ -24,9 +24,9 @@ $error-color-hover: lighten($error-color, 5%);
 $error-color-active: darken($error-color, 2%);
 
 // Layout
-$padding-tiny: 0.2rem;
-$padding-small: 0.4rem;
-$padding-medium: 0.8rem;
+$padding-tiny: 0.3rem;
+$padding-small: 0.6rem;
+$padding-medium: 0.9rem;
 $padding-large: 1.2rem;
 // Breakpoints
 $breakpoint-large: 1200px;
@@ -40,7 +40,7 @@ $font-subheading: "Merriweather";
 $font-body: "Source Sans Pro";
 
 // Borders
-$border-radius: 0.8rem;
+$border-radius: 1rem;
 $border-color: rgba(0, 0, 0, 0.15);
 
 // Shadow
