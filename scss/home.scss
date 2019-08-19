@@ -19,10 +19,6 @@
 
         font-size: 3rem;
     }
-
-    @media screen and (max-width: $breakpoint-small) {
-        font-size: 2rem;
-    }
 }
 
 .home-subtitle {
@@ -58,13 +54,13 @@
 
 .home-text-left {
     max-width: 25vw;
-    margin-right: $padding-large;
-    margin-bottom: 0;
+    margin: 0 $padding-large;
 
     text-align: left;
 
     @media screen and (max-width: $breakpoint-medium) {
         max-width: 100vw;
+        margin-bottom: $padding-medium;
 
         text-align: center;
     }
@@ -133,8 +129,18 @@
     display: flex;
     flex-direction: column;
 
+    min-height: 50vh;
+
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 600px) {
+        &.fp-auto-height-responsive {
+            .home-scrolldown {
+                display: none;
+            }
+        }
+    }
 }
 
 /*
