@@ -20,19 +20,19 @@
 	<nav class="navigation-sidebar flex-vertical flex-center">
 		<ul id="NavigationSidebar">
 			<li>
-				<a href="#Home" data-menuanchor="Home">
+				<a href="#home" data-menuanchor="home">
 					<i class="material-icons-outlined">home</i>
 					<span>Home</span>
 				</a>
 			</li>
 			<li>
-				<a href="#About" data-menuanchor="About">
+				<a href="#about" data-menuanchor="about">
 					<i class="material-icons-outlined">info</i>
 					<span>About</span>
 				</a>
 			</li>
 			<li>
-				<a href="#Register" data-menuanchor="Register">
+				<a href="#register" data-menuanchor="register">
 					<i class="material-icons-outlined">person_add</i>
 					<span>Register</span>
 				</a>
@@ -41,7 +41,7 @@
 	</nav>
 
 
-	<main id="HomeMain">
+	<main class="home-body" id="HomeMain">
 
 		<!-- HOME -->
 		<div class="section fp-auto-height-responsive" data-section="home">
@@ -49,10 +49,10 @@
 			<div class="flex-horizontal flex-center">
 				<!-- Left Half-->
 				<div class="flex-vertical flex-left">
-					<h1 class="home-heading">Got Artefacts?</h1>
-					<p class="home-subheading">Manage them</p>
+					<h1 class="home-title">Got Artefacts?</h1>
+					<p class="home-subtitle">Manage them</p>
 
-					<a class="button" href="#About">Get started</a>
+					<a class="button" href="#about">Get started</a>
 				</div>
 
 				<!-- Right Half-->
@@ -69,53 +69,38 @@
 
 		<!-- ABOUT SECTION -->
 		<div class="section fp-auto-height-responsive" data-section="about">
-			<div class="section-wrapper center-vh dir-col anim">
-				<div class="section-title text-center">
-					<h2 class="display-4 display-title ">About</h2>
-				</div>
+			<h2 class="home-heading">About</h2>
 
-				<div class="section-content reduced anim text-center">
-					<div class="title-desc ">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquet
-							malesuada feugiat. Curabitur fermentum bibendum nulla, non dictum ipsum
-							tincidunt non. Cras vitae neque molestie, rhoncus ipsum sit amet, lobortis
-							dui. Fusce in urna sem.</p>
-					</div>
+			<p class="home-text-full">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquet
+				malesuada feugiat. Curabitur fermentum bibendum nulla, non dictum ipsum
+				tincidunt non. Cras vitae neque molestie, rhoncus ipsum sit amet, lobortis
+				dui. Fusce in urna sem.
+			</p>
 
-				</div>
-
-
-				<!-- Scroll Icon on Bottom -->
-				<footer class="home-scrolldown">
-					<span>Scroll Down</span>
-				</footer>
-			</div>
+			<!-- Scroll Icon on Bottom -->
+			<footer class="home-scrolldown">
+				<span>Scroll Down</span>
+			</footer>
 		</div>
 
 	 
 		<!-- Registration/Log In section-->
-		<div class="section fp-auto-height-responsive " data-section="register">
-			<div class="section-wrapper center-vh dir-col"> 
-					<div class="item row justify-content-between">
-						<div class="col-12 col-sm-6 col-md-5">
-								<div class="section-content anim">
-									<div class="title-desc">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquet
-											malesuada feugiat. Curabitur fermentum bibendum nulla, non dictum
-											ipsum tincidunt non. Quisque convallis pharetra tempor. Donec id
-											pretium leo. Pellentesque luctus massa non elit viverra pellentesque.
-											Cras vitae neque molestie, rhoncus ipsum sit amet, lobortis dui.
-											Fusce in urna sem.</p>
-									</div>
-								</div>
-							</div>
-						
-						<!-- Sign Up Form-->
-						<div class="col-12 col-sm-6 center-vh">
-							add google sign up form here
-						</div>  
-					</div>
-				</div>
+		<div class="section fp-auto-height-responsive" data-section="register">
+			<div class="flex-horizontal home-login">
+				<p class="home-text-left">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquet
+					malesuada feugiat. Curabitur fermentum bibendum nulla, non dictum
+					ipsum tincidunt non. Quisque convallis pharetra tempor. Donec id
+					pretium leo. Pellentesque luctus massa non elit viverra pellentesque.
+					Cras vitae neque molestie, rhoncus ipsum sit amet, lobortis dui.
+					Fusce in urna sem.
+				</p>
+
+				<!-- Sign Up Form-->
+				<div class="flex-fill flex-center">
+                    <a class="button" href="/auth/google">Register with Google</a>
+				</div>  
 			</div>
 		</div>
 	</main>
