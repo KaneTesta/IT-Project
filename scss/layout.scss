@@ -8,6 +8,15 @@
     flex-direction: column;
 }
 
+.flex-horizontal-responsive {
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (max-width: $breakpoint-medium) {
+        flex-direction: column;
+    }
+}
+
 .flex-center {
     display: flex;
 
@@ -22,11 +31,28 @@
     justify-content: flex-start;
 }
 
+.flex-left-responsive {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    @media screen and (max-width: $breakpoint-medium) {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 .flex-right {
     display: flex;
 
     align-items: flex-end;
     justify-content: flex-end;
+
+    @media screen and (max-width: $breakpoint-medium) {
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .flex-fill {

@@ -24,11 +24,14 @@
 .navigation-sidebar {
     position: fixed;
     z-index: 800;
-    left: $padding-medium;
+    left: $padding-medium + $padding-large;
     top: 0;
     bottom: 0;
 
     ul {
+        margin: 0;
+        padding: 0;
+
         list-style: none;
 
         li {
@@ -94,6 +97,62 @@
                     padding-right: $padding-medium;
 
                     font-size: 1.5rem;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: $breakpoint-large) {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: auto;
+
+        width: 100%;
+
+        border-bottom: 1px solid $border-color;
+        background-color: $foreground-color;
+
+        ul {
+            display: flex;
+            flex-direction: row;
+
+            max-width: 100%;
+
+            li {
+                display: flex;
+
+                margin: $padding-small $padding-medium;
+                padding: 0;
+
+                align-items: center;
+                justify-content: center;
+
+                a {
+                    &::before {
+                        left: -$padding-small;
+                        right: -$padding-small;
+                        top: calc(100% + #{$padding-tiny});
+                        bottom: auto;
+
+                        transform: scaleX(0);
+
+                        border-bottom: $padding-tiny solid $accent-color;
+                        border-left: none;
+                    }
+
+                    &.active {
+                        &::before {
+                            transform: scaleX(1);
+                        }
+                    }
+
+                    &:active {
+                        &::before {
+                            transform: scaleX(0.8);
+                        }
+                    }
                 }
             }
         }

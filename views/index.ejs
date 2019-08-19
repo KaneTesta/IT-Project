@@ -5,18 +5,6 @@
 
 <body>
 
-	<% include includes/elements/navigation %>
-
-	<!-- Do not include the navigation bar in the layout on the home page -->
-	<style>
-		.navigation-top {
-			position: fixed;
-			top: 0;
-			left: 0;
-			right: 0;
-		}
-	</style>
-
 	<nav class="navigation-sidebar flex-vertical flex-center">
 		<ul id="NavigationSidebar">
 			<li>
@@ -44,11 +32,13 @@
 	<main class="home-body" id="HomeMain">
 
 		<!-- HOME -->
-		<div class="section fp-auto-height-responsive" data-section="home">
+		<div class="section" data-section="home">
 
-			<div class="flex-horizontal flex-center">
+			<a class="button home-login-button" href="/auth/google">Log In</a>
+
+			<div class="flex-horizontal-responsive flex-center">
 				<!-- Left Half-->
-				<div class="flex-vertical flex-left">
+				<div class="flex-vertical flex-left-responsive">
 					<h1 class="home-title">Got Artefacts?</h1>
 					<p class="home-subtitle">Manage them</p>
 
@@ -59,7 +49,6 @@
 				<img class="home-logo" src="/img/logo_dark.png" >
 			</div>
 
-
 			<!-- Scroll Icon on Bottom -->
 			<footer class="home-scrolldown">
 				<span>Scroll Down</span>
@@ -69,6 +58,7 @@
 
 		<!-- ABOUT SECTION -->
 		<div class="section fp-auto-height-responsive" data-section="about">
+
 			<h2 class="home-heading">About</h2>
 
 			<p class="home-text-full">
@@ -82,36 +72,41 @@
 			<footer class="home-scrolldown">
 				<span>Scroll Down</span>
 			</footer>
+
 		</div>
 
-	 
 		<!-- Registration/Log In section-->
 		<div class="section fp-auto-height-responsive" data-section="register">
-			<div class="flex-horizontal home-login">
-				<p class="home-text-left">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquet
-					malesuada feugiat. Curabitur fermentum bibendum nulla, non dictum
-					ipsum tincidunt non. Quisque convallis pharetra tempor. Donec id
-					pretium leo. Pellentesque luctus massa non elit viverra pellentesque.
-					Cras vitae neque molestie, rhoncus ipsum sit amet, lobortis dui.
-					Fusce in urna sem.
-				</p>
+
+			<div class="flex-horizontal-responsive home-login">
+			
+				<div class="flex-vertical">
+					<h2 class="home-heading home-text-left">Register</h2>
+
+					<p class="home-text-left">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquet
+						malesuada feugiat. Curabitur fermentum bibendum nulla, non dictum
+						ipsum tincidunt non. Quisque convallis pharetra tempor. Donec id
+						pretium leo. Pellentesque luctus massa non elit viverra pellentesque.
+						Cras vitae neque molestie, rhoncus ipsum sit amet, lobortis dui.
+						Fusce in urna sem.
+					</p>
+				</div>
 
 				<!-- Sign Up Form-->
-				<div class="flex-fill flex-center">
-                    <a class="button" href="/auth/google">Register with Google</a>
+				<div class="flex-vertical flex-fill flex-center">
+                    <a class="button" href="/auth/google">Login with Google</a>
 				</div>  
 			</div>
+
 		</div>
 	</main>
 
 	<% include includes/scripts %>
 
-	<!-- 
-		
+	<!--
 	fullPage - creates fullscreen scrolling sites, used the scroll bar section. Each section represented by "data-menuanchor"
 	scrollOverflow - supports the above
-	
 	-->
 	
 	<script src="/js/vendor/jquery.fullpage.min.js"></script>
