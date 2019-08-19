@@ -3,10 +3,6 @@
 
     margin: 0 $padding-large;
 
-    @media screen and (max-width: 600px) {
-        margin-top: $padding-large + 1rem;
-    }
-
     @media screen and (max-width: $breakpoint-tiny) {
         margin-top: 0;
     }
@@ -19,6 +15,8 @@
     font-weight: 700;
 
     @media screen and (max-width: $breakpoint-medium) {
+        text-align: center;
+
         font-size: 3rem;
     }
 
@@ -32,9 +30,15 @@
 
     font-size: 1.5rem;
     font-weight: 400;
+
+    @media screen and (max-width: $breakpoint-medium) {
+        text-align: center;
+    }
 }
 
 .home-heading {
+    margin-bottom: $padding-large;
+
     text-align: center;
 
     font-size: 3rem;
@@ -55,6 +59,7 @@
 .home-text-left {
     max-width: 25vw;
     margin-right: $padding-large;
+    margin-bottom: 0;
 
     text-align: left;
 
@@ -106,6 +111,7 @@
 
     padding-bottom: $padding-large;
 
+    transition: color 0.1s ease;
     text-align: center;
     text-transform: uppercase;
 
@@ -113,16 +119,19 @@
 
     font-size: 0.9rem;
 
-    @media screen and (max-width: 600px) {
-        display: none;
+    &:hover,
+    &:focus {
+        color: $accent-color-hover;
+    }
+
+    &:active {
+        color: $accent-color-active;
     }
 }
 
 .section {
     display: flex;
     flex-direction: column;
-
-    min-height: 100vh;
 
     align-items: center;
     justify-content: center;

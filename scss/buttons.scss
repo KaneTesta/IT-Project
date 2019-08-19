@@ -64,14 +64,6 @@ button {
         box-shadow: $shadow-button-active;
     }
 
-    &.button-outline {
-        color: $accent-color;
-        border: 2px solid $accent-color;
-        background-color: transparent;
-
-        font-weight: 400;
-    }
-
     &.button-success {
         background-color: $success-color;
 
@@ -109,6 +101,23 @@ button {
         &:active {
             background-color: $error-color-active;
         }
+    }
+}
+
+.button.button-outline {
+    color: $accent-color;
+    border: 2px solid $accent-color;
+    background-color: transparent;
+
+    font-weight: 400;
+
+    &:hover,
+    &:focus {
+        background-color: $accent-color-hover-light;
+    }
+
+    &:active {
+        background-color: $accent-color-active-light;
     }
 }
 

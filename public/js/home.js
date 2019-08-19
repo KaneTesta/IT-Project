@@ -10,6 +10,7 @@ $(() => {
 	// Configure fullpage.js
 	$main.fullpage({
 		verticalCentered: true,
+		scrollOverflow: true,
 
 		paddingTop: '3rem',
 		paddingBottom: '3rem',
@@ -19,7 +20,7 @@ $(() => {
 		anchors,
 
 		scrollingSpeed: 500,
-		responsiveWidth: 600,
+		responsiveWidth: 601,
 
 		onLeave: () => {
 			// Remove focus from all navigation
