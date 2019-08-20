@@ -114,7 +114,7 @@ const deletePage = (req, callback) => {
 			if (!msg.error && msg.result.length > 0) {
 				const user = msg.result[0];
 				if (user && user.pages) {
-					user.pages = user.pages.filter((el) => el._id && el._id.toString() !== pageId.toString());
+					user.pages = user.pages.filter((el) => el.id && el.id.toString() !== pageId.toString());
 					updateUser(user.user_id, user, (msgUpdate) => callback(msgUpdate));
 				} else {
 					callback(msg);

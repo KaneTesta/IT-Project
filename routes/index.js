@@ -19,8 +19,8 @@ router.get('/', (req, res, next) => {
 router.get('/page/:id', (req, res, next) => {
 	userController.getUser(req, (user) => {
 		if (user && user.pages && req.params.id) {
-			const page = user.pages.find((el) => el._id
-				&& el._id.toString() === req.params.id.toString());
+			const page = user.pages.find((el) => el.id
+				&& el.id.toString() === req.params.id.toString());
 
 			if (page) {
 				res.render('user/page', { title: page.name, user, page });

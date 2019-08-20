@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const pageSchema = mongoose.Schema({
-	_id: {
+	id: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
 		auto: true,
