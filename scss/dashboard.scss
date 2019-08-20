@@ -1,0 +1,76 @@
+.dashboard-grid {
+    display: grid;
+
+    margin-bottom: 2rem;
+
+    grid-gap: $padding-large;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+
+    @media screen and (max-width: $breakpoint-large) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: $breakpoint-medium) {
+        grid-gap: $padding-medium;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: $breakpoint-small) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .dashboard-page {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: 30% $padding-medium;
+
+        cursor: pointer;
+        transition: transform 0.1s ease, background-color 0.1s ease;
+        transform: none;
+
+        border-radius: $border-radius;
+        background-color: $foreground-color;
+        box-shadow: $shadow-card;
+
+        &::before {
+            content: none;
+        }
+
+        &:hover,
+        &:focus {
+            transform: scale(1.04);
+        }
+
+        &:active {
+            transform: scale(1.02);
+        }
+
+        &.page-action {
+            color: $accent-text-color;
+            background-color: $accent-color;
+        }
+
+        i {
+            font-size: 2.5rem;
+        }
+
+        p {
+            margin-top: 0.5rem;
+
+            font-size: 1rem;
+        }
+
+        .dashboard-page-title {
+            pointer-events: none;
+
+            font-size: 1.5rem;
+        }
+    }
+}

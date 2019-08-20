@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+    <% include ../includes/head %>
+
+    <body>
+
+        <% include ../includes/elements/navigation %>
+
+        <div class="page-content">
+            <h1>Dashboard</h1>
+
+            <h2>My Artefact Pages</h2>
+            <div id="DashboardGridMyPages" class="dashboard-grid">
+                <% if (user && user.pages) { %>
+                    <% for (let i = 0; i < user.pages.length; ++i) { %>
+                        <a class="dashboard-page button-icon-noborder" href="/page/<%= user.pages[i]._id %>">
+                            <p class="dashboard-page-title"><%= user.pages[i].name %></p>
+                        </a>
+                    <% }; %>
+                <% }; %>
+
+                <button id="DashboardButtonAddPage" class="dashboard-page page-action button-icon-noborder">
+                    <i class="material-icons-outlined">add</i>
+                    <p>Create New Page</p>
+                </button>
+            </div>
+
+            <h2>Shared Pages</h2>
+            <div id="DashboardGridSharedPages" class="dashboard-grid">
+            </div>
+        </div>
+
+        <% include ../includes/dialogs/dialogAddPage %>
+
+        <script defer src="/js/dashboard.js"></script>
+        <% include ../includes/scripts %>
+        
+    </body>
+
+</html>

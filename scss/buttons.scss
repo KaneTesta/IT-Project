@@ -1,0 +1,265 @@
+button {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    outline: none;
+    background: none;
+    background-color: transparent;
+}
+
+:focus {
+    outline: none;
+}
+
+.button,
+.button-icon,
+.button-icon-noborder,
+.button-menu {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+
+    box-sizing: border-box;
+
+    cursor: pointer;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.02rem;
+    text-transform: uppercase;
+
+    color: $text-color;
+
+    font-size: 0.9rem;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    padding: $padding-small $padding-medium;
+
+    transition: background-color 0.1s ease, box-shadow 0.1s ease;
+
+    color: $accent-text-color;
+    border: none;
+    border-radius: $border-radius;
+    background-color: $accent-color;
+    box-shadow: $shadow-button;
+
+    &::before {
+        content: none;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: $accent-color-hover;
+        box-shadow: $shadow-button-hover;
+    }
+
+    &:active {
+        background-color: $accent-color-active;
+        box-shadow: $shadow-button-active;
+    }
+
+    &.button-success {
+        background-color: $success-color;
+
+        &:hover,
+        &:focus {
+            background-color: $success-color-hover;
+        }
+
+        &:active {
+            background-color: $success-color-active;
+        }
+    }
+
+    &.button-warning {
+        background-color: $warning-color;
+
+        &:hover,
+        &:focus {
+            background-color: $warning-color-hover;
+        }
+
+        &:active {
+            background-color: $warning-color-active;
+        }
+    }
+
+    &.button-error {
+        background-color: $error-color;
+
+        &:hover,
+        &:focus {
+            background-color: $error-color-hover;
+        }
+
+        &:active {
+            background-color: $error-color-active;
+        }
+    }
+}
+
+.button.button-outline {
+    color: $accent-color;
+    border: 2px solid $accent-color;
+    background-color: transparent;
+
+    font-weight: 400;
+
+    &:hover,
+    &:focus {
+        background-color: $accent-color-hover-light;
+    }
+
+    &:active {
+        background-color: $accent-color-active-light;
+    }
+}
+
+.button-icon,
+.button-icon-noborder {
+    color: $icon-color;
+
+    i {
+        pointer-events: none;
+
+        font-size: 1.5rem;
+    }
+
+    img {
+        width: 1.5rem;
+        height: 1.5rem;
+
+        pointer-events: none;
+
+        border-radius: 1.5rem;
+    }
+
+    .button-icon-dropdown {
+        width: calc(1.5rem - #{$padding-small});
+
+        transition: transform 0.15s ease-in-out;
+        transform: rotateX(0deg);
+
+        font-size: 1.5rem;
+    }
+
+    &.button-dropdown-visible {
+        .button-icon-dropdown {
+            transform: rotateX(180deg);
+        }
+    }
+}
+
+.button-menu {
+    display: block;
+
+    width: 100%;
+    padding: $padding-small $padding-medium;
+
+    text-align: left;
+
+    &:hover,
+    &:focus {
+        color: $accent-text-color;
+        background-color: $accent-color-hover;
+    }
+
+    &:active {
+        color: $accent-text-color;
+        background-color: $accent-color-active;
+    }
+
+    &::before {
+        content: none;
+    }
+
+    &.button-success {
+        color: $success-color;
+
+        &:hover,
+        &:focus {
+            color: $accent-text-color;
+            background-color: $success-color-hover;
+        }
+
+        &:active {
+            color: $accent-text-color;
+            background-color: $success-color-active;
+        }
+    }
+
+    &.button-warning {
+        color: $warning-color;
+
+        &:hover,
+        &:focus {
+            color: $accent-text-color;
+            background-color: $warning-color-hover;
+        }
+
+        &:active {
+            color: $accent-text-color;
+            background-color: $warning-color-active;
+        }
+    }
+
+    &.button-error {
+        color: $error-color;
+
+        &:hover,
+        &:focus {
+            color: $accent-text-color;
+            background-color: $error-color-hover;
+        }
+
+        &:active {
+            color: $accent-text-color;
+            background-color: $error-color-active;
+        }
+    }
+}
+
+
+.button-icon {
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        position: absolute;
+        z-index: -1;
+        left: -$padding-small;
+        right: -$padding-small;
+        top: -$padding-small;
+        bottom: -$padding-small;
+
+        content: "";
+        transition: opacity 0.1s ease-in, background-color 0.1s ease-in, transform 0.1s ease-in;
+        transform: scale(0.95);
+
+        opacity: 0;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        background-color: $focus-color;
+    }
+
+    &:hover::before,
+    &:focus::before,
+    &:active::before {
+        transition: opacity 0.05s ease-out, background-color 0.1s ease-out, transform 0.05s ease-out;
+        transform: scale(1);
+
+        opacity: 1;
+    }
+
+    &:active::before {
+        transition: opacity 0.05s ease-out, background-color 0.1s ease-out, transform 0.05s ease-out;
+
+        background-color: $focus-color-active;
+    }
+}

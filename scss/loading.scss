@@ -1,0 +1,80 @@
+@keyframes loading-chain {
+    0% {
+        transform: scale(0);
+        animation-timing-function: ease-out;
+
+        opacity: 0;
+    }
+
+    25% {
+        transform: scale(1);
+
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1);
+        animation-timing-function: ease-in;
+
+        opacity: 1;
+    }
+
+    75% {
+        transform: scale(0);
+
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(0);
+
+        opacity: 0;
+    }
+}
+
+.loading-chain {
+    display: flex;
+    flex-direction: row;
+
+    .loading-chain-link {
+        width: 10px;
+        height: 10px;
+        margin: $padding-small $padding-tiny;
+
+        animation: loading-chain 1s linear 0s infinite normal both;
+
+        border: 2px solid transparent;
+        border-radius: $border-radius;
+        background-color: $accent-color;
+
+        @for $i from 1 to 10 {
+            &:nth-child(#{$i}) {
+                animation-delay: $i * 0.15s;
+            }
+        }
+    }
+}
+
+.loading-fullscreen {
+    position: fixed;
+    z-index: 1100;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    opacity: 1;
+    background-color: $foreground-color;
+
+    align-items: center;
+    justify-content: center;
+
+    &.hidden {
+        transition: opacity 0.2s ease-in;
+
+        opacity: 0;
+    }
+}

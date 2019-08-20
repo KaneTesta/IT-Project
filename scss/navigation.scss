@@ -1,0 +1,209 @@
+.navigation-top {
+    z-index: 900;
+
+    padding: $padding-medium $padding-large;
+
+    border-bottom: 1px solid $border-color;
+    background-color: $foreground-color;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.navigation-sidebar {
+    position: fixed;
+    z-index: 800;
+    left: $padding-large * 3;
+    top: 0;
+    bottom: 0;
+
+    ul {
+        margin: 0;
+        padding: 0;
+
+        list-style: none;
+
+        li {
+            padding: $padding-medium 0;
+
+            a {
+                position: relative;
+
+                display: flex;
+                flex-direction: row;
+
+                transition: color 0.1s ease;
+                letter-spacing: 0.04rem;
+                text-transform: uppercase;
+
+                color: $text-color;
+
+                font-size: 0.9rem;
+
+                align-items: center;
+                justify-content: left;
+
+                &::before {
+                    position: absolute;
+                    right: calc(100% + #{$padding-medium});
+                    top: -$padding-small;
+                    bottom: -$padding-small;
+
+                    margin: auto;
+
+                    content: "";
+                    transition: transform 0.15s ease, opacity 0.15s ease;
+                    transform: scaleY(0);
+
+                    opacity: 0;
+                    border-left: 3px solid $accent-color;
+                }
+
+                &.active {
+                    color: $accent-color;
+
+                    &::before {
+                        transform: scaleY(1);
+
+                        opacity: 1;
+                    }
+                }
+
+                &:hover,
+                &:focus {
+                    color: $accent-color;
+                }
+
+                &:active {
+                    &::before {
+                        transform: scaleY(0.8);
+
+                        opacity: 1;
+                    }
+                }
+
+                i {
+                    padding-right: $padding-medium;
+
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: $breakpoint-large) {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: auto;
+
+        width: 100%;
+
+        border-bottom: 1px solid $border-color;
+        background-color: $foreground-color;
+
+        ul {
+            display: flex;
+            flex-direction: row;
+
+            max-width: 100%;
+
+            li {
+                display: flex;
+
+                margin: calc(#{$padding-tiny} + 2px) $padding-medium;
+                padding: 0;
+
+                align-items: center;
+                justify-content: center;
+
+                a {
+                    &::before {
+                        left: -$padding-small;
+                        right: -$padding-small;
+                        top: calc(100% + #{$padding-tiny});
+                        bottom: auto;
+
+                        transform: scaleX(0);
+
+                        border-bottom: 3px solid $accent-color;
+                        border-left: none;
+                    }
+
+                    &.active {
+                        &::before {
+                            transform: scaleX(1);
+                        }
+                    }
+
+                    &:active {
+                        &::before {
+                            transform: scaleX(0.8);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: $breakpoint-small) {
+        a i {
+            display: none;
+        }
+    }
+}
+
+#fp-nav {
+    ul {
+        li {
+            width: 1rem;
+            height: 1rem;
+            margin: $padding-large;
+
+            a {
+                padding: $padding-large / 2;
+            }
+
+            a span,
+            a.active span,
+            a:hover span,
+            a:active span,
+            a.active:hover span,
+            a.active:active span {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+
+                width: 1rem;
+                height: 1rem;
+                margin: auto;
+                padding: 0;
+
+                transition: transform 0.15s ease;
+                transform: scale(0.5);
+
+                border-radius: 50%;
+                background-color: $text-color;
+            }
+
+            a:hover span {
+                transform: scale(0.75);
+            }
+
+            a.active span,
+            a.active:hover span {
+                transform: scale(1);
+            }
+        }
+    }
+}

@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jquery": true
     },
     "extends": [
         "airbnb-base"
@@ -16,5 +17,18 @@
         "sourceType": "module"
     },
     "rules": {
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "no-tabs": 0,
+        "no-param-reassign": 0,
+        "no-underscore-dangle": 0,
+        "no-unused-vars": [
+            "error",
+            {
+                "args": "none"
+            }
+        ]
     }
 }

@@ -1,0 +1,52 @@
+input,
+select,
+textarea {
+    display: block;
+
+    border: none;
+    background: none;
+    background-color: transparent;
+
+    font-family: $font-body;
+}
+
+textarea {
+    resize: none;
+}
+
+select,
+textarea,
+input[type="text"] {
+    width: 100%;
+}
+
+select,
+textarea,
+input[type="text"] {
+    box-sizing: border-box;
+    margin-bottom: $padding-medium;
+    padding: $padding-medium $padding-medium;
+
+    transition: border-color 0.1s ease;
+
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+
+    appearance: none;
+
+    &:focus {
+        border-color: $accent-color;
+    }
+}
+
+.input-heading {
+    margin: $padding-tiny 0;
+    padding: 0;
+
+    letter-spacing: 0.04rem;
+    text-transform: uppercase;
+
+    color: $text-color-detail;
+
+    font-size: 0.85rem;
+}
