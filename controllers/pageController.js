@@ -153,9 +153,42 @@ const deleteArtefact = (req, callback) => {
 	}
 };
 
+const updatePage = (req, callback) => {
+	const pageId = req.params.id;
+	const pageName = req.body.pagename;
+
+	// Check page name
+	if (!pageName || pageName === '') {
+		callback({ error: 'Must include a page name', result: null });
+	} else {
+		getPageForCurrentUser(req, pageId, (msg) => {
+			if (msg.error) {
+				callback(msg);
+			} else {
+				const { page } = msg.result;
+				const { user } = msg.result;
+				if (user && page) {
+					// Remove artefact from page
+					page.name = pageName;
+					// Update page
+					for (let i = 0; i < user.pages.length; i += 1) {
+						if (user.pages[i]._id && user.pages[i]._id.toString() === pageId.toString()) {
+							user.pages[i] = page;
+						}
+					}
+
+					userController.updateUser(user.user_id, user, (msgUpdate) => callback(msgUpdate));
+				}
+			}
+		});
+	}
+};
+
 
 // Exporting callbacks
 module.exports = {
+	updatePage,
+
 	addArtefact,
 	getArtefact,
 	deleteArtefact,

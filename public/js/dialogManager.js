@@ -15,7 +15,8 @@ window.dialogManager = {
 			}, 50);
 
 			// Focus on first input element
-			$(dialog).find('input, textarea, .button').eq(0).focus();
+			$(dialog).focus();
+			$(dialog).find('input, textarea').eq(0).focus();
 		};
 
 		dialog.hideAndRemove = () => {

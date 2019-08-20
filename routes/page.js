@@ -19,6 +19,15 @@ function sendResponse(msg, req, res, next) {
 	}
 }
 
+/* POST update data for current user's page with id */
+router.post('/:id/updatepage', (req, res, next) => {
+	if (req.session && req.session.passport && req.session.passport.user) {
+		pageController.updatePage(req, (msg) => { sendResponse(msg, req, res, next); });
+	} else {
+		next(createError(500, "You can't do this unless you are logged in"));
+	}
+});
+
 /* POST create new artefact page for current user */
 router.post('/:id/addartefact', (req, res, next) => {
 	if (req.session && req.session.passport && req.session.passport.user) {

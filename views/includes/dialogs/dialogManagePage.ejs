@@ -3,6 +3,14 @@
     <div class="dialog-content">
         <h1 class="dialog-heading">Manage Page</h1>
 
+        <form action="/page/<%= page._id %>/updatepage" method="post" autocomplete="off" data-post-text="Updating Artefact">
+            <p class="input-heading">Page Name</p>
+            <input id="EditPageName" type="text" name="pagename"
+                value="<%= page.name %>" placeholder="Page Name" required>
+
+            <input type="submit" value="Update Page" class="button dialog-action">
+        </form>
+
         <form action="/user/deletepage/<%= page._id %>" method="post" data-post-text="Deleting Page">
             <input type="submit" value="Delete Page" class="button button-error dialog-action">
         </form>

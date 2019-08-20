@@ -136,7 +136,7 @@ app.use('/page', pageRouter);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
-	next(createError(404, "Page doesn't exist"));
+	next(createError(404, "Page not found"));
 });
 
 // Error handler
