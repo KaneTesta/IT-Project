@@ -11,6 +11,10 @@ $(() => {
 	$main.fullpage({
 		verticalCentered: true,
 		scrollOverflow: true,
+		scrollOverflowOptions: {
+			click: true,
+			submit: true,
+		},
 
 		paddingTop: '3rem',
 		paddingBottom: '3rem',

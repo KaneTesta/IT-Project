@@ -4,6 +4,8 @@ window.dialogManager = {
 	 * @param {HTMLElement} dialog The dialog to add functions to
 	 */
 	setupDialog(dialog) {
+		dialog.setAttribute('role', 'dialog');
+		dialog.setAttribute('tabIndex', '-1');
 		dialog.style.visibility = 'hidden';
 		// Create dialog functions
 		dialog.show = () => {
@@ -11,6 +13,9 @@ window.dialogManager = {
 			setTimeout(() => {
 				dialog.classList.add('visible');
 			}, 50);
+
+			// Focus on first input element
+			$(dialog).find('input, textarea, .button').eq(0).focus();
 		};
 
 		dialog.hideAndRemove = () => {
@@ -58,6 +63,17 @@ window.dialogManager = {
 				}
 			});
 		}
+
+		$(document).focusin((e) => {
+			if (dialog.classList.contains('visible')) {
+				console.log(dialog.contains(e.target));
+				if (e && e.target && !dialog.contains(e.target)) {
+					e.preventDefault();
+					e.stopPropagation();
+					dialog.focus();
+				}
+			}
+		});
 	},
 
 	/**
