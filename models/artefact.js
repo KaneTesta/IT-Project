@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const artefactSchema = mongoose.Schema({
 	name: String,
@@ -15,5 +16,7 @@ const artefactSchema = mongoose.Schema({
 		ref: 'User',
 	}],
 });
+
+artefactSchema.plugin(mongoosePaginate);
 
 mongoose.model('Artefact', artefactSchema);
