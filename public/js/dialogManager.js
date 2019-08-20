@@ -50,6 +50,13 @@ window.dialogManager = {
 			});
 
 			$(dialog).find('.dialog-content').prepend(closeButton);
+
+			// Setup close on escape press
+			$(document).keydown((e) => {
+				if (e.key === 'Escape') {
+					dialog.hide();
+				}
+			});
 		}
 	},
 
