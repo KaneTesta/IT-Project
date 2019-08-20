@@ -28,7 +28,7 @@ router.get('/page/:id', (req, res, next) => {
 				next(createError(403, "You don't have permission to access this page"));
 			}
 		} else {
-			res.redirect('/');
+			next(createError(500, "You can't do this unless you are logged in"));
 		}
 	});
 });

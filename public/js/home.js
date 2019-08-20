@@ -34,8 +34,8 @@ $(() => {
 	});
 
 	// Hide the loading screen
-	$("#HomeLoading").addClass("hidden");
+	$('#HomeLoading').addClass('hidden');
 	setTimeout(() => {
-		$("#HomeLoading").remove();
+		$('#HomeLoading').remove();
 	}, 400);
 });

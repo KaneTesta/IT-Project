@@ -67,15 +67,17 @@
     align-items: center;
     justify-content: center;
 
-    @media screen and (max-width: $breakpoint-small) {
-        flex-direction: column;
+    &.button-group-responsive {
+        @media screen and (max-width: $breakpoint-small) {
+            flex-direction: column;
+        }
     }
 
     & > .button,
     & > .button-icon,
     & > .button-icon-noborder,
     & > .dropdown-container {
-        margin: 0 $padding-small;
+        margin: 0 $padding-tiny;
 
         &:first-child {
             margin-left: 0;
@@ -84,16 +86,40 @@
         &:last-child {
             margin-right: 0;
         }
+    }
 
-        @media screen and (max-width: $breakpoint-small) {
-            margin: $padding-small 0;
+    &.button-group-wide {
+        & > .button,
+        & > .button-icon,
+        & > .button-icon-noborder,
+        & > .dropdown-container {
+            margin: 0 $padding-medium;
 
             &:first-child {
-                margin-top: 0;
+                margin-left: 0;
             }
 
             &:last-child {
-                margin-bottom: 0;
+                margin-right: 0;
+            }
+        }
+    }
+
+    &.button-group-responsive {
+        & > .button,
+        & > .button-icon,
+        & > .button-icon-noborder,
+        & > .dropdown-container {
+            @media screen and (max-width: $breakpoint-small) {
+                margin: $padding-tiny 0;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
     }

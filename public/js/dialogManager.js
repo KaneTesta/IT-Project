@@ -114,7 +114,7 @@ window.dialogManager = {
 	 */
 	createNewLoadingDialog(loadingText) {
 		// Create HTML
-		let dialogHTML = `
+		const dialogHTML = `
 		<div class="loading-chain">
 			<span class="loading-chain-link"></span>
 			<span class="loading-chain-link"></span>
