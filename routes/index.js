@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
 	});
 });
 
-/* GET page for item page. */
+/* GET page for artefact page. */
 router.get('/page/:id', (req, res, next) => {
 	userController.getUser(req, (user) => {
 		if (user && user.pages && req.params.id) {

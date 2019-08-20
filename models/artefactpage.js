@@ -10,10 +10,10 @@ const pageSchema = mongoose.Schema({
 		type: String,
 		require: [true, 'A page needs a name'],
 	},
-	items: {
+	artefacts: {
 		type: Array,
 		ref: 'artefact',
 	},
 });
 
-mongoose.model('itempage', pageSchema);
+mongoose.model('artefactpage', pageSchema);

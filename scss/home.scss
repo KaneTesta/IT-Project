@@ -22,6 +22,8 @@
 .home-title {
     margin-bottom: 0rem;
 
+    text-shadow: $shadow-heading;
+
     font-size: 4rem;
     font-weight: 700;
 
@@ -47,6 +49,8 @@
     margin-bottom: $padding-large;
 
     text-align: center;
+
+    text-shadow: $shadow-heading;
 
     font-size: 3rem;
     font-weight: 700;

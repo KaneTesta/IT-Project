@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
 	display_picture: String,
 	pages: {
 		type: Array,
-		ref: 'itempage',
+		ref: 'artefactpage',
 	},
 });
 

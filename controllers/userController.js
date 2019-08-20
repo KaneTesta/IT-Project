@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const User = mongoose.model('user');
-const Page = mongoose.model('itempage');
+const Page = mongoose.model('artefactpage');
 
 /** Insert one user into the database from a profile */
 const insertUser = (profile, callback) => {

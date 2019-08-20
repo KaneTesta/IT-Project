@@ -27,7 +27,9 @@
     .dialog-content {
         z-index: 1;
 
-        min-width: 15vw;
+        box-sizing: border-box;
+        min-width: 24rem;
+        margin: $padding-large;
         padding: $padding-medium $padding-large;
 
         transition: opacity 0.12s ease-in, transform 0.12s ease-in;
@@ -38,6 +40,15 @@
         border-radius: $border-radius;
         background-color: $foreground-color;
         box-shadow: $shadow-dialog;
+
+        @media screen and (max-width: $breakpoint-medium) {
+            min-width: 20rem;
+        }
+
+        @media screen and (max-width: $breakpoint-small) {
+            width: 100%;
+            min-width: auto;
+        }
 
         .dialog-heading {
             margin-top: $padding-small;

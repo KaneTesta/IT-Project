@@ -45,7 +45,7 @@ router.post('/logout', (req, res, next) => {
 });
 
 
-/* POST create new item page for current user */
+/* POST create new artefact page for current user */
 router.post('/createpage', (req, res, next) => {
 	if (req.session && req.session.passport && req.session.passport.user) {
 		userController.createPage(req, (msg) => { sendResponse(msg, res, next); });
@@ -54,7 +54,7 @@ router.post('/createpage', (req, res, next) => {
 	}
 });
 
-/* POST delete an existing item page */
+/* POST delete an existing artefact page */
 router.post('/deletepage/:id', (req, res, next) => {
 	if (req.session && req.session.passport && req.session.passport.user) {
 		userController.deletePage(req, (msg) => { sendResponse(msg, res, next); });

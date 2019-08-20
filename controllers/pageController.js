@@ -16,9 +16,9 @@ function getPageForCurrentUser(req, pageId, callback) {
 					let foundPage = false;
 					// Find the page among the user's pages
 					for (let i = 0; i < user.pages.length; i += 1) {
-						const itemPage = user.pages[i];
-						if (itemPage._id && itemPage._id.toString() === pageId.toString()) {
-							callback({ error: null, result: { user, page: itemPage } });
+						const artefactPage = user.pages[i];
+						if (artefactPage._id && artefactPage._id.toString() === pageId.toString()) {
+							callback({ error: null, result: { user, page: artefactPage } });
 							foundPage = true;
 							break;
 						}
@@ -39,15 +39,15 @@ function getPageForCurrentUser(req, pageId, callback) {
 	}
 }
 
-const addItem = (req, callback) => {
+const addArtefact = (req, callback) => {
 	const pageId = req.params.id;
-	const itemId = req.body.itemid;
-	const itemName = req.body.itemname;
-	const itemDescription = req.body.itemdescription || '';
+	const artefactId = req.body.artefactid;
+	const artefactName = req.body.artefactname;
+	const artefactDescription = req.body.artefactdescription || '';
 
 	// Check page name
-	if (!itemName || itemName === '') {
-		callback({ error: 'Must include an item name', result: null });
+	if (!artefactName || artefactName === '') {
+		callback({ error: 'Must include an artefact name', result: null });
 	} else {
 		getPageForCurrentUser(req, pageId, (msg) => {
 			if (msg.error) {
@@ -56,22 +56,24 @@ const addItem = (req, callback) => {
 				const { page } = msg.result;
 				const { user } = msg.result;
 				if (user && page) {
-					if (itemId) {
-						// Edit existing item
-						for (let i = 0; i < page.items.length; i += 1) {
-							if (page.items[i]._id && page.items[i]._id.toString() === itemId.toString()) {
-								page.items[i].name = itemName;
-								page.items[i].description = itemDescription;
+					if (artefactId) {
+						// Edit existing artefact
+						for (let i = 0; i < page.artefacts.length; i += 1) {
+							if (page.artefacts[i]._id && page.artefacts[i]._id.toString() === artefactId.toString()) {
+								page.artefacts[i].name = artefactName;
+								page.artefacts[i].description = artefactDescription;
 							}
 						}
 					} else {
-						// Add item to page
-						const item = new Artefact({
-							name: itemName,
-							description: itemDescription,
+						// Add artefact to page
+						const artefact = new Artefact({
+							name: artefactName,
+							description: artefactDescription,
 						});
 
-						page.items.push(item);
+						if (page.artefacts) {
+							page.artefacts.push(artefact);
+						}
 					}
 
 					for (let i = 0; i < user.pages.length; i += 1) {
@@ -87,13 +89,13 @@ const addItem = (req, callback) => {
 	}
 };
 
-const getItem = (req, callback) => {
+const getArtefact = (req, callback) => {
 	const pageId = req.params.pageid;
-	const itemId = req.params.itemid;
+	const artefactId = req.params.artefactid;
 
 	// Check page name
-	if (!itemId || itemId === '') {
-		callback({ error: 'Must include an item id', result: null });
+	if (!artefactId || artefactId === '') {
+		callback({ error: 'Must include an artefact id', result: null });
 	} else {
 		getPageForCurrentUser(req, pageId, (msg) => {
 			if (msg.error) {
@@ -102,17 +104,17 @@ const getItem = (req, callback) => {
 				const { page } = msg.result;
 				const { user } = msg.result;
 				if (user && page) {
-					let foundItem = false;
-					for (let i = 0; i < page.items.length; i += 1) {
-						if (page.items[i]._id.toString() === itemId.toString()) {
-							callback({ error: null, result: page.items[i] });
-							foundItem = true;
+					let foundArtefact = false;
+					for (let i = 0; i < page.artefacts.length; i += 1) {
+						if (page.artefacts[i]._id.toString() === artefactId.toString()) {
+							callback({ error: null, result: page.artefacts[i] });
+							foundArtefact = true;
 							break;
 						}
 					}
 
-					if (!foundItem) {
-						callback({ error: 'Item does not exist in this page', result: null });
+					if (!foundArtefact) {
+						callback({ error: 'Artefact does not exist in this page', result: null });
 					}
 				}
 			}
@@ -120,13 +122,13 @@ const getItem = (req, callback) => {
 	}
 };
 
-const deleteItem = (req, callback) => {
+const deleteArtefact = (req, callback) => {
 	const pageId = req.params.id;
-	const itemId = req.body.itemid;
+	const artefactId = req.body.artefactid;
 
 	// Check page name
-	if (!itemId || itemId === '') {
-		callback({ error: 'Must include an item id', result: null });
+	if (!artefactId || artefactId === '') {
+		callback({ error: 'Must include an artefact id', result: null });
 	} else {
 		getPageForCurrentUser(req, pageId, (msg) => {
 			if (msg.error) {
@@ -135,8 +137,8 @@ const deleteItem = (req, callback) => {
 				const { page } = msg.result;
 				const { user } = msg.result;
 				if (user && page) {
-					// Remove item from page
-					page.items = page.items.filter((el) => el._id && el._id.toString() !== itemId);
+					// Remove artefact from page
+					page.artefacts = page.artefacts.filter((el) => el._id && el._id.toString() !== artefactId);
 					// Update page
 					for (let i = 0; i < user.pages.length; i += 1) {
 						if (user.pages[i]._id && user.pages[i]._id.toString() === pageId.toString()) {
@@ -154,7 +156,7 @@ const deleteItem = (req, callback) => {
 
 // Exporting callbacks
 module.exports = {
-	addItem,
-	getItem,
-	deleteItem,
+	addArtefact,
+	getArtefact,
+	deleteArtefact,
 };

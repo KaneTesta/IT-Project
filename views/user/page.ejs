@@ -10,20 +10,20 @@
         <div class="page-content">
             <h1><%= page.name %></h1>
             
-            <h2>Items</h2>
-            <div id="PageGridItems" class="dashboard-grid">
-                <% if (page && page.items) { %>
-                    <% for (let i = 0; i < page.items.length; ++i) { %>
-                        <button class="dashboard-page page-item button-icon-noborder"
-                            data-page-id="<%= page._id %>" data-item-id="<%= page.items[i]._id %>">
-                            <p class="dashboard-page-title"><%= page.items[i].name %></p>
+            <h2>Artefacts</h2>
+            <div id="PageGridArtefacts" class="dashboard-grid">
+                <% if (page && page.artefacts) { %>
+                    <% for (let i = 0; i < page.artefacts.length; ++i) { %>
+                        <button class="dashboard-page page-artefact button-icon-noborder"
+                            data-page-id="<%= page._id %>" data-artefact-id="<%= page.artefacts[i]._id %>">
+                            <p class="dashboard-page-title"><%= page.artefacts[i].name %></p>
                         </button>
                     <% }; %>
                 <% }; %>
 
-                <button id="PageButtonAddItem" class="dashboard-page page-action button-icon-noborder">
+                <button id="PageButtonAddArtefact" class="dashboard-page page-action button-icon-noborder">
                     <i class="material-icons-outlined">add</i>
-                    <p>Add New Item</p>
+                    <p>Add New Artefact</p>
                 </button>
             </div>
 
@@ -31,9 +31,9 @@
         </div>
 
         <% include ../includes/dialogs/dialogManagePage %>
-        <% include ../includes/dialogs/dialogViewItem %>
-        <% include ../includes/dialogs/dialogEditItem %>
-        <% include ../includes/dialogs/dialogAddItem %>
+        <% include ../includes/dialogs/dialogViewArtefact %>
+        <% include ../includes/dialogs/dialogEditArtefact %>
+        <% include ../includes/dialogs/dialogAddArtefact %>
 
         <script defer src="/js/page.js"></script>
         <% include ../includes/scripts %>

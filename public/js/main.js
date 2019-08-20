@@ -4,7 +4,7 @@ $(document).on('ready', () => {
 	const contextWindow = $(window);
 
 	// Show and hide menu when icon is clicked
-	const menuItems = $('.all-menu-wrapper .nav-link');
+	const menuArtefacts = $('.all-menu-wrapper .nav-link');
 	const menuIcon = $('.menu-icon');
 	const menuBlock = $('.all-menu-wrapper');
 	const reactToMenu = $('.page-main, .navbar-sidebar');
@@ -14,7 +14,7 @@ $(document).on('ready', () => {
 	menuIcon.on('click', () => {
 		menuIcon.toggleClass('menu-visible');
 		menuBlock.toggleClass('menu-visible');
-		menuItems.toggleClass('menu-visible');
+		menuArtefacts.toggleClass('menu-visible');
 		reactToMenu.toggleClass('menu-visible');
 		return false;
 	});
@@ -23,7 +23,7 @@ $(document).on('ready', () => {
 	menuLinks.on('click', () => {
 		menuIcon.removeClass('menu-visible');
 		menuBlock.removeClass('menu-visible');
-		menuItems.removeClass('menu-visible');
+		menuArtefacts.removeClass('menu-visible');
 		reactToMenu.removeClass('menu-visible');
 		return true;
 	});
