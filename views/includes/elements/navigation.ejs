@@ -5,7 +5,12 @@
 
     <div class="flex-fill"></div>
 
+    <div class="button-group">
     <% if (user) { %>
+        <a class="button-icon" href="/">
+            <i class="material-icons-outlined">dashboard</i>
+        </a>
+
         <div class="dropdown-container">
             <button class="button-icon" data-dropdown="DropdownUser">
                 <% if (user.display_picture) { %>
@@ -40,4 +45,5 @@
     <% } else { %>
         <a class="button" href="/auth/google">Log In</a>
     <% }; %>
+    </div>
 </header>

@@ -32,4 +32,10 @@ $(() => {
 			$('#NavigationSidebar').find('a').blur();
 		},
 	});
+
+	// Hide the loading screen
+	$("#HomeLoading").addClass("hidden");
+	setTimeout(() => {
+		$("#HomeLoading").remove();
+	}, 400);
 });

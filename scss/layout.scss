@@ -71,7 +71,10 @@
         flex-direction: column;
     }
 
-    .button {
+    & > .button,
+    & > .button-icon,
+    & > .button-icon-noborder,
+    & > .dropdown-container {
         margin: 0 $padding-small;
 
         &:first-child {
