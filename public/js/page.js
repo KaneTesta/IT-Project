@@ -44,10 +44,10 @@ $(() => {
 					dialogViewArtefact.hide();
 					// Show edit artefact dialog
 					const dialogEditArtefact = document.getElementById('DialogEditArtefact');
-					$('#EditArtefactId').val(artefact.id);
+					$('#EditArtefactId').val(artefact._id);
 					$('#EditArtefactName').val(artefact.name);
 					$('#EditArtefactDescription').val(artefact.description);
-					$('#EditArtefactDeleteId').val(artefact.id);
+					$('#EditArtefactDeleteId').val(artefact._id);
 					dialogEditArtefact.show();
 				});
 			}).fail(() => {

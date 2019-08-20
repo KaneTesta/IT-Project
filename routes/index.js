@@ -19,8 +19,8 @@ router.get('/', (req, res, next) => {
 router.get('/page/:id', (req, res, next) => {
 	userController.getUser(req, (user) => {
 		if (user && user.pages && req.params.id) {
-			const page = user.pages.find((el) => el.id
-				&& el.id.toString() === req.params.id.toString());
+			const page = user.pages.find((el) => el._id
+				&& el._id.toString() === req.params.id.toString());
 
 			if (page) {
 				res.render('user/page', { title: page.name, user, page });
@@ -28,7 +28,7 @@ router.get('/page/:id', (req, res, next) => {
 				next(createError(403, "You don't have permission to access this page"));
 			}
 		} else {
-			res.redirect('/');
+			next(createError(500, "You can't do this unless you are logged in"));
 		}
 	});
 });

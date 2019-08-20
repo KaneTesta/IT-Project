@@ -17,7 +17,7 @@ function getPageForCurrentUser(req, pageId, callback) {
 					// Find the page among the user's pages
 					for (let i = 0; i < user.pages.length; i += 1) {
 						const artefactPage = user.pages[i];
-						if (artefactPage.id && artefactPage.id.toString() === pageId.toString()) {
+						if (artefactPage._id && artefactPage._id.toString() === pageId.toString()) {
 							callback({ error: null, result: { user, page: artefactPage } });
 							foundPage = true;
 							break;
@@ -59,8 +59,8 @@ const addArtefact = (req, callback) => {
 					if (artefactId) {
 						// Edit existing artefact
 						for (let i = 0; i < page.artefacts.length; i += 1) {
-							if (page.artefacts[i].id
-								&& page.artefacts[i].id.toString() === artefactId.toString()) {
+							if (page.artefacts[i]._id
+								&& page.artefacts[i]._id.toString() === artefactId.toString()) {
 								page.artefacts[i].name = artefactName;
 								page.artefacts[i].description = artefactDescription;
 							}
@@ -78,7 +78,7 @@ const addArtefact = (req, callback) => {
 					}
 
 					for (let i = 0; i < user.pages.length; i += 1) {
-						if (user.pages[i].id && user.pages[i].id.toString() === pageId.toString()) {
+						if (user.pages[i]._id && user.pages[i]._id.toString() === pageId.toString()) {
 							user.pages[i] = page;
 						}
 					}
@@ -107,7 +107,7 @@ const getArtefact = (req, callback) => {
 				if (user && page) {
 					let foundArtefact = false;
 					for (let i = 0; i < page.artefacts.length; i += 1) {
-						if (page.artefacts[i].id.toString() === artefactId.toString()) {
+						if (page.artefacts[i]._id.toString() === artefactId.toString()) {
 							callback({ error: null, result: page.artefacts[i] });
 							foundArtefact = true;
 							break;
@@ -139,11 +139,11 @@ const deleteArtefact = (req, callback) => {
 				const { user } = msg.result;
 				if (user && page) {
 					// Remove artefact from page
-					page.artefacts = page.artefacts.filter((el) => el.id
-						&& el.id.toString() !== artefactId);
+					page.artefacts = page.artefacts.filter((el) => el._id
+						&& el._id.toString() !== artefactId);
 					// Update page
 					for (let i = 0; i < user.pages.length; i += 1) {
-						if (user.pages[i].id && user.pages[i].id.toString() === pageId.toString()) {
+						if (user.pages[i]._id && user.pages[i]._id.toString() === pageId.toString()) {
 							user.pages[i] = page;
 						}
 					}
@@ -174,7 +174,7 @@ const updatePage = (req, callback) => {
 					page.name = pageName;
 					// Update page
 					for (let i = 0; i < user.pages.length; i += 1) {
-						if (user.pages[i].id && user.pages[i].id.toString() === pageId.toString()) {
+						if (user.pages[i]._id && user.pages[i]._id.toString() === pageId.toString()) {
 							user.pages[i] = page;
 						}
 					}
