@@ -67,7 +67,6 @@ window.dialogManager = {
 
 		$(document).focusin((e) => {
 			if (dialog.classList.contains('visible')) {
-				console.log(dialog.contains(e.target));
 				if (e && e.target && !dialog.contains(e.target)) {
 					e.preventDefault();
 					e.stopPropagation();
