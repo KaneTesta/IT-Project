@@ -67,8 +67,10 @@
     align-items: center;
     justify-content: center;
 
-    @media screen and (max-width: $breakpoint-small) {
-        flex-direction: column;
+    &.button-group-responsive {
+        @media screen and (max-width: $breakpoint-small) {
+            flex-direction: column;
+        }
     }
 
     & > .button,
