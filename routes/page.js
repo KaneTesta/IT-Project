@@ -46,7 +46,7 @@ router.post('/:id/deleteartefact', (req, res, next) => {
 	}
 });
 
-/* POST create new artefact page for current user */
+/* GET data for an artefact for the current user */
 router.get('/:pageid/artefact/:artefactid', (req, res, next) => {
 	if (req.session && req.session.passport && req.session.passport.user) {
 		pageController.getArtefact(req, (msg) => {
