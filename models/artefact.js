@@ -1,15 +1,19 @@
 const mongoose = require('mongoose');
 
 const artefactSchema = mongoose.Schema({
-	name: {
-		type: String,
-		trim: true,
+	name: String,
+	description: String,
+	image: [String],
+	documentation: [String],
+	insurance: [String],
+	owner: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
 	},
-	description: {
-		type: String,
-		trim: true,
-	},
-	image: String,
+	read_access: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
+	}],
 });
 
-mongoose.model('artefact', artefactSchema);
+mongoose.model('Artefact', artefactSchema);
