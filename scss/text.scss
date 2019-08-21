@@ -5,6 +5,16 @@ body {
     font-weight: 400;
 }
 
+::selection {
+    color: $accent-text-color;
+    background: $accent-color;
+}
+
+::-moz-selection {
+    color: $accent-text-color;
+    background: $accent-color;
+}
+
 h1,
 h2,
 h3,
