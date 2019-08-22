@@ -6,13 +6,11 @@ body {
 }
 
 ::selection {
-    color: $accent-text-color;
-    background: $accent-color;
+    background: transparentize($accent-color, 0.75);
 }
 
 ::-moz-selection {
-    color: $accent-text-color;
-    background: $accent-color;
+    background: transparentize($accent-color, 0.75);
 }
 
 h1,
