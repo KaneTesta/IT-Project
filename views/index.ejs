@@ -5,102 +5,104 @@
 
 <body>
 
-	<div id="HomeLoading" class="loading-fullscreen">
-		<div class="loading-chain">
-			<span class="loading-chain-link"></span>
-			<span class="loading-chain-link"></span>
-			<span class="loading-chain-link"></span>
-			<span class="loading-chain-link"></span>
+	<div class="main-content">
+		<div id="HomeLoading" class="loading-fullscreen">
+			<div class="loading-chain">
+				<span class="loading-chain-link"></span>
+				<span class="loading-chain-link"></span>
+				<span class="loading-chain-link"></span>
+				<span class="loading-chain-link"></span>
+			</div>
+
+			<p>Loading</p>
 		</div>
 
-		<p>Loading</p>
-	</div>
-
-	<nav class="navigation-sidebar flex-vertical flex-center">
-		<ul id="NavigationSidebar">
-			<li>
-				<a href="#home" data-menuanchor="home">
-					<i class="material-icons-outlined">home</i>
-					<span>Home</span>
-				</a>
-			</li>
-			<li>
-				<a href="#about" data-menuanchor="about">
-					<i class="material-icons-outlined">info</i>
-					<span>About</span>
-				</a>
-			</li>
-			<li>
-				<a href="#register" data-menuanchor="register">
-					<i class="material-icons-outlined">person_add</i>
-					<span>Register</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
+		<nav class="navigation-sidebar flex-vertical flex-center">
+			<ul id="NavigationSidebar">
+				<li>
+					<a href="#home" data-menuanchor="home">
+						<i class="material-icons-outlined">home</i>
+						<span>Home</span>
+					</a>
+				</li>
+				<li>
+					<a href="#about" data-menuanchor="about">
+						<i class="material-icons-outlined">info</i>
+						<span>About</span>
+					</a>
+				</li>
+				<li>
+					<a href="#register" data-menuanchor="register">
+						<i class="material-icons-outlined">person_add</i>
+						<span>Register</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
 
 
-	<main class="home-body" id="HomeMain">
+		<main class="home-body" id="HomeMain">
 
-		<!-- HOME -->
-		<div class="section" data-section="home">
+			<!-- HOME -->
+			<div class="section" data-section="home">
 
-			<div class="flex-horizontal-responsive flex-center">
-				<!-- Left Half -->
-				<div class="flex-vertical flex-left-responsive">
-					<h1 class="home-title">Artefacts Manager</h1>
-					<p class="home-subtitle">The simplest way to manage your collections</p>
+				<div class="flex-horizontal-responsive flex-center">
+					<!-- Left Half -->
+					<div class="flex-vertical flex-left-responsive">
+						<h1 class="home-title">Artefacts Manager</h1>
+						<p class="home-subtitle">The simplest way to manage your collections</p>
 
-					<div class="button-group button-group-responsive flex-center">
-						<a class="button button-outline" href="/auth/google">Log In</a>
-						<a class="button button-outline" href="#about">Get started</a>
+						<div class="button-group button-group-responsive flex-center">
+							<a class="button button-outline" href="/auth/google">Log In</a>
+							<a class="button button-outline" href="#about">Get started</a>
+						</div>
 					</div>
+
+					<!-- Right Half -->
+					<img class="home-logo" src="/img/logo.png" >
 				</div>
 
-				<!-- Right Half -->
-				<img class="home-logo" src="/img/logo.png" >
+				<!-- Scroll Icon on Bottom -->
+				<a class="home-scrolldown" href="#about">Scroll Down</a>
+
 			</div>
 
-			<!-- Scroll Icon on Bottom -->
-			<a class="home-scrolldown" href="#about">Scroll Down</a>
+			<!-- ABOUT SECTION -->
+			<div class="section fp-auto-height-responsive" data-section="about">
 
-		</div>
+				<h2 class="home-heading">About</h2>
 
-		<!-- ABOUT SECTION -->
-		<div class="section fp-auto-height-responsive" data-section="about">
+				<p class="home-text-full">
+					Welcome to the simplest way to manage a database of your dearest artefacts. Motivated by a way to easily manage & track items of sentimental value to your family, <b>Project Name</b> allows you to store a collection of items and supporting documentations.
+				</p>
 
-			<h2 class="home-heading">About</h2>
+				<!-- Scroll Icon on Bottom -->
+				<a class="home-scrolldown" href="#register">Scroll Down</a>
 
-			<p class="home-text-full">
-				Welcome to the simplest way to manage a database of your dearest artefacts. Motivated by a way to easily manage & track items of sentimental value to your family, <b>Project Name</b> allows you to store a collection of items and supporting documentations.
-			</p>
+			</div>
 
-			<!-- Scroll Icon on Bottom -->
-			<a class="home-scrolldown" href="#register">Scroll Down</a>
+			<!-- Registration/Log In section-->
+			<div class="section fp-auto-height-responsive" data-section="register">
 
-		</div>
+				<h2 class="home-heading">Register</h2>
 
-		<!-- Registration/Log In section-->
-		<div class="section fp-auto-height-responsive" data-section="register">
+				<div class="flex-horizontal-responsive home-login">
+				
+					<div class="flex-vertical">
+						<p class="home-text-left">
+							You don't even need an account to start using <b>Project Name</b>! Simply log in using an existing google account and you are on your way.
+						</p>
+					</div>
 
-			<h2 class="home-heading">Register</h2>
-
-			<div class="flex-horizontal-responsive home-login">
-			
-				<div class="flex-vertical">
-					<p class="home-text-left">
-						You don't even need an account to start using <b>Project Name</b>! Simply log in using an existing google account and you are on your way.
-					</p>
+					<!-- Sign Up Form-->
+					<div class="flex-vertical flex-fill flex-center">
+						<a class="button" href="/auth/google">Login with Google</a>
+					</div>  
 				</div>
 
-				<!-- Sign Up Form-->
-				<div class="flex-vertical flex-fill flex-center">
-                    <a class="button" href="/auth/google">Login with Google</a>
-				</div>  
 			</div>
-
-		</div>
-	</main>
+		</main>
+	</div>
 
 	<% include includes/scripts %>
 

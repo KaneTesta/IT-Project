@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 
-    <% include ../includes/head %>
+<% include ../includes/head %>
 
-    <body>
+<body>
 
+    <div class="main-content">
         <% include ../includes/elements/navigation %>
 
         <div class="page-content">
@@ -32,10 +33,11 @@
         </div>
 
         <% include ../includes/dialogs/dialogAddPage %>
+    </div>
+    
+    <script defer src="/js/dashboard.js"></script>
+    <% include ../includes/scripts %>
 
-        <script defer src="/js/dashboard.js"></script>
-        <% include ../includes/scripts %>
-        
-    </body>
+</body>
 
 </html>

@@ -102,9 +102,13 @@
 
             max-height: 100%;
 
+            text-transform: none;
+
             background-color: rgba($foreground-color, 0.87);
 
-            line-height: 1.2;
+            font-family: $font-subheading;
+            font-size: 1.2rem;
+            line-height: 1.25;
         }
     }
 }
