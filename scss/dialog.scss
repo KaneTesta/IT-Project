@@ -27,9 +27,13 @@
     .dialog-content {
         z-index: 1;
 
+        overflow: auto;
+
         box-sizing: border-box;
         min-width: 24rem;
-        margin: $padding-large;
+        max-width: 40vw;
+        max-height: 90vh;
+        margin: $padding-small;
         padding: $padding-medium $padding-large;
 
         transition: opacity 0.12s ease-in, transform 0.12s ease-in;
@@ -43,6 +47,7 @@
 
         @media screen and (max-width: $breakpoint-medium) {
             min-width: 20rem;
+            max-width: 100vw;
         }
 
         @media screen and (max-width: $breakpoint-small) {
@@ -79,6 +84,7 @@
             display: flex;
             flex-direction: column;
 
+            width: auto;
             min-width: auto;
 
             align-items: center;

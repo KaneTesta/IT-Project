@@ -5,6 +5,14 @@ body {
     font-weight: 400;
 }
 
+::selection {
+    background: transparentize($accent-color, 0.75);
+}
+
+::-moz-selection {
+    background: transparentize($accent-color, 0.75);
+}
+
 h1,
 h2,
 h3,
