@@ -18,5 +18,4 @@ const artefactSchema = mongoose.Schema({
 });
 
 artefactSchema.plugin(mongoosePaginate);
-
 mongoose.model('Artefact', artefactSchema);
