@@ -71,7 +71,7 @@ const addArtefact = (req, callback) => {
 						const artefact = new Artefact({
 							name: artefactName,
 							description: artefactDescription,
-							image: [artefactImage],
+							image: artefactImage,
 						});
 
 						if (page.artefacts) {

@@ -4,7 +4,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const artefactSchema = mongoose.Schema({
 	name: String,
 	description: String,
-	image: [String],
+	image: String,
 	documentation: [String],
 	insurance: [String],
 	owner: {
