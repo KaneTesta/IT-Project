@@ -27,9 +27,12 @@
     .dialog-content {
         z-index: 1;
 
+        overflow: auto;
+
         box-sizing: border-box;
         min-width: 24rem;
         max-width: 40vw;
+        max-height: 90vh;
         margin: $padding-small;
         padding: $padding-medium $padding-large;
 

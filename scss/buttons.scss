@@ -12,6 +12,14 @@ button {
     outline: none;
 }
 
+::-moz-focus-inner {
+    border: 0;
+}
+
+:-moz-focusring {
+    outline: none;
+}
+
 .button,
 .button-icon,
 .button-icon-noborder,
