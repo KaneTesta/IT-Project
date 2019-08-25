@@ -44,7 +44,6 @@ const addArtefact = (req, callback) => {
 	const artefactId = req.body.artefactid;
 	const artefactName = req.body.artefactname;
 	const artefactDescription = req.body.artefactdescription || '';
-	const artefactImage = req.file.cloudStoragePublicUrl || '';
 
 	// Check page name
 	if (!artefactName || artefactName === '') {
@@ -71,7 +70,6 @@ const addArtefact = (req, callback) => {
 						const artefact = new Artefact({
 							name: artefactName,
 							description: artefactDescription,
-							image: artefactImage,
 						});
 
 						if (page.artefacts) {

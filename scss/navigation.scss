@@ -15,26 +15,6 @@
         margin: 0;
         padding: 0;
     }
-
-    .navigation-top-buttons {
-        display: flex;
-        flex-direction: row;
-
-        & > .button,
-        & > .button-icon,
-        & > .button-icon-noborder,
-        & > .dropdown-container {
-            margin: 0 $padding-medium;
-
-            &:first-child {
-                margin-left: 0;
-            }
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-    }
 }
 
 .navigation-sidebar {

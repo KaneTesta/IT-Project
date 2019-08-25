@@ -1,21 +1,15 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 
 const artefactSchema = mongoose.Schema({
-	name: String,
-	description: String,
-	image: String,
-	documentation: [String],
-	insurance: [String],
-	owner: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
+	name: {
+		type: String,
+		trim: true,
 	},
-	read_access: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
-	}],
+	description: {
+		type: String,
+		trim: true,
+	},
+	image: String,
 });
 
-artefactSchema.plugin(mongoosePaginate);
-mongoose.model('Artefact', artefactSchema);
+mongoose.model('artefact', artefactSchema);

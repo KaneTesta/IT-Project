@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
 const pageController = require('../controllers/pageController');
-const imageUploader = require('../lib/images');
 
 const router = express.Router();
 
@@ -30,7 +29,7 @@ router.post('/:id/updatepage', (req, res, next) => {
 });
 
 /* POST create new artefact page for current user */
-router.post('/:id/addartefact', imageUploader.sendUploadToGCS, (req, res, next) => {
+router.post('/:id/addartefact', (req, res, next) => {
 	if (req.session && req.session.passport && req.session.passport.user) {
 		pageController.addArtefact(req, (msg) => { sendResponse(msg, req, res, next); });
 	} else {
@@ -47,7 +46,7 @@ router.post('/:id/deleteartefact', (req, res, next) => {
 	}
 });
 
-/* GET data for an artefact for the current user */
+/* POST create new artefact page for current user */
 router.get('/:pageid/artefact/:artefactid', (req, res, next) => {
 	if (req.session && req.session.passport && req.session.passport.user) {
 		pageController.getArtefact(req, (msg) => {

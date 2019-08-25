@@ -12,14 +12,6 @@ button {
     outline: none;
 }
 
-::-moz-focus-inner {
-    border: 0;
-}
-
-:-moz-focusring {
-    outline: none;
-}
-
 .button,
 .button-icon,
 .button-icon-noborder,
@@ -145,7 +137,7 @@ button {
 
         pointer-events: none;
 
-        border-radius: $border-radius;
+        border-radius: 1.5rem;
     }
 
     .button-icon-dropdown {
