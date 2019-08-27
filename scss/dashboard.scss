@@ -25,6 +25,7 @@
 
         display: flex;
         flex-direction: column;
+        overflow: hidden;
 
         box-sizing: border-box;
         width: 100%;
@@ -49,7 +50,7 @@
         }
 
         &:active {
-            transform: scale(1.02);
+            transform: scale(1);
         }
 
         &.page-action {
@@ -61,16 +62,53 @@
             font-size: 2.5rem;
         }
 
+        img {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 100%;
+
+            border-radius: none;
+
+            object-fit: cover;
+        }
+
         p {
             margin-top: 0.5rem;
 
             font-size: 1rem;
         }
 
-        .dashboard-page-title {
+        .dashboard-page-title,
+        .dashboard-item-title {
+            box-sizing: border-box;
+            margin: 0;
+            padding: $padding-tiny $padding-medium;
+
             pointer-events: none;
 
             font-size: 1.5rem;
+        }
+
+        .dashboard-item-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            max-height: 100%;
+
+            text-transform: none;
+
+            background-color: rgba($foreground-color, 0.87);
+
+            font-family: $font-subheading;
+            font-size: 1.2rem;
+            line-height: 1.25;
         }
     }
 }

@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 
-    <% include ../includes/head %>
+<% include ../includes/head %>
 
-    <body>
+<body>
+
+	<div class="main-content">
 
         <% include ../includes/elements/navigation %>
 
         <div class="page-content">
             <h1><%= page.name %></h1>
+
+            <div class="button-group flex-left">
+                <a class="button" href="/">Back to Dashboard</a>
+            </div>
             
             <h2>Artefacts</h2>
             <div id="PageGridArtefacts" class="dashboard-grid">
@@ -16,7 +22,12 @@
                     <% for (let i = 0; i < page.artefacts.length; ++i) { %>
                         <button class="dashboard-page page-artefact button-icon-noborder"
                             data-page-id="<%= page._id %>" data-artefact-id="<%= page.artefacts[i]._id %>">
-                            <p class="dashboard-page-title"><%= page.artefacts[i].name %></p>
+                            <i class="material-icons-outlined">photo</i>
+                            <% if (page.artefacts[i].image) { %>
+                                <img src="<%= page.artefacts[i].image %>" alt="<%= page.artefacts[i].name %>"/>
+                            <% }; %>
+                            
+                            <p class="dashboard-item-title"><%= page.artefacts[i].name %></p>
                         </button>
                     <% }; %>
                 <% }; %>
@@ -35,9 +46,11 @@
         <% include ../includes/dialogs/dialogEditArtefact %>
         <% include ../includes/dialogs/dialogAddArtefact %>
 
-        <script defer src="/js/page.js"></script>
-        <% include ../includes/scripts %>
-        
-    </body>
+    </div>
+    
+    <script defer src="/js/page.js"></script>
+    <% include ../includes/scripts %>
+
+</body>
 
 </html>

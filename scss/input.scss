@@ -1,3 +1,4 @@
+button,
 input,
 select,
 textarea {
@@ -23,6 +24,10 @@ input[type="text"] {
 select,
 textarea,
 input[type="text"] {
+    position: relative;
+
+    overflow: hidden;
+
     box-sizing: border-box;
     margin-bottom: $padding-medium;
     padding: $padding-medium $padding-medium;
@@ -33,6 +38,18 @@ input[type="text"] {
     border-radius: $border-radius;
 
     appearance: none;
+
+    ::-ms-clear {
+        display: none;
+    }
+
+    &::placeholder {
+        color: $text-color-detail;
+    }
+
+    &:invalid {
+        border-color: $error-color;
+    }
 
     &:focus {
         border-color: $accent-color;
