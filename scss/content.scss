@@ -3,6 +3,8 @@ body {
     padding: 0;
 
     background-color: $background-color;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 .page-content {

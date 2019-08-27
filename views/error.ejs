@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 
-    <% include includes/head %>
+<% include includes/head %>
 
-    <body>
+<body>
 
+	<div class="main-content">
         <% include includes/elements/navigation %>
 
         <div class="page-content">
@@ -18,9 +19,10 @@
                 <pre><%= error.stack %></pre>
             <% }; %>
         </div>
+    </div>
 
-        <% include includes/scripts %>
-        
-    </body>
+    <% include includes/scripts %>
+    
+</body>
 
 </html>
