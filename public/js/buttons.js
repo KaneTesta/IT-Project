@@ -25,8 +25,9 @@ $(() => {
 			}
 
 			// Set image name
-			if (imageName) {
-				$("#AddArtefactImageName").val(imageName);
+			const imageDescriptionId = $fileButton.attr('data-file-description');
+			if (imageName && imageDescriptionId) {
+				$(`#${imageDescriptionId}`).val(imageName);
 			}
 		});
 	});

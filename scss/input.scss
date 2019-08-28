@@ -12,7 +12,30 @@ textarea {
 }
 
 input[type="file"] {
-    display: none;
+    display: block;
+
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+
+    opacity: 0;
+    border: none;
+
+    flex: 0;
+}
+
+input[type="file"] {
+    &:hover + label.button,
+    &:focus + label.button {
+        background-color: $accent-color-hover;
+        box-shadow: $shadow-button-hover;
+    }
+
+    &:active + label.button {
+        background-color: $accent-color-active;
+        box-shadow: $shadow-button-active;
+    }
 }
 
 textarea {
