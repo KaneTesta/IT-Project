@@ -11,6 +11,10 @@ textarea {
     font-family: $font-body;
 }
 
+input[type="file"] {
+    display: none;
+}
+
 textarea {
     resize: none;
 }
@@ -53,6 +57,11 @@ input[type="text"] {
 
     &:focus {
         border-color: $accent-color;
+    }
+
+    &.input-description {
+        margin-bottom: 0;
+        padding: $padding-small $padding-medium;
     }
 }
 

@@ -13,4 +13,21 @@ $(() => {
 			}
 		});
 	});
+
+	// Setup file upload buttons
+	$('[data-file-description]').each((i, el) => {
+		const $fileButton = $(el);
+		$fileButton.on('change', (e) => {
+			// Get image name
+			let imageName = null;
+			if (e.target && e.target.files && e.target.files.length > 0) {
+				imageName = e.target.files[0].name;
+			}
+
+			// Set image name
+			if (imageName) {
+				$("#AddArtefactImageName").val(imageName);
+			}
+		});
+	});
 });
