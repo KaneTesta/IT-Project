@@ -8,16 +8,16 @@ STAND UP – Umun
 
 -	3 Q’s in stand up 
 -	What have you done so far – individual, 
-*	What are you working on for next week 
-*	Are there any obstacles you’re currently facing 
+  *	What are you working on for next week 
+  *	Are there any obstacles you’re currently facing 
 
 -	Divide requirements up into most urgent 
 -	Wants to see documentation for each week, wants to see mockups. (In a google drive) 
-*	Authorship on documents 
+  *	Authorship on documents 
 
 
 -	Scope document by 15/08/2019 
-*	Doesn’t need anything concrete 
+  *	Doesn’t need anything concrete 
 STAND UP – 14/08/2019 
 
 Joel
