@@ -14,7 +14,7 @@ $(() => {
 		});
 	});
 
-	// Setup file upload buttons
+	// Setup file upload buttons, by looking for elements with a 'data-file-description' attribute
 	$('[data-file-description]').each((i, el) => {
 		const $fileButton = $(el);
 		$fileButton.on('change', (e) => {
@@ -24,8 +24,9 @@ $(() => {
 				imageName = e.target.files[0].name;
 			}
 
-			// Set image name
+			// Get id of image description input
 			const imageDescriptionId = $fileButton.attr('data-file-description');
+			// Set image name
 			if (imageName && imageDescriptionId) {
 				$(`#${imageDescriptionId}`).val(imageName);
 			}
