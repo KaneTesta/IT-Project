@@ -14,11 +14,10 @@
 
             <p class="input-heading">Image</p>
             <div class="button-group">
+                <input id="EditArtefactImageName" class="input-description" type="text" name="imagename" placeholder="No Image Uploaded" disabled>
+
+                <input id="EditArtefactUploadImage" data-file-description="EditArtefactImageName" type="file" name="image" accept="image/*;capture=camera">
                 <label for="EditArtefactUploadImage" class="button">Upload Image</label>
-                <input id="EditArtefactUploadImage" data-file-description="EditArtefactImageName"
-                    type="file" name="image" accept="image/*;capture=camera">
-                <input id="EditArtefactImageName" class="input-description"
-                    type="text" name="imagename" placeholder="No Image Uploaded" disabled>
             </div>
 
             <input type="submit" value="Update Artefact" class="button dialog-action">

@@ -2,10 +2,9 @@
 <noscript>
 
     <style>
-
-    .main-content {
-        display: none;
-    }
+        .main-content {
+            display: none;
+        }
 
     </style>
 
@@ -27,29 +26,29 @@
 <!-- Use Modernizr to check browser features -->
 <script src="/js/vendor/modernizr.js"></script>
 <script type="text/javascript">
-(function() {
-    'use strict';
+    (function () {
+        'use strict';
 
-    try {
-        // Check CSS
-        if (!Modernizr.cssgrid || !Modernizr.flexbox) {
-            throw new Error("Does not support necessary CSS");
-        }
+        try {
+            // Check CSS
+            if (!Modernizr.cssgrid || !Modernizr.flexbox) {
+                throw new Error("Does not support necessary CSS");
+            }
 
-        // Check JavaScript
-        if (!Modernizr.arrow) {
-            throw new Error("Does not support necessary JavaScript");
+            // Check JavaScript
+            if (!Modernizr.arrow) {
+                throw new Error("Does not support necessary JavaScript");
+            }
+        } catch (e) {
+            // Hide main content
+            var i;
+            var main = document.getElementsByClassName("main-content");
+            for (i = 0; i < main.length; i += 1) {
+                main[i].style.display = "none";
+            }
+
+            // Show error message
+            document.getElementById("BrowserUpgradeMessage").style.display = "block";
         }
-    } catch (e) {
-        // Hide main content
-        var i;
-        var main = document.getElementsByClassName("main-content");
-        for (i = 0; i < main.length; i += 1) {
-            main[i].style.display = "none";
-        }
-        
-        // Show error message
-        document.getElementById("BrowserUpgradeMessage").style.display = "block";
-    }
-})();
+    })();
 </script>

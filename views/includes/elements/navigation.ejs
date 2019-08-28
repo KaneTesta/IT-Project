@@ -6,7 +6,7 @@
     <div class="flex-fill"></div>
 
     <div class="navigation-top-buttons">
-    <% if (user) { %>
+        <% if (user) { %>
         <a class="button-icon" href="/">
             <i class="material-icons-outlined">dashboard</i>
         </a>
@@ -14,11 +14,11 @@
         <div class="dropdown-container">
             <button class="button-icon" data-dropdown="DropdownUser">
                 <% if (user.display_picture) { %>
-                    <img src="<%= user.display_picture %>"/>
+                <img src="<%= user.display_picture %>" />
                 <% } else { %>
-                    <i class="material-icons-outlined">account_circle</i>
+                <i class="material-icons-outlined">account_circle</i>
                 <% }; %>
-                
+
                 <i class="material-icons-outlined button-icon-dropdown">arrow_drop_down</i>
             </button>
 
@@ -26,12 +26,12 @@
                 <div class="dropdown-panel dropdown-heading">
                     <p><%= user.display_name %></p>
                 </div>
-                
-                <div class="dropdown-panel">                    
+
+                <div class="dropdown-panel">
                     <form action="/user/logout" method="post" data-post-text="Logging Out">
                         <input type="submit" value="Log Out" class="button-menu">
                     </form>
-                    
+
                     <a class="button-menu" href="/auth/google">Switch User</a>
                 </div>
 
@@ -42,8 +42,8 @@
                 </div>
             </div>
         </div>
-    <% } else { %>
+        <% } else { %>
         <a class="button" href="/auth/google">Log In</a>
-    <% }; %>
+        <% }; %>
     </div>
 </header>
