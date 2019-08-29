@@ -22,7 +22,7 @@
 
 ### STAND UP – 14/08/2019
 
-### Joel
+### James
 -	Set up mongo db
 -	Created a mockup schema
 -	(Needs to share documentation)
@@ -35,7 +35,7 @@
 -	Created Heroku, connects to github
 -	()
 
-### James
+### Joel
 -	Created barebones express website on Heroku
 -	“Hello world”
 
