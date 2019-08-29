@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
+const images = require('../lib/images');
 
 const artefactSchema = mongoose.Schema({
 	name: String,
@@ -7,15 +7,26 @@ const artefactSchema = mongoose.Schema({
 	image: String,
 	documentation: [String],
 	insurance: [String],
+	tags: [String],
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 	},
-	read_access: [{
+	viewer: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 	}],
 });
 
-artefactSchema.plugin(mongoosePaginate);
-mongoose.model('artefact', artefactSchema);
+artefactSchema.virtual('imageUrl').get(function getImageUrl() {
+	return images.getPublicUrl(this.image);
+});
+
+// Delete image from storage on artefact deletion
+artefactSchema.pre('remove', (next) => {
+	images.deleteFromGCS(this.image).then(next());
+});
+
+artefactSchema.statics.viewerRestrictions = 'name description';
+
+module.exports = mongoose.model('Artefact', artefactSchema);
