@@ -1,6 +1,6 @@
 # Rewrite
 
-To better align the project with the specifications outlined by the User Stories was undertaken.
+To better align the project with the specifications outlined by the User Stories a backend rewrite/refactor was undertaken.
 
 This involved simplifying the codebase by abstracting reusable logic using express middleware for the user authentication flow and advanced mongoose features for image management and artefact sharing.
 
