@@ -22,7 +22,6 @@ mongoose.connect(dbURI, options).then(
 );
 
 require('./artefact');
-require('./artefactpage');
 require('./user');
 
 module.exports = {
