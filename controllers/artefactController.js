@@ -59,10 +59,16 @@ exports.createArtefact = [
 exports.editArtefact = [
 	oauth2.required,
 	checkOwner,
+	// Validate Body
+	body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
+	body('description', 'Description must not be empty.').isLength({ min: 1 }).trim(),
+
+	// Sanitise Body
+	sanitizeBody('*').escape(),
+
 	(req, res, next) => {
 		const errors = validationResult(req);
 
-		// TODO Check if image is modified, trigger a delete if so
 		const artefact = new Artefact({
 			name: req.body.name,
 			description: req.body.description,
@@ -90,5 +96,36 @@ exports.deleteArtefact = [
 			if (err) next(err);
 			res.redirect('/user/dashboard');
 		});
+	},
+];
+
+exports.addViewer = [
+	oauth2.required,
+	checkOwner,
+	(req, res, next) => {
+		const { viewerId, artefactId } = req.body;
+
+		Artefact.findByIdAndUpdate(artefactId,
+			{ $push: { viewers: viewerId } },
+			(err, artefact) => {
+				if (err) next(err);
+				res.json(artefact);
+			});
+	},
+];
+
+
+exports.removeViewer = [
+	oauth2.required,
+	checkOwner,
+	(req, res, next) => {
+		const { viewerId, artefactId } = req.body;
+
+		Artefact.findByIdAndUpdate(artefactId,
+			{ $pull: { viewers: viewerId } },
+			(err, artefact) => {
+				if (err) next(err);
+				res.json(artefact);
+			});
 	},
 ];
