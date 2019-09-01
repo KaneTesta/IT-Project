@@ -77,6 +77,10 @@ exports.editArtefact = [
 			_id: req.params.id,
 		});
 
+		if (req.file) {
+			artefact.images.item.filename = req.file.cloudStorageObject;
+		}
+
 		if (!errors.isEmpty()) {
 			next(errors);
 		} else {
