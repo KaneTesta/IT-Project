@@ -67,7 +67,7 @@ With schema, middleware and feature requirement changes comes changes to the con
       - editArtefact
         - expects artefact details to be in req.body
       - deleteArtefact
-        - expects artefact id to be req.params.id
+        - expects artefact id to be req.body.id
       - addViewer
         - expects artefact id and viewer id to be in req.body
       - removeViewer
