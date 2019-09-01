@@ -10,3 +10,10 @@ exports.getUserDashboard = (req, res, next) => {
 		}
 	});
 };
+
+exports.getAllUsers = (req, res, next) => {
+	User.find({}, 'display_name email', (err, users) => {
+		if (err) next(err);
+		res.json(users);
+	});
+};
