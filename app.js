@@ -4,6 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 const logger = require('morgan');
 const passport = require('passport');
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -56,6 +57,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.SESSION_USER_SECRET));
