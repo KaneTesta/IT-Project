@@ -15,6 +15,7 @@
     "@google-cloud/storage": "^3.1.0",
     "async": "^3.1.0",
     "compression": "^1.7.4",
+    "concat-stream": "^2.0.0",
     "connect-mongodb-session": "^2.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -33,6 +34,7 @@
     "node-sass": "^4.12.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
+    "sharp": "^0.23.0",
     "zip-stream": "^2.1.2"
   },
   "devDependencies": {
