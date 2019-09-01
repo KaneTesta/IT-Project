@@ -74,7 +74,7 @@ exports.editArtefact = [
 			description: req.body.description,
 			tags: req.body.tags,
 			owner: req.user.id,
-			_id: req.params.id,
+			_id: req.body.id,
 		});
 
 		if (req.file) {
@@ -96,7 +96,7 @@ exports.deleteArtefact = [
 	oauth2.required,
 	checkOwner,
 	(req, res, next) => {
-		Artefact.findByIdAndDelete(req.params.id, (err) => {
+		Artefact.findByIdAndDelete(req.body.id, (err) => {
 			if (err) next(err);
 			res.redirect('/user/dashboard');
 		});
