@@ -62,6 +62,7 @@ app.use(cookieParser(process.env.SESSION_USER_SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routes
+app.use('/', oauth2.template); // Include res.locals
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/artefact', artefactRouter);
