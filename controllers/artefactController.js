@@ -41,7 +41,7 @@ exports.createArtefact = [
 			name: req.body.name,
 			description: req.body.description,
 			tags: req.body.tags,
-			image: req.file.cloudStorageObject,
+			image: { item: { filename: req.file.cloudStorageObject } },
 			owner: req.user.id,
 		});
 
