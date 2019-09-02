@@ -41,9 +41,12 @@ exports.createArtefact = [
 			name: req.body.name,
 			description: req.body.description,
 			tags: req.body.tags,
-			image: { item: { filename: req.file.cloudStorageObject } },
 			owner: req.user.id,
 		});
+
+		if (req.file) {
+			artefact.images.item.filename = req.file.cloudStorageObject;
+		}
 
 		if (!errors.isEmpty()) {
 			next(errors);
@@ -59,6 +62,11 @@ exports.createArtefact = [
 exports.editArtefact = [
 	oauth2.required,
 	checkOwner,
+
+	// Upload image
+	images.multer.single('image'),
+	images.sendUploadToGCS,
+
 	// Validate Body
 	body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
 	body('description', 'Description must not be empty.').isLength({ min: 1 }).trim(),
