@@ -43,6 +43,7 @@ const addArtefact = (req, callback) => {
 	const pageId = req.params.id;
 	const artefactId = req.body.artefactid;
 	const artefactName = req.body.artefactname;
+	const artefacttags = req.body.artefacttags;
 	const artefactDescription = req.body.artefactdescription || '';
 	// Get image from req, if provided
 	let artefactImage = null;
@@ -81,6 +82,7 @@ const addArtefact = (req, callback) => {
 							name: artefactName,
 							description: artefactDescription,
 							image: artefactImage,
+							tags: artefacttags,
 						});
 
 						if (page.artefacts) {

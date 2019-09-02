@@ -40,6 +40,7 @@ $(() => {
 				const artefact = JSON.parse(data);
 				$('#ArtefactViewName').html(artefact.name);
 				$('#ArtefactViewDescription').html(artefact.description);
+				$('#ArtefactViewTags').html(artefact.tags);
 				$('#ArtefactViewImage').attr('src', artefact.image);
 				$('#ArtefactViewImage').attr('alt', artefact.name);
 				// Set edit button action
