@@ -15,7 +15,15 @@
             <div class="button-group flex-left">
                 <a class="button" href="/">Back to Dashboard</a>
             </div>
-            
+            <input type="text" id="tagInput" onkeyup="filterTags()" placeholder="Select Tags">
+
+		  <div class="button-group flex-left">
+			  <% for (let i = 0; i < 1; ++i) { %>
+			     <button id ="tag", class="button">INSERT_TAG_HERE</button>
+			     <% }; %>
+		  </div>
+
+
             <h2>Artefacts</h2>
             <div id="PageGridArtefacts" class="dashboard-grid">
                 <% if (page && page.artefacts) { %>
@@ -26,7 +34,7 @@
                             <% if (page.artefacts[i].image) { %>
                                 <img src="<%= page.artefacts[i].image %>" alt="<%= page.artefacts[i].name %>"/>
                             <% }; %>
-                            
+
                             <p class="dashboard-item-title"><%= page.artefacts[i].name %></p>
                         </button>
                     <% }; %>
@@ -47,7 +55,7 @@
         <% include ../includes/dialogs/dialogAddArtefact %>
 
     </div>
-    
+
     <script defer src="/js/page.js"></script>
     <% include ../includes/scripts %>
 

@@ -14,6 +14,7 @@
             <h2>My Artefact Pages</h2>
             <div id="DashboardGridMyPages" class="dashboard-grid">
                 <% if (user && user.pages) { %>
+
                     <% for (let i = 0; i < user.pages.length; ++i) { %>
                         <a class="dashboard-page button-icon-noborder" href="/page/<%= user.pages[i]._id %>">
                             <p class="dashboard-page-title"><%= user.pages[i].name %></p>
@@ -34,7 +35,7 @@
 
         <% include ../includes/dialogs/dialogAddPage %>
     </div>
-    
+
     <script defer src="/js/dashboard.js"></script>
     <% include ../includes/scripts %>
 

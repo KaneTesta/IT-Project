@@ -7,6 +7,7 @@ const artefactSchema = mongoose.Schema({
 	image: String,
 	documentation: [String],
 	insurance: [String],
+	tags: [String],
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
