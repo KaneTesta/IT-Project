@@ -7,6 +7,13 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
+img {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+}
+
 .page-content {
     max-width: 84rem;
     margin: auto;

@@ -5,8 +5,7 @@
 
         <form action="/page/<%= page._id %>/updatepage" method="post" autocomplete="off" data-post-text="Updating Page">
             <p class="input-heading">Page Name</p>
-            <input id="EditPageName" type="text" name="pagename"
-                value="<%= page.name %>" placeholder="Page Name" required>
+            <input id="EditPageName" type="text" name="pagename" value="<%= page.name %>" placeholder="Page Name" required>
 
             <input type="submit" value="Update Page" class="button dialog-action">
         </form>

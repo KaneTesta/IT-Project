@@ -72,6 +72,7 @@
         }
     }
 
+    & > input,
     & > .button,
     & > .button-icon,
     & > .button-icon-noborder,
@@ -88,6 +89,7 @@
     }
 
     &.button-group-wide {
+        & > input,
         & > .button,
         & > .button-icon,
         & > .button-icon-noborder,
@@ -105,6 +107,7 @@
     }
 
     &.button-group-responsive {
+        & > input,
         & > .button,
         & > .button-icon,
         & > .button-icon-noborder,

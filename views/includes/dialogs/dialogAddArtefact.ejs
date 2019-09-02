@@ -10,7 +10,13 @@
             <p class="input-heading">Description</p>
             <textarea name="artefactdescription" rows="6" placeholder="Artefact Description"></textarea>
 
-            <input type="file" name="image" accept="image/*;capture=camera">
+            <p class="input-heading">Image</p>
+            <div class="button-group">
+                <input id="AddArtefactImageName" class="input-description" type="text" name="imagename" placeholder="No Image Uploaded" disabled>
+
+                <input id="AddArtefactUploadImage" data-file-description="AddArtefactImageName" type="file" name="image" accept="image/*;capture=camera">
+                <label for="AddArtefactUploadImage" class="button">Upload Image</label>
+            </div>
 
             <input type="submit" value="Add Artefact" class="button dialog-action">
         </form>

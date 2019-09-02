@@ -27,6 +27,8 @@ $(() => {
 		if (dialogViewArtefact && pageId && artefactId) {
 			$('#ArtefactViewName').html('');
 			$('#ArtefactViewDescription').html('');
+			$('#ArtefactViewImage').attr('src', '');
+			$('#ArtefactViewImage').attr('alt', '');
 			// Create loading dialog
 			const loadingDialog = window.dialogManager.createNewLoadingDialog('Loading Artefact');
 			loadingDialog.show();
@@ -38,6 +40,8 @@ $(() => {
 				const artefact = JSON.parse(data);
 				$('#ArtefactViewName').html(artefact.name);
 				$('#ArtefactViewDescription').html(artefact.description);
+				$('#ArtefactViewImage').attr('src', artefact.image);
+				$('#ArtefactViewImage').attr('alt', artefact.name);
 				// Set edit button action
 				$('#ArtefactViewButtonEdit').off('click');
 				$('#ArtefactViewButtonEdit').on('click', () => {
@@ -47,6 +51,7 @@ $(() => {
 					$('#EditArtefactId').val(artefact._id);
 					$('#EditArtefactName').val(artefact.name);
 					$('#EditArtefactDescription').val(artefact.description);
+					$('#EditArtefactImageName').val(artefact.image);
 					$('#EditArtefactDeleteId').val(artefact._id);
 					dialogEditArtefact.show();
 				});

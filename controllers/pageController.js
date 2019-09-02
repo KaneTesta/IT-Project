@@ -44,7 +44,11 @@ const addArtefact = (req, callback) => {
 	const artefactId = req.body.artefactid;
 	const artefactName = req.body.artefactname;
 	const artefactDescription = req.body.artefactdescription || '';
-	const artefactImage = req.file.cloudStoragePublicUrl || '';
+	// Get image from req, if provided
+	let artefactImage = null;
+	if (req.file) {
+		artefactImage = req.file.cloudStoragePublicUrl || '';
+	}
 
 	// Check page name
 	if (!artefactName || artefactName === '') {
@@ -57,6 +61,7 @@ const addArtefact = (req, callback) => {
 				const { page } = msg.result;
 				const { user } = msg.result;
 				if (user && page) {
+					// Check if we should edit an artefact, or create a new one
 					if (artefactId) {
 						// Edit existing artefact
 						for (let i = 0; i < page.artefacts.length; i += 1) {
@@ -64,6 +69,10 @@ const addArtefact = (req, callback) => {
 								&& page.artefacts[i]._id.toString() === artefactId.toString()) {
 								page.artefacts[i].name = artefactName;
 								page.artefacts[i].description = artefactDescription;
+								// Don't update image unless a new image is provided
+								if (artefactImage) {
+									page.artefacts[i].image = artefactImage;
+								}
 							}
 						}
 					} else {

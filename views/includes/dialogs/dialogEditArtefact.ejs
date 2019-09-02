@@ -3,7 +3,7 @@
     <div class="dialog-content">
         <h1 class="dialog-heading">Edit Artefact</h1>
 
-        <form action="/page/<%= page._id %>/addartefact" method="post" autocomplete="off" data-post-text="Updating Artefact">
+        <form action="/page/<%= page._id %>/addartefact" method="post" autocomplete="off" data-post-text="Updating Artefact" enctype="multipart/form-data">
             <input id="EditArtefactId" type="hidden" name="artefactid" required>
 
             <p class="input-heading">Artefact Name</p>
@@ -11,6 +11,14 @@
 
             <p class="input-heading">Description</p>
             <textarea id="EditArtefactDescription" name="artefactdescription" rows="4" placeholder="Artefact Description"></textarea>
+
+            <p class="input-heading">Image</p>
+            <div class="button-group">
+                <input id="EditArtefactImageName" class="input-description" type="text" name="imagename" placeholder="No Image Uploaded" disabled>
+
+                <input id="EditArtefactUploadImage" data-file-description="EditArtefactImageName" type="file" name="image" accept="image/*;capture=camera">
+                <label for="EditArtefactUploadImage" class="button">Upload Image</label>
+            </div>
 
             <input type="submit" value="Update Artefact" class="button dialog-action">
         </form>

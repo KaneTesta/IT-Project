@@ -5,24 +5,24 @@
 
 <body>
 
-	<div class="main-content">
+    <div class="main-content">
         <% include includes/elements/navigation %>
 
         <div class="page-content">
             <h1>Error</h1>
             <p><%= message %></p>
-            
+
             <% if (error.status || error.stack) { %>
-                <br>
-                <h2>Debug Info</h2>
-                <h3><%= error.status %></h3>
-                <pre><%= error.stack %></pre>
+            <br>
+            <h2>Debug Info</h2>
+            <h3><%= error.status %></h3>
+            <pre><%= error.stack %></pre>
             <% }; %>
         </div>
     </div>
 
     <% include includes/scripts %>
-    
+
 </body>
 
 </html>

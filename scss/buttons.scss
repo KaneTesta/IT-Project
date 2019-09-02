@@ -30,6 +30,7 @@ button {
     flex-direction: row;
 
     box-sizing: border-box;
+    width: auto;
 
     cursor: pointer;
     transition: background-color 0.1s ease, color 0.1s ease;
@@ -43,6 +44,7 @@ button {
     font-size: 0.9rem;
 
     align-items: center;
+    flex: none;
     justify-content: center;
 }
 

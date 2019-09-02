@@ -57,9 +57,18 @@
 
         .dialog-heading {
             margin-top: $padding-small;
+            padding-top: 0;
             padding-right: 4rem;
 
             font-size: 1.5rem;
+        }
+
+        .dialog-image {
+            width: 100%;
+            margin-bottom: $padding-medium;
+
+            border: none;
+            border-radius: $border-radius;
         }
 
         .dialog-button-close {
@@ -75,7 +84,7 @@
 
         .dialog-action {
             width: 100%;
-            margin-top: $padding-large;
+            margin-top: $padding-medium;
         }
     }
 
