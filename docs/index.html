@@ -12,7 +12,7 @@ title: Home
 <ul>
     {% for page in site.pages %}
     {% if page.content and page.category == category %}
-    <li><a href="{{ page.url | remove: page.extension }}">{{ page.title }}</a></li>
+    <li><a href="{{ site.url }}{{ page.url | remove: page.extension }}">{{ page.title }}</a></li>
     {% endif %}
     {% endfor %}
 </ul>
