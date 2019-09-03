@@ -1,1 +1,11 @@
+github: [metadata]
 theme: jekyll-theme-cayman
+
+content_categories: ["Requirements", "Justifications", "Standup Minutes", "Sprint Retrospectives", "Wiki"]
+
+defaults:
+  - scope:
+      path: "content"
+    values:
+      content: true
+      layout: document
