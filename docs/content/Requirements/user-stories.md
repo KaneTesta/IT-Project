@@ -1,4 +1,8 @@
-# User Stories
+---
+title: User Stories
+category: Requirements
+author: 
+---
 
 - As a creator of a family artifact database I want to be able to keep track of my physical artefacts with monetary or sentimental value, in order to assist in the creation of my will.
 - As a user I want to be able to view all the artifacts associated with my family on one central page, so that they are easy to find and browse.

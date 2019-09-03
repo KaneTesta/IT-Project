@@ -1,4 +1,8 @@
-# Requirements Analysis – 14/08/2019
+---
+title: Requirements Analysis
+category: Requirements
+author: 
+---
 
 - Front end database to track family artefacts.
 - Motivated by a desire to make creating a will easier. A way to manage and track physical objects with monetary or sentimental value.
@@ -13,8 +17,6 @@
 - Allow the ability to connect it to an existing family tree/genealogy.  (really interested in the ability to associate a physical artefact with a person.) (Possible Ancestry.com API)  
 - Web app with mobile support. (Focus on the laptop, only use phone for photography)
 - Colour scheme – (No preference)
-	- No garish colours, subtle, muted tones.
+  - No garish colours, subtle, muted tones.
 - Simple user interface, uncluttered screen.
 - Will let us know if there is a specific style of UI that he likes or sees out in the wild.
-
-

@@ -1,4 +1,8 @@
-## ESLint
+---
+title: ESLint
+category: Justifications
+author: 
+---
 
 ESLint has been added as a dev dependency, the configuration file is located in the root directory as `.eslintrc.json`, currently set up to lint using the airbnb javascript standard, for both front and back end.
 
