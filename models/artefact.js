@@ -5,7 +5,9 @@ const imageSchema = mongoose.Schema({
 	filename: String,
 });
 
-imageSchema.pre('remove', images.deleteFromGCS(this.filename));
+imageSchema.pre('remove', function deleteImage(next) {
+	images.deleteFromGCS(this.image).then(next());
+});
 
 imageSchema.virtual('url').get(function getImageUrl() {
 	return images.getPublicUrl(this.filename);
