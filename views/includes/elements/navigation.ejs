@@ -28,22 +28,17 @@
                 </div>
 
                 <div class="dropdown-panel">
-                    <form action="/user/logout" method="post" data-post-text="Logging Out">
-                        <input type="submit" value="Log Out" class="button-menu">
-                    </form>
-
-                    <a class="button-menu" href="/auth/google">Switch User</a>
+                    <a class="button-menu" href="/auth/logout">Log Out</a>
+                    <a class="button-menu" href="/auth/login">Switch User</a>
                 </div>
 
                 <div class="dropdown-panel">
-                    <form action="/user/delete" method="post" data-post-text="Deleting Account">
-                        <input type="submit" value="Delete Account" class="button-menu button-error">
-                    </form>
+                    <a class="button-menu button-error" href="/auth/delete">Delete Account</a>
                 </div>
             </div>
         </div>
         <% } else { %>
-        <a class="button" href="/auth/google">Log In</a>
+        <a class="button" href="/auth/login">Log In</a>
         <% }; %>
     </div>
 </header>
