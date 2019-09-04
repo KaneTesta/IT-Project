@@ -3,11 +3,11 @@
     <div class="dialog-content">
         <h1 class="dialog-heading">Edit Artefact</h1>
 
-        <form action="/page/<%= page._id %>/addartefact" method="post" autocomplete="off" data-post-text="Updating Artefact">
-            <input id="EditArtefactId" type="hidden" name="artefactid" required>
+        <form action="/artefact/edit" method="post" autocomplete="off" data-post-text="Updating Artefact">
+            <input id="EditArtefactId" type="hidden" name="id" required>
 
             <p class="input-heading">Artefact Name</p>
-            <input id="EditArtefactName" type="text" name="artefactname" placeholder="Artefact Name" required>
+            <input id="EditArtefactName" type="text" name="name" placeholder="Artefact Name" required>
 
             <p class="input-heading">Description</p>
             <textarea id="EditArtefactDescription" name="artefactdescription" rows="4" placeholder="Artefact Description"></textarea>
@@ -15,8 +15,8 @@
             <input type="submit" value="Update Artefact" class="button dialog-action">
         </form>
 
-        <form action="/page/<%= page._id %>/deleteartefact" method="post" autocomplete="off" data-post-text="Deleting Artefact">
-            <input id="EditArtefactDeleteId" type="hidden" name="artefactid" required>
+        <form action="/artefact/delete" method="post" autocomplete="off" data-post-text="Deleting Artefact">
+            <input id="EditArtefactDeleteId" type="hidden" name="id" required>
             <input type="submit" value="Delete Artefact" class="button button-error dialog-action">
         </form>
     </div>

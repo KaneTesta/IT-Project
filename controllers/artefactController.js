@@ -1,22 +1,36 @@
-const { body, validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+const createError = require('http-errors');
+const { body, validationResult, sanitizeBody } = require('express-validator');
+const { createValidationError } = require('../lib/errors');
 const images = require('../lib/images');
 const oauth2 = require('../lib/oauth2');
 const Artefact = require('../models/artefact');
 
-function checkOwner(req, res, next) {
-	Artefact.findById(req.params.id, (err, artefact) => {
-		if (err) next(err);
-		if (req.user.id === artefact.owner) {
-			next();
-		} else {
-			// Not sure how to handle this, forward the error with next or just redirect?
-			const error = new Error('You do not have permission to modify this artefact');
-			error.statusCode = 403;
-			res.redirect('/user/dashboard');
-		}
-	});
-}
+const checkOwner = [
+	// Must be logged in
+	oauth2.required,
+	// Validate Body
+	body('id', 'Id must not be empty.').isLength({ min: 1 }).trim(),
+
+	(req, res, next) => {
+		const errors = validationResult(req);
+
+		Artefact.findById(req.body.id, (err, artefact) => {
+			if (!errors.isEmpty()) {
+				// Validation errors
+				next(createValidationError(errors));
+			} else if (err) {
+				// Error getting Artefact
+				next(createError(500, err));
+			} else if (req.user.id === artefact.owner) {
+				// User is owner, keep going
+				next();
+			} else {
+				// User is not owner, create error
+				next(createError(403, 'You do not have permission to modify this artefact'));
+			}
+		});
+	},
+];
 
 exports.createArtefact = [
 	// Must be logged in
@@ -49,11 +63,11 @@ exports.createArtefact = [
 		}
 
 		if (!errors.isEmpty()) {
-			next(errors);
+			next(createValidationError(errors));
 		} else {
 			artefact.save((err) => {
-				if (err) next(err);
-				res.redirect('/user/dashboard');
+				if (err) next(createError(500, err));
+				res.redirect('/user/');
 			});
 		}
 	},
@@ -63,13 +77,14 @@ exports.editArtefact = [
 	oauth2.required,
 	checkOwner,
 
+	// Validate Body
+	body('id', 'Id must not be empty.').isLength({ min: 1 }).trim(),
+	body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
+	body('description', 'Description must not be empty.').isLength({ min: 1 }).trim(),
+
 	// Upload image
 	images.multer.single('image'),
 	images.sendUploadToGCS,
-
-	// Validate Body
-	body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
-	body('description', 'Description must not be empty.').isLength({ min: 1 }).trim(),
 
 	// Sanitise Body
 	sanitizeBody('*').escape(),
@@ -90,11 +105,11 @@ exports.editArtefact = [
 		}
 
 		if (!errors.isEmpty()) {
-			next(errors);
+			next(createValidationError(errors));
 		} else {
-			Artefact.findByIdAndUpdate(req.params.id, artefact, (err) => {
-				if (err) next(err);
-				res.redirect('/user/dashboard');
+			Artefact.findByIdAndUpdate(req.body.id, artefact, (err) => {
+				if (err) next(createError(500, err));
+				res.redirect('/user/');
 			});
 		}
 	},
@@ -105,8 +120,8 @@ exports.deleteArtefact = [
 	checkOwner,
 	(req, res, next) => {
 		Artefact.findByIdAndDelete(req.body.id, (err) => {
-			if (err) next(err);
-			res.redirect('/user/dashboard');
+			if (err) next(createError(500, err));
+			res.redirect('/user/');
 		});
 	},
 ];
@@ -120,7 +135,7 @@ exports.addViewer = [
 		Artefact.findByIdAndUpdate(artefactId,
 			{ $push: { viewers: viewerId } },
 			(err, artefact) => {
-				if (err) next(err);
+				if (err) next(createError(500, err));
 				res.json(artefact);
 			});
 	},
@@ -136,7 +151,7 @@ exports.removeViewer = [
 		Artefact.findByIdAndUpdate(artefactId,
 			{ $pull: { viewers: viewerId } },
 			(err, artefact) => {
-				if (err) next(err);
+				if (err) next(createError(500, err));
 				res.json(artefact);
 			});
 	},

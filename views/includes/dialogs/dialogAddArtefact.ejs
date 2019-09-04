@@ -3,12 +3,12 @@
     <div class="dialog-content">
         <h1 class="dialog-heading">Add New Artefact</h1>
 
-        <form action="/page/<%= page._id %>/addartefact" method="post" autocomplete="off" data-post-text="Adding New Artefact" enctype="multipart/form-data">
+        <form action="/artefact/create" method="post" autocomplete="off" data-post-text="Adding New Artefact" enctype="multipart/form-data">
             <p class="input-heading">Artefact Name</p>
-            <input type="text" name="artefactname" placeholder="Artefact Name" required>
+            <input type="text" name="name" placeholder="Artefact Name" required>
 
             <p class="input-heading">Description</p>
-            <textarea name="artefactdescription" rows="6" placeholder="Artefact Description"></textarea>
+            <textarea name="description" rows="6" placeholder="Artefact Description"></textarea>
 
             <input type="file" name="image" accept="image/*;capture=camera">
 
