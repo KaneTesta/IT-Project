@@ -82,6 +82,7 @@ app.use((err, req, res, next) => {
 
 	// Render the error page
 	res.status(err.status || 500);
+	res.render('error', { title: 'Error', user: req.user });
 });
 
 
