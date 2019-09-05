@@ -27,8 +27,10 @@ $(() => {
 				dialogViewArtefact.show();
 				// Get image url
 				let imageUrl = '';
+				let imageFilename = '';
 				if (artefact.images.item) {
 					imageUrl = artefact.images.item.url;
+					imageFilename = artefact.images.item.filename;
 				}
 
 				// Set fields
@@ -44,7 +46,7 @@ $(() => {
 					$('#EditArtefactId').val(artefact._id);
 					$('#EditArtefactName').val(artefact.name);
 					$('#EditArtefactDescription').val(artefact.description);
-					$('#EditArtefactImageName').val(imageUrl);
+					$('#EditArtefactImageName').val(imageFilename);
 					$('#EditArtefactDeleteId').val(artefact._id);
 					dialogEditArtefact.show();
 				});

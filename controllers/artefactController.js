@@ -114,26 +114,31 @@ exports.editArtefact = [
 	(req, res, next) => {
 		const errors = validationResult(req);
 
-		const artefact = new Artefact({
-			name: req.body.name,
-			description: req.body.description,
-			tags: req.body.tags,
-			owner: req.user.id,
-			_id: req.body.id,
-		});
-
-		if (req.file) {
-			artefact.images.item = { filename: req.file.cloudStorageObject };
-		} else if (req.body.imagename) {
-			artefact.images.item = { filename: req.body.imagename };
-		}
-
 		if (!errors.isEmpty()) {
 			next(createValidationError(errors));
 		} else {
-			Artefact.findByIdAndUpdate(req.body.id, artefact, (err) => {
-				if (err) next(createError(500, err));
-				res.redirect('/user/');
+			Artefact.findById(req.body.id, (err, artefact) => {
+				if (err) {
+					next(createError(500, err));
+				} else {
+					// Update artefact values
+					artefact.name = req.body.name;
+					artefact.description = req.body.description;
+					artefact.tages = req.body.tags;
+					// Update image
+					if (req.file) {
+						artefact.images.item = { filename: req.file.cloudStorageObject };
+					}
+
+					// Save modified artefact
+					artefact.save((errSave) => {
+						if (errSave) {
+							next(createError(500, errSave));
+						} else {
+							res.redirect('/user/');
+						}
+					});
+				}
 			});
 		}
 	},
