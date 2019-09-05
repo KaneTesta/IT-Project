@@ -19,7 +19,7 @@ const artefactSchema = mongoose.Schema({
 	// TODO Decide on map of arrays for future additions or as is
 	// TODO add ability to upload files (pdf?) too?
 	images: {
-		item: [imageSchema],
+		item: imageSchema,
 		documentation: [imageSchema],
 		insurance: [imageSchema],
 	},

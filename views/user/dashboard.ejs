@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html>
 
-<% include ../includes/head %>
+    <% include ../includes/head %>
 
-<body>
+    <body>
 
-    <div class="main-content">
-        <% include ../includes/elements/navigation %>
+        <div class="main-content">
+            <% include ../includes/elements/navigation %>
 
-        <div class="page-content">
-            <h1>Dashboard</h1>
-            <p><%= JSON.stringify(artefacts.owner); %></p>
+            <div class="page-content">
+                <h1>Dashboard</h1>
 
-            <h2>My Artefacts</h2>
-            <div id="DashboardGridMyArtefacts" class="dashboard-grid">
-                <% if (artefacts.owner) { %>
-                <% for (let i = 0; i < artefacts.owner.length; ++i) { %>
-                <button class="dashboard-page page-artefact button-icon-noborder" data-artefact="<%= JSON.stringify(artefacts.owner[i]); %>">
-                    <i class="material-icons-outlined">photo</i>
-                    <% if (artefacts.owner[i].images.item) { %>
-                    <img src="<%= artefacts.owner[i].images.item %>" alt="<%= artefacts.owner[i].name %>" />
+                <h2>My Artefacts</h2>
+                <div id="DashboardGridMyArtefacts" class="dashboard-grid">
+                    <% if (artefacts.owner) { %>
+                    <% for (let i = 0; i < artefacts.owner.length; ++i) { %>
+                    <button class="dashboard-page page-artefact button-icon-noborder"
+                        data-artefact="<%= JSON.stringify(artefacts.owner[i]); %>">
+                        <i class="material-icons-outlined">photo</i>
+                        <% if (artefacts.owner[i].images.item) { %>
+                        <img src="<%= artefacts.owner[i].images.item.url %>" alt="<%= artefacts.owner[i].name %>" />
+                        <% }; %>
+
+                        <p class="dashboard-item-title"><%= artefacts.owner[i].name %></p>
+                    </button>
+                    <% }; %>
                     <% }; %>
 
-                    <p class="dashboard-item-title"><%= artefacts.owner[i].name %></p>
-                </button>
-                <% }; %>
-                <% }; %>
+                    <button id="PageButtonAddArtefact" class="dashboard-page page-action button-icon-noborder">
+                        <i class="material-icons-outlined">add</i>
+                        <p>Add New Artefact</p>
+                    </button>
+                </div>
 
-                <button id="PageButtonAddArtefact" class="dashboard-page page-action button-icon-noborder">
-                    <i class="material-icons-outlined">add</i>
-                    <p>Add New Artefact</p>
-                </button>
+                <h2>Shared Artefacts</h2>
+                <div id="DashboardGridSharedArtefacts" class="dashboard-grid">
+                </div>
             </div>
 
-            <h2>Shared Artefacts</h2>
-            <div id="DashboardGridSharedArtefacts" class="dashboard-grid">
-            </div>
+            <% include ../includes/dialogs/dialogViewArtefact %>
+            <% include ../includes/dialogs/dialogEditArtefact %>
+            <% include ../includes/dialogs/dialogAddArtefact %>
         </div>
 
-        <% include ../includes/dialogs/dialogViewArtefact %>
-        <% include ../includes/dialogs/dialogEditArtefact %>
-        <% include ../includes/dialogs/dialogAddArtefact %>
-    </div>
+        <script defer src="/js/dashboard.js"></script>
+        <% include ../includes/scripts %>
 
-    <script defer src="/js/dashboard.js"></script>
-    <% include ../includes/scripts %>
-
-</body>
+    </body>
 
 </html>

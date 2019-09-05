@@ -59,7 +59,7 @@ exports.createArtefact = [
 		});
 
 		if (req.file) {
-			artefact.images.item.filename = req.file.cloudStorageObject;
+			artefact.images.item = { filename: req.file.cloudStorageObject };
 		}
 
 		if (!errors.isEmpty()) {
