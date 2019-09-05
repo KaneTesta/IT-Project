@@ -21,7 +21,10 @@ const checkOwner = [
 			} else if (err) {
 				// Error getting Artefact
 				next(createError(500, err));
-			} else if (req.user.id === artefact.owner) {
+			} else if (artefact === null || artefact === undefined) {
+				// Error getting Artefact
+				next(createError(500, 'Cannot find artefact'));
+			} else if (req.user.id.toString() === artefact.owner.toString()) {
 				// User is owner, keep going
 				next();
 			} else {
@@ -90,17 +93,20 @@ exports.createArtefact = [
 ];
 
 exports.editArtefact = [
+	// Must be logged in
 	oauth2.required,
+
+	// Upload image
+	images.multer.single('image'),
+	images.sendUploadToGCS,
+
+	// Check permissions
 	checkOwner,
 
 	// Validate Body
 	body('id', 'Id must not be empty.').isLength({ min: 1 }).trim(),
 	body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
 	body('description', 'Description must not be empty.').isLength({ min: 1 }).trim(),
-
-	// Upload image
-	images.multer.single('image'),
-	images.sendUploadToGCS,
 
 	// Sanitise Body
 	sanitizeBody('*').escape(),
@@ -117,7 +123,9 @@ exports.editArtefact = [
 		});
 
 		if (req.file) {
-			artefact.images.item.filename = req.file.cloudStorageObject;
+			artefact.images.item = { filename: req.file.cloudStorageObject };
+		} else if (req.body.imagename) {
+			artefact.images.item = { filename: req.body.imagename };
 		}
 
 		if (!errors.isEmpty()) {

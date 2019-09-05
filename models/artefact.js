@@ -3,7 +3,7 @@ const images = require('../lib/images');
 
 const imageSchema = mongoose.Schema({
 	filename: String,
-});
+}, { toJSON: { virtuals: true } });
 
 imageSchema.pre('remove', function deleteImage(next) {
 	images.deleteFromGCS(this.image).then(next());
