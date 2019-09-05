@@ -5,6 +5,8 @@ const router = express.Router();
 const artefactController = require('../controllers/artefactController');
 
 
+router.get('/:id', artefactController.getArtefact);
+
 router.post('/create', artefactController.createArtefact);
 
 router.post('/edit', artefactController.editArtefact);

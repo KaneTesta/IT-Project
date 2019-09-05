@@ -21,11 +21,10 @@ $(() => {
 			const loadingDialog = window.dialogManager.createNewLoadingDialog('Loading Artefact');
 			loadingDialog.show();
 			// Get and show artefact data
-			$.get(`/artefact/${artefactId}`, (data) => {
+			$.get(`/artefact/${artefactId}`, (artefact) => {
 				loadingDialog.hideAndRemove();
 				dialogViewArtefact.show();
 				// Set fields
-				const artefact = JSON.parse(data);
 				$('#ArtefactViewName').html(artefact.name);
 				$('#ArtefactViewDescription').html(artefact.description);
 				// Set edit button action
@@ -40,9 +39,12 @@ $(() => {
 					$('#EditArtefactDeleteId').val(artefact._id);
 					dialogEditArtefact.show();
 				});
-			}).fail(() => {
+			}).fail((err) => {
 				loadingDialog.hideAndRemove();
-				const errorDialog = window.dialogManager.createNewErrorDialog('Could not load information for artefact');
+				const errorDialog = window.dialogManager.createNewErrorDialog(`
+					Could not load information for artefact.
+				`);
+
 				errorDialog.show();
 			});
 		}

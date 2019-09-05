@@ -32,6 +32,22 @@ const checkOwner = [
 	},
 ];
 
+
+exports.getArtefact = [
+	// Must be logged in
+	oauth2.required,
+
+	(req, res, next) => {
+		Artefact.findById(req.params.id, (err, artefact) => {
+			if (err) {
+				next(createError(500, err));
+			} else {
+				res.json(artefact);
+			}
+		});
+	},
+];
+
 exports.createArtefact = [
 	// Must be logged in
 	oauth2.required,
