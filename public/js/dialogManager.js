@@ -115,14 +115,16 @@ window.dialogManager = {
 	createNewLoadingDialog(loadingText) {
 		// Create HTML
 		const dialogHTML = `
-		<div class="loading-chain">
-			<span class="loading-chain-link"></span>
-			<span class="loading-chain-link"></span>
-			<span class="loading-chain-link"></span>
-			<span class="loading-chain-link"></span>
-		</div>
+		<div class="dialog-panel">
+			<div class="loading-chain">
+				<span class="loading-chain-link"></span>
+				<span class="loading-chain-link"></span>
+				<span class="loading-chain-link"></span>
+				<span class="loading-chain-link"></span>
+			</div>
 
-		<p class="dialog-body-text">${loadingText}</p>
+			<p class="dialog-body-text">${loadingText}</p>
+		</div>
 		`;
 
 		// Create dialog
@@ -137,8 +139,10 @@ window.dialogManager = {
 	 */
 	createNewErrorDialog(errorText) {
 		const dialog = this.createNewDialog(`
-		<h1 class='dialog-heading'>Error</h1>
-		<p class="dialog-body-text">${errorText}</p>
+		<div class="dialog-panel">
+			<h1 class='dialog-heading'>Error</h1>
+			<p class="dialog-body-text">${errorText}</p>
+		</div>
 		`, true, true);
 
 		return dialog;

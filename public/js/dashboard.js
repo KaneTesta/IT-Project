@@ -18,6 +18,12 @@ $(() => {
 			$('#ArtefactViewName').html('');
 			$('#ArtefactViewDescription').html('');
 			$('#ArtefactViewImage').attr('src', '');
+			$('#ArtefactViewImage').attr('alt', '');
+			$('#ArtefactViewOwnerImage').attr('src', '');
+			$('#ArtefactViewOwnerImage').attr('alt', '');
+			$('#ArtefactViewOwnerText').html('');
+			$('#ArtefactViewViewersContainer').css('display', 'none');
+			$('#ArtefactViewViewers').html('');
 			// Create loading dialog
 			const loadingDialog = window.dialogManager.createNewLoadingDialog('Loading Artefact');
 			loadingDialog.show();
@@ -37,6 +43,28 @@ $(() => {
 				$('#ArtefactViewName').html(artefact.name);
 				$('#ArtefactViewDescription').html(artefact.description);
 				$('#ArtefactViewImage').attr('src', imageUrl);
+				$('#ArtefactViewImage').attr('alt', imageFilename);
+				$('#ArtefactViewOwnerImage').attr('src', artefact.owner.display_picture);
+				$('#ArtefactViewOwnerImage').attr('alt', artefact.owner.display_name);
+				$('#ArtefactViewOwnerText').html(artefact.owner.display_name);
+				// Add viewer chips
+				if (artefact.viewers && artefact.viewers.length > 0) {
+					$('#ArtefactViewViewersContainer').css('display', '');
+					artefact.viewers.forEach((viewer) => {
+						// Create and add a viewer chip to the dialog
+						$('#ArtefactViewViewers').append($(`
+							<div class="chip">
+								<img class="chip-image"
+									src='${viewer.display_picture}'
+									alt='${viewer.display_name}'>
+								<span class="chip-text">
+									${viewer.display_name}
+								</span>
+							</div>
+						`));
+					});
+				}
+
 				// Set edit button action
 				$('#ArtefactViewButtonEdit').off('click');
 				$('#ArtefactViewButtonEdit').on('click', () => {

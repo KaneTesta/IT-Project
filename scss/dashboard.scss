@@ -111,3 +111,31 @@
         }
     }
 }
+
+$chip-height: 2rem;
+
+.chip {
+    position: relative;
+
+    display: inline-block;
+
+    height: $chip-height;
+    margin-bottom: $padding-medium;
+    margin-left: $padding-small;
+    padding-right: $padding-medium;
+
+    border-radius: $chip-height;
+    background-color: rgba(0, 0, 0, 0.08);
+
+    line-height: $chip-height;
+
+    .chip-image {
+        float: left;
+
+        width: $chip-height;
+        height: $chip-height;
+        margin-right: $padding-small;
+
+        border-radius: 50%;
+    }
+}

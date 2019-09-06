@@ -41,13 +41,16 @@ exports.getArtefact = [
 	oauth2.required,
 
 	(req, res, next) => {
-		Artefact.findById(req.params.id, (err, artefact) => {
-			if (err) {
-				next(createError(500, err));
-			} else {
-				res.json(artefact);
-			}
-		});
+		Artefact
+			.findById(req.params.id)
+			.populate('owner')
+			.exec((err, artefact) => {
+				if (err) {
+					next(createError(500, err));
+				} else {
+					res.json(artefact);
+				}
+			});
 	},
 ];
 
