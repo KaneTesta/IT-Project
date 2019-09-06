@@ -75,7 +75,10 @@ input[type="text"] {
     }
 
     &:invalid {
-        border-color: $error-color;
+        background-image: url("/img/asterisk.svg");
+        background-repeat: no-repeat;
+        background-position: right $padding-medium top $padding-large;
+        background-size: 0.5rem;
     }
 
     &:focus {
