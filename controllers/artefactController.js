@@ -199,7 +199,7 @@ exports.addViewer = [
 		const artefactId = req.body.id;
 
 		if (req.user.id.toString() === viewerId.toString()) {
-			res.status(400).send('User is already owner');
+			res.status(400).send('User is already the owner of this artefact');
 		} else {
 			Artefact.findByIdAndUpdate(artefactId,
 				{ $addToSet: { viewers: viewerId } },

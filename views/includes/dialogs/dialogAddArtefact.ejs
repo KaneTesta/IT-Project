@@ -6,22 +6,19 @@
         </div>
 
         <div class="dialog-panel dialog-panel-scrollable">
-            <form action="/artefact/create" method="post" autocomplete="off" data-post-text="Adding New Artefact"
-                enctype="multipart/form-data">
+            <form action="/artefact/create" method="post" autocomplete="off" data-post-text="Adding New Artefact" enctype="multipart/form-data">
 
-                <p class="input-heading">Artefact Name</p>
+                <p class="subheading">Artefact Name</p>
                 <input type="text" name="name" placeholder="Artefact Name" required>
 
-                <p class="input-heading">Description</p>
+                <p class="subheading">Description</p>
                 <textarea name="description" rows="6" placeholder="Artefact Description" required></textarea>
 
-                <p class="input-heading">Image</p>
+                <p class="subheading">Image</p>
                 <div class="button-group">
-                    <input id="AddArtefactImageName" class="input-description" type="text" name="imagename"
-                        placeholder="No Image Uploaded" disabled>
+                    <input id="AddArtefactImageName" class="input-description" type="text" name="imagename" placeholder="No Image Uploaded" disabled>
 
-                    <input id="AddArtefactUploadImage" data-file-description="AddArtefactImageName" type="file"
-                        name="image" accept="image/*;capture=camera">
+                    <input id="AddArtefactUploadImage" data-file-description="AddArtefactImageName" type="file" name="image" accept="image/*;capture=camera">
                     <label for="AddArtefactUploadImage" class="button">Upload Image</label>
                 </div>
 

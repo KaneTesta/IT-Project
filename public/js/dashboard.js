@@ -66,6 +66,7 @@ $(() => {
 				$('#ArtefactViewEditPanel').css('display', artefact.isOwner ? '' : 'none');
 				// Add viewer chips
 				$('#AddViewersShareId').val(artefact._id);
+				$('#AddViewersShareName').html(artefact.name);
 				if (artefact.viewers && artefact.viewers.length > 0) {
 					$('#ArtefactViewViewersContainer').css('display', '');
 					artefact.viewers.forEach((viewer) => {
@@ -119,8 +120,12 @@ $(() => {
 		// Get search query
 		const query = $('#AddViewersInputSearch').val();
 		const artefactId = $('#AddViewersShareId').val();
+		// Create loading dialog
+		const loadingDialog = window.dialogManager.createNewLoadingDialog('Searching for Users');
+		loadingDialog.show();
 		// Make search
 		$.get(`/user/search/${query}`, (users) => {
+			loadingDialog.hideAndRemove();
 			if (users && users.length > 0) {
 				// Add table for users
 				const searchResult = $('#AddViewersSearchResult');
@@ -150,35 +155,35 @@ $(() => {
 
 					const userButton = $(`
 					<td>
-						<button class="button button-inline">Share with User</button>
+						<button class="button button-inline" style="margin-left: auto;">Share with User</button>
 					</td>
 					`).appendTo(userRow);
 
 					userButton.on('click', (e) => {
+						// Create loading dialog
+						const loadingDialogAddUser = window.dialogManager.createNewLoadingDialog(`Adding ${user.display_name}`);
+						loadingDialogAddUser.show();
 						$.post('/artefact/share/add', { viewerId: user._id, id: artefactId }, (data) => {
-							userButton.html('Added');
-						}).fail((jqXHR, err, data) => {
-							$('#AddViewersSearchResult').append(`
-							<div class="message message-error">
-								<span>Error: ${jqXHR.responseText}</span>
-							</div>
+							loadingDialogAddUser.hideAndRemove();
+							const errorDialog = window.dialogManager.createNewMessageDialog('Viewer Added', `
+								${user.display_name} has been added as a viewer for this artefact.
 							`);
+							errorDialog.show();
+						}).fail((jqXHR, err, data) => {
+							loadingDialogAddUser.hideAndRemove();
+							const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
+							errorDialog.show();
 						});
 					});
 				});
 			} else {
-				$('#AddViewersSearchResult').html(`
-				<div class="message">
-					<span>No results found.</span>
-				</div>
-				`);
+				const errorDialog = window.dialogManager.createNewErrorDialog('No results found');
+				errorDialog.show();
 			}
 		}).fail((jqXHR, err, data) => {
-			$('#AddViewersSearchResult').html(`
-			<div class="message message-error">
-				<span>Error: ${jqXHR.responseText}</span>
-			</div>
-			`);
+			loadingDialog.hideAndRemove();
+			const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
+			errorDialog.show();
 		});
 	}
 

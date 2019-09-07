@@ -61,6 +61,18 @@ h3 {
     font-weight: 700;
 }
 
+.subheading {
+    margin: $padding-tiny 0;
+    padding: 0;
+
+    letter-spacing: 0.04rem;
+    text-transform: uppercase;
+
+    color: $text-color-detail;
+
+    font-size: 0.85rem;
+}
+
 a {
     color: $accent-color;
 }
@@ -69,6 +81,10 @@ p {
     padding-bottom: $padding-small;
 
     line-height: 1.25;
+}
+
+.text-description {
+    color: $text-color-detail;
 }
 
 

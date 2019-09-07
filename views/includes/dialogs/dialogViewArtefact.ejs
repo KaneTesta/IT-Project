@@ -6,19 +6,23 @@
         </div>
 
         <div class="dialog-panel dialog-panel-scrollable">
-            <span>Owner:</span>
+            <img id="ArtefactViewImage" class="dialog-image" />
+
             <div class="chip-container">
-                <%- include('../elements/chip.ejs', {idPrefix: "ArtefactViewOwner"}); %>
+                <p class="subheading">Owner</p>
+                <div class="chip-container">
+                    <%- include('../elements/chip.ejs', { idPrefix: "ArtefactViewOwner" }); %>
+                </div>
             </div>
 
-            <div id="ArtefactViewViewersContainer">
-                <span>Viewers:</span>
+            <div class="chip-container" id="ArtefactViewViewersContainer">
+                <p class="subheading">Viewers</p>
                 <div class="chip-container" id="ArtefactViewViewers"></div>
             </div>
 
             <button id="ArtefactViewButtonShare" class="button">Share with Users</button>
 
-            <img id="ArtefactViewImage" class="dialog-image" />
+            <p class="subheading">Description</p>
             <p id="ArtefactViewDescription"></p>
         </div>
 

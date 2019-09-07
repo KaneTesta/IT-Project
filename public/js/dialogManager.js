@@ -134,20 +134,29 @@ window.dialogManager = {
 	},
 
 	/**
-	 * Create a loading dialog with given text
-	 * @param {String} errorText The text to display while loading
+	 * Create a error dialog with given title and message
+	 * @param {String} message The title to display
+	 * @param {String} message The message to display
 	 */
-	createNewErrorDialog(errorText) {
+	createNewMessageDialog(title, message) {
 		const dialog = this.createNewDialog(`
 		<div class="dialog-panel">
-			<h1 class='dialog-heading'>Error</h1>
+			<h1 class='dialog-heading'>${title}</h1>
 		</div>
 		<div class="dialog-panel dialog-panel-scrollable">
-			<p class="dialog-body-text">${errorText}</p>
+			<p class="dialog-body-text">${message}</p>
 		</div>
 		`, true, true);
 
 		return dialog;
+	},
+
+	/**
+	 * Create a error dialog with given error message
+	 * @param {String} errorText The error message to display
+	 */
+	createNewErrorDialog(errorText) {
+		return this.createNewMessageDialog('Error', errorText);
 	},
 };
 
