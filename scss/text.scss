@@ -70,3 +70,19 @@ p {
 
     line-height: 1.25;
 }
+
+
+.message {
+    margin: 0;
+    margin-bottom: $padding-small;
+    padding: $padding-small $padding-medium;
+
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background-color: rgba($border-color, 0.1);
+
+    &.message-error {
+        border: 1px solid $error-color;
+        background-color: rgba($error-color, 0.1);
+    }
+}

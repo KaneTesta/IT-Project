@@ -112,7 +112,12 @@
     }
 }
 
+
 $chip-height: 2rem;
+
+.chip-container {
+    display: inline-block;
+}
 
 .chip {
     position: relative;
@@ -137,5 +142,36 @@ $chip-height: 2rem;
         margin-right: $padding-small;
 
         border-radius: 50%;
+    }
+}
+
+.user-results {
+    width: 100%;
+
+    border-spacing: 0;
+
+    border-collapse: collapse;
+
+    .user-picture {
+        width: $chip-height;
+        height: $chip-height;
+
+        vertical-align: middle;
+
+        border-radius: 50%;
+    }
+
+    td {
+        padding: $padding-small $padding-small;
+
+        vertical-align: middle;
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
     }
 }

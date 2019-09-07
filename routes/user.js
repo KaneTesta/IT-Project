@@ -1,9 +1,11 @@
 const express = require('express');
 
 const router = express.Router();
-const oauth2 = require('../lib/oauth2');
 const userController = require('../controllers/userController');
 
-router.get('/', oauth2.required, userController.getUserDashboard);
+router.get('/', userController.getUserDashboard);
+
+router.get('/search/', userController.searchUsers);
+router.get('/search/:query', userController.searchUsers);
 
 module.exports = router;

@@ -44,11 +44,38 @@ exports.getArtefact = [
 		Artefact
 			.findById(req.params.id)
 			.populate('owner')
+			.populate('viewers')
 			.exec((err, artefact) => {
 				if (err) {
-					next(createError(500, err));
+					res.status(500).send(err);
+				} else if (artefact === null || artefact === undefined) {
+					// Error getting Artefact
+					next(createError(500, 'Cannot find artefact'));
+				} else if (req.user.id.toString() === artefact.owner.id.toString()) {
+					// User is owner
+					const outputArtefact = artefact.toJSON();
+					outputArtefact.isOwner = true;
+					res.json(outputArtefact);
+				} else if (artefact.viewers.find((u) => u.id.toString() === req.user.id.toString())) {
+					// User is viewer, restrict access
+					Artefact
+						.findOne({ viewers: req.user.id }, Artefact.viewerRestrictions)
+						.populate('owner')
+						.exec((viewerErr, viewerArtefact) => {
+							if (viewerErr) {
+								res.status(500).send(viewerErr);
+							} else if (viewerArtefact === null || viewerArtefact === undefined) {
+								// Error getting Artefact
+								next(createError(500, 'Cannot find artefact'));
+							} else {
+								const outputArtefact = viewerArtefact.toJSON();
+								outputArtefact.isOwner = false;
+								res.json(outputArtefact);
+							}
+						});
 				} else {
-					res.json(artefact);
+					// User is not owner, create error
+					next(createError(403, 'You do not have permission to modify this artefact'));
 				}
 			});
 	},
@@ -88,8 +115,11 @@ exports.createArtefact = [
 			next(createValidationError(errors));
 		} else {
 			artefact.save((err) => {
-				if (err) next(createError(500, err));
-				res.redirect('/user/');
+				if (err) {
+					next(createError(500, err));
+				} else {
+					res.redirect('/user/');
+				}
 			});
 		}
 	},
@@ -152,8 +182,11 @@ exports.deleteArtefact = [
 	checkOwner,
 	(req, res, next) => {
 		Artefact.findByIdAndDelete(req.body.id, (err) => {
-			if (err) next(createError(500, err));
-			res.redirect('/user/');
+			if (err) {
+				next(createError(500, err));
+			} else {
+				res.redirect('/user/');
+			}
 		});
 	},
 ];
@@ -162,14 +195,26 @@ exports.addViewer = [
 	oauth2.required,
 	checkOwner,
 	(req, res, next) => {
-		const { viewerId, artefactId } = req.body;
+		const { viewerId } = req.body;
+		const artefactId = req.body.id;
 
-		Artefact.findByIdAndUpdate(artefactId,
-			{ $push: { viewers: viewerId } },
-			(err, artefact) => {
-				if (err) next(createError(500, err));
-				res.json(artefact);
-			});
+		if (req.user.id.toString() === viewerId.toString()) {
+			res.status(400).send('User is already owner');
+		} else {
+			Artefact.findByIdAndUpdate(artefactId,
+				{ $addToSet: { viewers: viewerId } },
+				(err, artefact) => {
+					if (err) {
+						res.status(500).send(err);
+					} else {
+						res.json(artefact);
+					}
+				});
+		}
+	},
+
+	(err, req, res, next) => {
+		res.status(500).send(err);
 	},
 ];
 
@@ -178,13 +223,25 @@ exports.removeViewer = [
 	oauth2.required,
 	checkOwner,
 	(req, res, next) => {
-		const { viewerId, artefactId } = req.body;
+		const { viewerId } = req.body;
+		const artefactId = req.body.id;
 
-		Artefact.findByIdAndUpdate(artefactId,
-			{ $pull: { viewers: viewerId } },
-			(err, artefact) => {
-				if (err) next(createError(500, err));
-				res.json(artefact);
-			});
+		if (req.user.id.toString() === viewerId.toString()) {
+			res.status(400).send('User is already owner');
+		} else {
+			Artefact.findByIdAndUpdate(artefactId,
+				{ $pull: { viewers: viewerId } },
+				(err, artefact) => {
+					if (err) {
+						res.status(500).send(err);
+					} else {
+						res.json(artefact);
+					}
+				});
+		}
+	},
+
+	(err, req, res, next) => {
+		res.status(500).send(err);
 	},
 ];

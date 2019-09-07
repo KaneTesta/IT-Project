@@ -8,6 +8,19 @@ $(() => {
 		}
 	});
 
+	function createChip(image, text) {
+		return $(`
+			<div class="chip">
+				<img class="chip-image"
+					src='${image}'
+					alt='${text}' />
+				<span class="chip-text">
+					${text}
+				</span>
+			</div>
+		`);
+	}
+
 	// Setup view artefact buttons
 	$('.page-artefact').on('click', (e) => {
 		const $button = $(e.target);
@@ -22,8 +35,10 @@ $(() => {
 			$('#ArtefactViewOwnerImage').attr('src', '');
 			$('#ArtefactViewOwnerImage').attr('alt', '');
 			$('#ArtefactViewOwnerText').html('');
+			$('#ArtefactViewButtonShare').css('display', 'none');
 			$('#ArtefactViewViewersContainer').css('display', 'none');
 			$('#ArtefactViewViewers').html('');
+			$('#ArtefactViewEditPanel').css('display', 'none');
 			// Create loading dialog
 			const loadingDialog = window.dialogManager.createNewLoadingDialog('Loading Artefact');
 			loadingDialog.show();
@@ -34,7 +49,7 @@ $(() => {
 				// Get image url
 				let imageUrl = '';
 				let imageFilename = '';
-				if (artefact.images.item) {
+				if (artefact.images && artefact.images.item) {
 					imageUrl = artefact.images.item.url;
 					imageFilename = artefact.images.item.filename;
 				}
@@ -47,23 +62,31 @@ $(() => {
 				$('#ArtefactViewOwnerImage').attr('src', artefact.owner.display_picture);
 				$('#ArtefactViewOwnerImage').attr('alt', artefact.owner.display_name);
 				$('#ArtefactViewOwnerText').html(artefact.owner.display_name);
+				$('#ArtefactViewButtonShare').css('display', artefact.isOwner ? '' : 'none');
+				$('#ArtefactViewEditPanel').css('display', artefact.isOwner ? '' : 'none');
 				// Add viewer chips
+				$('#AddViewersShareId').val(artefact._id);
 				if (artefact.viewers && artefact.viewers.length > 0) {
 					$('#ArtefactViewViewersContainer').css('display', '');
 					artefact.viewers.forEach((viewer) => {
 						// Create and add a viewer chip to the dialog
-						$('#ArtefactViewViewers').append($(`
-							<div class="chip">
-								<img class="chip-image"
-									src='${viewer.display_picture}'
-									alt='${viewer.display_name}'>
-								<span class="chip-text">
-									${viewer.display_name}
-								</span>
-							</div>
-						`));
+						const chipImage = viewer.display_picture;
+						const chipName = viewer.display_name;
+						$('#ArtefactViewViewers').append(createChip(chipImage, chipName));
 					});
 				}
+
+				// Set add viewers button action
+				$('#ArtefactViewButtonShare').off('click');
+				$('#ArtefactViewButtonShare').on('click', () => {
+					dialogViewArtefact.hide();
+					// Show add viewers dialog
+					const dialogAddViewers = document.getElementById('DialogAddViewers');
+					if (dialogAddViewers) {
+						$('#AddViewersSearchResult').html('');
+						dialogAddViewers.show();
+					}
+				});
 
 				// Set edit button action
 				$('#ArtefactViewButtonEdit').off('click');
@@ -78,7 +101,7 @@ $(() => {
 					$('#EditArtefactDeleteId').val(artefact._id);
 					dialogEditArtefact.show();
 				});
-			}).fail((err) => {
+			}).fail((jqXHR, err, data) => {
 				loadingDialog.hideAndRemove();
 				const errorDialog = window.dialogManager.createNewErrorDialog(`
 					Could not load information for artefact.
@@ -87,5 +110,87 @@ $(() => {
 				errorDialog.show();
 			});
 		}
+	});
+
+
+	// Setup search function
+	function searchUsers() {
+		$('#AddViewersSearchResult').html('');
+		// Get search query
+		const query = $('#AddViewersInputSearch').val();
+		const artefactId = $('#AddViewersShareId').val();
+		// Make search
+		$.get(`/user/search/${query}`, (users) => {
+			if (users && users.length > 0) {
+				// Add table for users
+				const searchResult = $('#AddViewersSearchResult');
+				const userTable = $('<table class="user-results"></table>').appendTo(searchResult);
+				// Add head
+				$(`
+				<thead>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Email</th>
+						<th></th>
+					</tr>
+				</thead>
+				`).appendTo(userTable);
+
+				// Add body
+				const userBody = $('<tbody></tbody>').appendTo(userTable);
+				users.forEach((user) => {
+					const userRow = $(`
+					<tr>
+						<td><img class="user-picture" src="${user.display_picture}" alt="${user.display_name}" /></td>
+						<td>${user.display_name}</td>
+						<td>${user.email}</td>
+					</tr>
+					`).appendTo(userBody);
+
+					const userButton = $(`
+					<td>
+						<button class="button button-inline">Share with User</button>
+					</td>
+					`).appendTo(userRow);
+
+					userButton.on('click', (e) => {
+						$.post('/artefact/share/add', { viewerId: user._id, id: artefactId }, (data) => {
+							userButton.html('Added');
+						}).fail((jqXHR, err, data) => {
+							$('#AddViewersSearchResult').append(`
+							<div class="message message-error">
+								<span>Error: ${jqXHR.responseText}</span>
+							</div>
+							`);
+						});
+					});
+				});
+			} else {
+				$('#AddViewersSearchResult').html(`
+				<div class="message">
+					<span>No results found.</span>
+				</div>
+				`);
+			}
+		}).fail((jqXHR, err, data) => {
+			$('#AddViewersSearchResult').html(`
+			<div class="message message-error">
+				<span>Error: ${jqXHR.responseText}</span>
+			</div>
+			`);
+		});
+	}
+
+	// Setup search on enter in input search
+	$('#AddViewersInputSearch').on('keydown', (e) => {
+		if (e.key === 'Enter') {
+			searchUsers();
+		}
+	});
+
+	// Setup search button
+	$('#AddViewersButtonSearch').on('click', (e) => {
+		searchUsers();
 	});
 });

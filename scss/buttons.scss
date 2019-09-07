@@ -49,6 +49,7 @@ button {
 }
 
 .button {
+    margin-bottom: $padding-medium;
     padding: $padding-small $padding-medium;
 
     transition: background-color 0.1s ease, box-shadow 0.1s ease;
@@ -72,6 +73,10 @@ button {
     &:active {
         background-color: $accent-color-active;
         box-shadow: $shadow-button-active;
+    }
+
+    &.button-inline {
+        margin-bottom: 0;
     }
 
     &.button-success {

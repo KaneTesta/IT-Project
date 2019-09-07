@@ -5,6 +5,8 @@ const Artefact = require('./artefact');
 const userSchema = mongoose.Schema({
 	user_id: {
 		type: String,
+		index: true,
+		unique: true,
 		require: [true, 'A user needs an id'],
 	},
 	display_name: String,
@@ -19,11 +21,17 @@ userSchema.statics.getArtefacts = function getArtefacts(id, done) {
 			Artefact.find({ owner: id }).exec(callback);
 		},
 		viewer: function viewer(callback) {
-			Artefact.find({ viewer: id }, Artefact.viewerRestrictions).exec(callback);
+			Artefact.find({ viewers: id }, Artefact.viewerRestrictions).exec(callback);
 		},
 	}, (err, artefacts) => {
 		done(err, artefacts);
 	});
 };
+
+// Create index on name and email for searching
+userSchema.index({
+	display_name: 'text',
+	email: 'text',
+});
 
 module.exports = mongoose.model('User', userSchema);

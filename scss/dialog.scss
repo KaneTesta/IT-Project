@@ -36,7 +36,7 @@
         max-width: 40vw;
         max-height: 90vh;
         margin: $padding-small;
-        padding: $padding-medium 0;
+        padding: 0;
 
         transition: opacity 0.12s ease-in, transform 0.12s ease-in;
         transform: scale(0.8);
@@ -58,7 +58,7 @@
         }
 
         .dialog-heading {
-            margin-top: $padding-small;
+            margin-top: $padding-medium + $padding-small;
             padding-top: 0;
             padding-right: 4rem;
 
@@ -79,11 +79,16 @@
 
                 padding-top: $padding-medium;
                 padding-bottom: $padding-medium;
+
+                .dialog-action:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
 
         .dialog-image {
             width: 100%;
+            margin-top: $padding-small;
             margin-bottom: $padding-medium;
 
             border: none;
@@ -103,7 +108,7 @@
 
         .dialog-action {
             width: 100%;
-            margin-top: $padding-medium;
+            margin: $padding-medium 0;
         }
     }
 
@@ -114,6 +119,7 @@
 
             width: auto;
             min-width: auto;
+            padding: $padding-medium 0;
 
             align-items: center;
             justify-content: center;

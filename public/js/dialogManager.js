@@ -66,13 +66,13 @@ window.dialogManager = {
 		}
 
 		$(document).focusin((e) => {
-			if (dialog.classList.contains('visible')) {
+			/* if (dialog.classList.contains('visible')) {
 				if (e && e.target && !dialog.contains(e.target)) {
 					e.preventDefault();
 					e.stopPropagation();
 					dialog.focus();
 				}
-			}
+			} */
 		});
 	},
 
@@ -141,6 +141,8 @@ window.dialogManager = {
 		const dialog = this.createNewDialog(`
 		<div class="dialog-panel">
 			<h1 class='dialog-heading'>Error</h1>
+		</div>
+		<div class="dialog-panel dialog-panel-scrollable">
 			<p class="dialog-body-text">${errorText}</p>
 		</div>
 		`, true, true);

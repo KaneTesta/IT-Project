@@ -28,12 +28,12 @@ const artefactSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 	},
-	viewer: [{
+	viewers: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 	}],
 });
 
-artefactSchema.statics.viewerRestrictions = 'name description';
+artefactSchema.statics.viewerRestrictions = 'name description owner images.item';
 
 module.exports = mongoose.model('Artefact', artefactSchema);
