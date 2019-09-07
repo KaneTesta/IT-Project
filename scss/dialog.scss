@@ -34,7 +34,7 @@
         box-sizing: border-box;
         min-width: 24rem;
         max-width: 50vw;
-        max-height: 100vh;
+        max-height: calc(100vh - #{$padding-small * 2});
         margin: $padding-small;
         padding: 0;
 
@@ -96,6 +96,7 @@
             max-width: 60%;
             margin-top: $padding-small;
             margin-bottom: $padding-medium;
+            margin-left: $padding-large;
 
             border: none;
             border-radius: $border-radius;
@@ -112,6 +113,7 @@
                 float: none;
 
                 max-width: 100%;
+                margin-left: 0;
             }
         }
 

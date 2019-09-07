@@ -129,7 +129,7 @@ $chip-height: 2rem;
     margin-bottom: $padding-medium;
     padding-right: $padding-medium;
 
-    border-radius: $chip-height;
+    border-radius: $border-radius;
     background-color: rgba(0, 0, 0, 0.08);
 
     line-height: $chip-height;
@@ -141,7 +141,7 @@ $chip-height: 2rem;
         height: $chip-height;
         margin-right: $padding-small;
 
-        border-radius: 50%;
+        border-radius: $border-radius;
     }
 }
 
@@ -158,7 +158,7 @@ $chip-height: 2rem;
 
         vertical-align: middle;
 
-        border-radius: 50%;
+        border-radius: $border-radius;
     }
 
     td {
