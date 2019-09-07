@@ -1,8 +1,10 @@
 const createError = require('http-errors');
 const { body, validationResult, sanitizeBody } = require('express-validator');
+// Libraries
 const { createValidationError } = require('../lib/errors');
 const images = require('../lib/images');
 const oauth2 = require('../lib/oauth2');
+// Models
 const Artefact = require('../models/artefact');
 
 const checkOwner = [
@@ -43,31 +45,31 @@ exports.getArtefact = [
 	(req, res, next) => {
 		Artefact
 			.findById(req.params.id)
-			.populate('owner')
-			.populate('viewers')
+			.populate(Artefact.ownerPopulation)
 			.exec((err, artefact) => {
 				if (err) {
 					res.status(500).send(err);
 				} else if (artefact === null || artefact === undefined) {
 					// Error getting Artefact
-					next(createError(500, 'Cannot find artefact'));
+					res.status(500).send('Cannot find artefact');
 				} else if (req.user.id.toString() === artefact.owner.id.toString()) {
 					// User is owner
 					const outputArtefact = artefact.toJSON();
 					outputArtefact.isOwner = true;
 					res.json(outputArtefact);
-				} else if (artefact.viewers.find((u) => u.id.toString() === req.user.id.toString())) {
+				} else if (artefact.viewers.find((x) => x.id.toString() === req.user.id.toString())) {
 					// User is viewer, restrict access
 					Artefact
-						.findOne({ viewers: req.user.id }, Artefact.viewerRestrictions)
-						.populate('owner')
+						.findById(req.params.id, Artefact.viewerRestrictions)
+						.populate(Artefact.viewerPopulation)
 						.exec((viewerErr, viewerArtefact) => {
-							if (viewerErr) {
-								res.status(500).send(viewerErr);
-							} else if (viewerArtefact === null || viewerArtefact === undefined) {
+							if (err) {
+								res.status(500).send(err);
+							} else if (artefact === null || artefact === undefined) {
 								// Error getting Artefact
-								next(createError(500, 'Cannot find artefact'));
+								res.status(500).send('Cannot find artefact');
 							} else {
+								// Send restricted artefact
 								const outputArtefact = viewerArtefact.toJSON();
 								outputArtefact.isOwner = false;
 								res.json(outputArtefact);
@@ -75,7 +77,7 @@ exports.getArtefact = [
 						});
 				} else {
 					// User is not owner, create error
-					next(createError(403, 'You do not have permission to modify this artefact'));
+					res.status(403).send('You do not have permission to access this artefact.');
 				}
 			});
 	},

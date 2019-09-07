@@ -72,10 +72,8 @@
         .dialog-panel {
             padding: 0 $padding-large;
 
-            border-bottom: 1px solid $border-color;
-
-            &:last-child {
-                border-bottom: none;
+            &.dialog-panel-border {
+                border-bottom: 1px solid $border-color;
             }
 
             &.dialog-panel-scrollable {
@@ -136,11 +134,20 @@
 
     &.dialog-small {
         .dialog-content {
+            width: auto;
+            min-width: auto;
+
+            .dialog-heading {
+                padding-bottom: 0;
+            }
+        }
+    }
+
+    &.dialog-centered {
+        .dialog-content {
             display: flex;
             flex-direction: column;
 
-            width: auto;
-            min-width: auto;
             padding: $padding-medium 0;
 
             align-items: center;

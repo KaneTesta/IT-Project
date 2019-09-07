@@ -129,6 +129,7 @@ window.dialogManager = {
 
 		// Create dialog
 		const dialog = this.createNewDialog(dialogHTML, true);
+		dialog.classList.add('dialog-centered');
 		dialog.classList.add('dialog-small');
 		return dialog;
 	},
@@ -148,6 +149,7 @@ window.dialogManager = {
 		</div>
 		`, true, true);
 
+		dialog.classList.add('dialog-small');
 		return dialog;
 	},
 

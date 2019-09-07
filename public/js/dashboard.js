@@ -104,6 +104,7 @@ $(() => {
 				});
 			}).fail((jqXHR, err, data) => {
 				loadingDialog.hideAndRemove();
+				// Show error dialog
 				const errorDialog = window.dialogManager.createNewErrorDialog(`
 					Could not load information for artefact.
 				`);

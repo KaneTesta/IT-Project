@@ -35,5 +35,7 @@ const artefactSchema = mongoose.Schema({
 });
 
 artefactSchema.statics.viewerRestrictions = 'name description owner images.item';
+artefactSchema.statics.ownerPopulation = 'owner viewers';
+artefactSchema.statics.viewerPopulation = 'owner';
 
 module.exports = mongoose.model('Artefact', artefactSchema);

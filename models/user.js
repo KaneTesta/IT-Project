@@ -18,10 +18,10 @@ const userSchema = mongoose.Schema({
 userSchema.statics.getArtefacts = function getArtefacts(id, done) {
 	async.parallel({
 		owner: function owner(callback) {
-			Artefact.find({ owner: id }).exec(callback);
+			Artefact.find({ owner: id }).sort('name').exec(callback);
 		},
 		viewer: function viewer(callback) {
-			Artefact.find({ viewers: id }, Artefact.viewerRestrictions).exec(callback);
+			Artefact.find({ viewers: id }, Artefact.viewerRestrictions).sort('name').exec(callback);
 		},
 	}, (err, artefacts) => {
 		done(err, artefacts);
