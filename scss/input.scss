@@ -61,7 +61,7 @@ input[type="text"] {
     margin-bottom: $padding-medium;
     padding: $padding-medium $padding-medium;
 
-    transition: border-color 0.1s ease;
+    transition: border-color 0.1s $m-ease;
 
     border: 1px solid $border-color;
     border-radius: $border-radius;

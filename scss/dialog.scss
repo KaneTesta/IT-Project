@@ -18,7 +18,7 @@
         top: 0;
         bottom: 0;
 
-        transition: opacity 0.2s ease;
+        transition: opacity 0.2s $m-ease;
 
         opacity: 0;
         background-color: rgba(0, 0, 0, 0.4);
@@ -38,7 +38,7 @@
         margin: $padding-small;
         padding: 0;
 
-        transition: opacity 0.12s ease-in, transform 0.12s ease-in;
+        transition: opacity 0.12s $m-ease-in, transform 0.12s $m-ease-in;
         transform: scale(0.8);
 
         opacity: 0;
@@ -157,13 +157,13 @@
 
     &.visible {
         .dialog-background {
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s $m-ease;
 
             opacity: 1;
         }
 
         .dialog-content {
-            transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+            transition: opacity 0.2s $m-ease-out, transform 0.2s $m-ease-out;
             transform: scale(1);
 
             opacity: 1;

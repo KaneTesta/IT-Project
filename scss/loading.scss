@@ -1,7 +1,7 @@
 @keyframes loading-chain {
     0% {
         transform: scale(0);
-        animation-timing-function: ease-out;
+        animation-timing-function: $m-ease-out;
 
         opacity: 0;
     }
@@ -14,7 +14,7 @@
 
     50% {
         transform: scale(1);
-        animation-timing-function: ease-in;
+        animation-timing-function: $m-ease-in;
 
         opacity: 1;
     }
@@ -76,7 +76,7 @@
     justify-content: center;
 
     &.hidden {
-        transition: opacity 0.2s ease-in;
+        transition: opacity 0.2s $m-ease-in;
 
         opacity: 0;
     }

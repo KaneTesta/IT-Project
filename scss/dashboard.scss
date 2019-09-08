@@ -33,7 +33,7 @@
         padding: 38% 0;
 
         cursor: pointer;
-        transition: transform 0.1s ease, background-color 0.1s ease;
+        transition: transform 0.1s $m-ease, background-color 0.1s $m-ease;
         transform: none;
 
         border-radius: $border-radius;
