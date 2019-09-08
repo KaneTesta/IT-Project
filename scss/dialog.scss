@@ -38,7 +38,7 @@
         margin: $padding-small;
         padding: 0;
 
-        transition: opacity 0.12s $m-ease-in, transform 0.12s $m-ease-in;
+        transition: opacity 0.15s $m-ease, transform 0.15s $m-ease-in;
         transform: scale(0.8);
 
         opacity: 0;
@@ -65,7 +65,6 @@
             margin-top: $padding-medium + $padding-small;
             padding-top: 0;
             padding-right: 4rem;
-            padding-bottom: 0;
 
             font-size: 1.5rem;
         }
@@ -73,8 +72,10 @@
         .dialog-panel {
             padding: 0 $padding-large;
 
-            &.dialog-panel-border {
-                border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid $border-color;
+
+            &:last-child {
+                border-bottom: none;
             }
 
             &.dialog-panel-scrollable {
@@ -160,7 +161,7 @@
         }
 
         .dialog-content {
-            transition: opacity 0.2s $m-ease-out, transform 0.2s $m-ease-out;
+            transition: opacity 0.2s $m-ease, transform 0.2s $m-ease-out;
             transform: scale(1);
 
             opacity: 1;
