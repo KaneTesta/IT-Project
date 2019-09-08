@@ -108,7 +108,7 @@ $chip-height: 2rem;
 
     display: inline-block;
 
-    height: $chip-height;
+    min-height: $chip-height;
     margin-right: $padding-small;
     margin-bottom: $padding-medium;
 
