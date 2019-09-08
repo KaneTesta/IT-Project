@@ -111,7 +111,6 @@ $chip-height: 2rem;
     height: $chip-height;
     margin-right: $padding-small;
     margin-bottom: $padding-medium;
-    padding-right: $padding-medium;
 
     border-radius: $border-radius;
     background-color: rgba(0, 0, 0, 0.08);
@@ -126,6 +125,62 @@ $chip-height: 2rem;
         margin-right: $padding-small;
 
         border-radius: $border-radius;
+    }
+
+    .chip-text {
+        padding-right: $padding-medium;
+    }
+
+    .chip-button {
+        float: right;
+
+        width: $chip-height;
+        height: $chip-height;
+
+        cursor: pointer;
+        transition: color 0.1s $m-ease;
+        vertical-align: middle;
+
+        i {
+            transition: color 0.1s $m-ease;
+            vertical-align: middle;
+
+            color: $icon-color;
+
+            font-size: 1.5rem;
+        }
+
+        &:hover,
+        &:focus {
+            &,
+            i {
+                color: $accent-color-hover;
+            }
+        }
+
+        &:active {
+            &,
+            i {
+                color: $accent-color-active;
+            }
+        }
+
+        &.chip-button-error {
+            &:hover,
+            &:focus {
+                &,
+                i {
+                    color: $error-color-hover;
+                }
+            }
+
+            &:active {
+                &,
+                i {
+                    color: $error-color-active;
+                }
+            }
+        }
     }
 }
 

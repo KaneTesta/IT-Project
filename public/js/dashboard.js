@@ -100,6 +100,49 @@ $(() => {
 					$('#EditArtefactDescription').val(artefact.description);
 					$('#EditArtefactImageName').val(imageFilename);
 					$('#EditArtefactDeleteId').val(artefact._id);
+					// Create remove viewer chips
+					$('#EditArtefactViewersContainer').css('display', 'none');
+					if (artefact.viewers && artefact.viewers.length > 0) {
+						$('#EditArtefactViewersContainer').css('display', '');
+						$('#EditArtefactViewers').html('');
+						artefact.viewers.forEach((viewer) => {
+							// Create and add a viewer chip to the dialog
+							const chipImage = viewer.display_picture;
+							const chipName = viewer.display_name;
+							const chip = createChip(chipImage, chipName);
+							const chipButton = $(`
+							<button class="chip-button chip-button-error">
+								<i class="material-icons-outlined">delete</i>
+							</button>
+							`).appendTo(chip);
+
+							chipButton.on('click', () => {
+								// Create loading dialog
+								const loadingDialogRemoveViewer = window.dialogManager.createNewLoadingDialog(`Removing ${viewer.display_name}`);
+								loadingDialogRemoveViewer.show();
+								$.post('/artefact/share/remove', { viewerId: viewer._id, id: artefactId }, (data) => {
+									loadingDialogRemoveViewer.hideAndRemove();
+									// Show success dialog
+									const messageDialog = window.dialogManager.createNewMessageDialog('Viewer Removed', `
+										${viewer.display_name} has been removed as a viewer from this artefact.
+									`);
+									messageDialog.show();
+									// Remove chip
+									chip.remove();
+									// Hide viewers panel if no viewers
+									if ($('#EditArtefactViewers').children().length === 0) {
+										$('#EditArtefactViewersContainer').css('display', 'none');
+									}
+								}).fail((jqXHR, err, data) => {
+									loadingDialogRemoveViewer.hideAndRemove();
+									const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
+									errorDialog.show();
+								});
+							});
+
+							$('#EditArtefactViewers').append(chip);
+						});
+					}
 					dialogEditArtefact.show();
 				});
 			}).fail((jqXHR, err, data) => {
@@ -166,10 +209,10 @@ $(() => {
 						loadingDialogAddUser.show();
 						$.post('/artefact/share/add', { viewerId: user._id, id: artefactId }, (data) => {
 							loadingDialogAddUser.hideAndRemove();
-							const errorDialog = window.dialogManager.createNewMessageDialog('Viewer Added', `
+							const messageDialog = window.dialogManager.createNewMessageDialog('Viewer Added', `
 								${user.display_name} has been added as a viewer for this artefact.
 							`);
-							errorDialog.show();
+							messageDialog.show();
 						}).fail((jqXHR, err, data) => {
 							loadingDialogAddUser.hideAndRemove();
 							const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);

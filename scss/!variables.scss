@@ -5,7 +5,7 @@ $foreground-color-hover: #ffffff;
 $foreground-color-active: #f0f0f0;
 $text-color: rgba(0, 0, 0, 0.8);
 $text-color-detail: rgba(0, 0, 0, 0.6);
-$icon-color: rgba(0, 0, 0, 0.6);
+$icon-color: rgba(0, 0, 0, 0.7);
 $accent-color: #598a42;
 $accent-color-hover: lighten($accent-color, 5%);
 $accent-color-active: darken($accent-color, 2%);
@@ -47,7 +47,7 @@ $font-subheading: "Merriweather";
 $font-body: "Source Sans Pro";
 
 // Borders
-$border-radius: 0.3rem;
+$border-radius: 0.6rem;
 $border-color: rgba(0, 0, 0, 0.15);
 
 // Shadow

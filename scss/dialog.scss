@@ -65,6 +65,7 @@
             margin-top: $padding-medium + $padding-small;
             padding-top: 0;
             padding-right: 4rem;
+            padding-bottom: 0;
 
             font-size: 1.5rem;
         }
@@ -136,10 +137,6 @@
         .dialog-content {
             width: auto;
             min-width: auto;
-
-            .dialog-heading {
-                padding-bottom: 0;
-            }
         }
     }
 

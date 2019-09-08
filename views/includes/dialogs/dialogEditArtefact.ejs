@@ -6,8 +6,12 @@
         </div>
 
         <div class="dialog-panel dialog-panel-scrollable dialog-panel-border">
-            <form action="/artefact/edit" method="post" autocomplete="off" data-post-text="Updating Artefact" enctype="multipart/form-data">
+            <div class="chip-container" id="EditArtefactViewersContainer">
+                <p class="subheading">Viewers</p>
+                <div id="EditArtefactViewers"></div>
+            </div>
 
+            <form action="/artefact/edit" method="post" autocomplete="off" data-post-text="Updating Artefact" enctype="multipart/form-data">
                 <input id="EditArtefactId" type="hidden" name="id" required>
 
                 <p class="subheading">Artefact Name</p>
