@@ -128,7 +128,11 @@ $chip-height: 2rem;
     }
 
     .chip-text {
-        padding-right: $padding-medium;
+        padding-right: $padding-small;
+
+        &:last-child {
+            padding-right: $padding-medium;
+        }
     }
 
     .chip-button {
