@@ -22,7 +22,7 @@ $(() => {
 	}
 
 	// Setup view artefact buttons
-	$('.page-artefact').on('click', (e) => {
+	$('.dashboard-artefact').on('click', (e) => {
 		const $button = $(e.target);
 		const artefactId = $button.attr('data-artefact-id');
 		// Show view artefact dialog

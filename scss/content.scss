@@ -15,7 +15,16 @@ img {
 }
 
 .page-content {
-    max-width: 84rem;
+    width: 85vw;
+    max-width: $breakpoint-large;
     margin: auto;
     padding: $padding-medium $padding-large;
+
+    @media screen and (max-width: $breakpoint-large) {
+        width: 90vw;
+    }
+
+    @media screen and (max-width: $breakpoint-medium) {
+        width: auto;
+    }
 }
