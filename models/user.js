@@ -15,16 +15,47 @@ const userSchema = mongoose.Schema({
 });
 
 // Gets owned and viewable artefacts for a given user
-userSchema.statics.getArtefacts = function getArtefacts(id, done) {
+userSchema.statics.getArtefacts = function getArtefacts(userId, done) {
 	async.parallel({
 		owner: function owner(callback) {
-			Artefact.find({ owner: id }).sort('name').exec(callback);
+			Artefact.find({ owner: userId })
+				.populate(Artefact.ownerPopulation)
+				.sort('name')
+				.exec(callback);
 		},
 		viewer: function viewer(callback) {
-			Artefact.find({ viewers: id }, Artefact.viewerRestrictions).sort('name').exec(callback);
+			Artefact.find({ viewers: userId }, Artefact.viewerRestrictions)
+				.populate(Artefact.viewerPopulation)
+				.sort('name')
+				.exec(callback);
 		},
 	}, (err, artefacts) => {
 		done(err, artefacts);
+	});
+};
+
+// Gets visible artefact data visible for a given viewer
+userSchema.statics.getArtefact = function getArtefact(userId, artefactId, done) {
+	userSchema.statics.getArtefacts(userId, (err, artefacts) => {
+		if (err) {
+			done(err, null);
+		} else {
+			// Define function for matching artefacts with the given id
+			const artefactMatch = (artefact) => artefact._id.toString() === artefactId.toString();
+			// Check if the user owns or can view an artefact with the given id
+			const ownerArtefact = artefacts.owner.find(artefactMatch);
+			const viewerArtefact = artefacts.viewer.find(artefactMatch);
+			// Return the artefact
+			if (ownerArtefact) {
+				ownerArtefact.isOwner = true;
+				done(err, ownerArtefact);
+			} else if (viewerArtefact) {
+				viewerArtefact.isOwner = false;
+				done(err, viewerArtefact);
+			} else {
+				done(err, null);
+			}
+		}
 	});
 };
 
