@@ -21,6 +21,14 @@ if (process.env.NODE_ENV !== 'production') {
 // Setup database
 const db = require('./models/db');
 
+if (process.env.NODE_ENV === 'production') {
+	db.connect('it_project_prod');
+} else if (process.env.NODE_ENV === 'test') {
+	db.connect('it_project_test');
+} else {
+	db.connect('it_project');
+}
+
 // Configure session
 const sessionConfig = {
 	secret: process.env.SESSION_USER_SECRET,
