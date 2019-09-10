@@ -6,6 +6,7 @@ const images = require('../lib/images');
 const oauth2 = require('../lib/oauth2');
 // Models
 const Artefact = require('../models/artefact');
+const User = require('../models/user');
 
 const checkOwner = [
 	// Must be logged in
@@ -43,43 +44,21 @@ exports.getArtefact = [
 	oauth2.required,
 
 	(req, res, next) => {
-		Artefact
-			.findById(req.params.id)
-			.populate(Artefact.ownerPopulation)
-			.exec((err, artefact) => {
-				if (err) {
-					res.status(500).send(err);
-				} else if (artefact === null || artefact === undefined) {
-					// Error getting Artefact
-					res.status(500).send('Cannot find artefact');
-				} else if (req.user.id.toString() === artefact.owner.id.toString()) {
-					// User is owner
-					const outputArtefact = artefact.toJSON();
-					outputArtefact.isOwner = true;
-					res.json(outputArtefact);
-				} else if (artefact.viewers.find((x) => x.id.toString() === req.user.id.toString())) {
-					// User is viewer, restrict access
-					Artefact
-						.findById(req.params.id, Artefact.viewerRestrictions)
-						.populate(Artefact.viewerPopulation)
-						.exec((viewerErr, viewerArtefact) => {
-							if (err) {
-								res.status(500).send(err);
-							} else if (artefact === null || artefact === undefined) {
-								// Error getting Artefact
-								res.status(500).send('Cannot find artefact');
-							} else {
-								// Send restricted artefact
-								const outputArtefact = viewerArtefact.toJSON();
-								outputArtefact.isOwner = false;
-								res.json(outputArtefact);
-							}
-						});
-				} else {
-					// User is not owner, create error
-					res.status(403).send('You do not have permission to access this artefact.');
-				}
-			});
+		User.getArtefact(req.user.id, req.params.id, (err, artefact) => {
+			if (err) {
+				res.status(500).send(err);
+			} else if (artefact) {
+				// User is owner
+				res.json(artefact);
+			} else {
+				// Error getting Artefact
+				res.status(500).send('Cannot find artefact');
+			}
+		});
+	},
+
+	(err, req, res, next) => {
+		res.status(500).send(err);
 	},
 ];
 
