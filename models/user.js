@@ -47,11 +47,13 @@ userSchema.statics.getArtefact = function getArtefact(userId, artefactId, done) 
 			const viewerArtefact = artefacts.viewer.find(artefactMatch);
 			// Return the artefact
 			if (ownerArtefact) {
-				ownerArtefact.isOwner = true;
-				done(err, ownerArtefact);
+				const outputArtefact = ownerArtefact.toJSON();
+				outputArtefact.isOwner = true;
+				done(err, outputArtefact);
 			} else if (viewerArtefact) {
-				viewerArtefact.isOwner = false;
-				done(err, viewerArtefact);
+				const outputArtefact = viewerArtefact.toJSON();
+				outputArtefact.isOwner = false;
+				done(err, outputArtefact);
 			} else {
 				done(err, null);
 			}
