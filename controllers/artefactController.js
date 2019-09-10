@@ -6,7 +6,6 @@ const images = require('../lib/images');
 const oauth2 = require('../lib/oauth2');
 // Models
 const Artefact = require('../models/artefact');
-const User = require('../models/user');
 
 const checkOwner = [
 	// Must be logged in
@@ -44,19 +43,36 @@ exports.getArtefact = [
 	oauth2.required,
 
 	(req, res, next) => {
-		User.getArtefact(req.user.id, req.params.id, (err, artefact) => {
+		Artefact.findById(req.params.id, (err, artefact) => {
 			if (err) {
 				res.status(500).send(err);
 			} else if (artefact) {
-				// User is owner
-				res.json(artefact);
+				if (artefact.owner.equals(res.locals.profile.id)) {
+					// User is owner
+					res.json(artefact);
+				} else if ((artefact.viewers.some((v) => v.id.equals(res.locals.profile)))) {
+					// User is viewer
+					// filter artefact fields before stringify-ing
+					// https://mongoosejs.com/docs/api/document.html#document_Document-toJSON
+					// See transform
+					res.json(artefact.toJSON({
+						transform: (doc, ret, options) => {
+						// restrict view here
+						// or restrict view as a document transform function in the model
+						},
+					}));
+				} else {
+					// Not an owner or viewer
+					next(createError(403, 'You do not have permission to view this artefact'));
+				}
 			} else {
 				// Error getting Artefact
 				res.status(500).send('Cannot find artefact');
 			}
 		});
 	},
-
+	// Do we need this?
+	// Thought it was handled in app.js:86
 	(err, req, res, next) => {
 		res.status(500).send(err);
 	},
