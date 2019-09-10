@@ -6,6 +6,9 @@
         "jquery": true,
         "mocha": true
     },
+    "plugins": [
+        "chai-friendly"
+    ],
     "extends": [
         "airbnb-base"
     ],
@@ -25,6 +28,8 @@
         "no-tabs": 0,
         "no-param-reassign": 0,
         "no-underscore-dangle": 0,
+        "no-unused-expressions": 0,
+        "chai-friendly/no-unused-expressions": 2,
         "no-unused-vars": [
             "error",
             {
