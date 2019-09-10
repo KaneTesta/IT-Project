@@ -180,7 +180,6 @@ $(() => {
 					<tr>
 						<th></th>
 						<th>Name</th>
-						<th>Email</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -193,7 +192,6 @@ $(() => {
 					<tr>
 						<td><img class="user-picture" src="${user.display_picture}" alt="${user.display_name}" /></td>
 						<td>${user.display_name}</td>
-						<td>${user.email}</td>
 					</tr>
 					`).appendTo(userBody);
 
