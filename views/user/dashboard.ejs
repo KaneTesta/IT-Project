@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html>
 
-<% include ../includes/head %>
+<%- include('../includes/head'); %>
 
 <body>
 
     <div class="main-content">
-        <% include ../includes/elements/navigation %>
+        <%- include('../includes/elements/navigation'); %>
 
         <div class="page-content">
             <h1>Dashboard</h1>
 
-            <h2>My Artefact Pages</h2>
-            <div id="DashboardGridMyPages" class="dashboard-grid">
-                <% if (user && user.pages) { %>
-                    <% for (let i = 0; i < user.pages.length; ++i) { %>
-                        <a class="dashboard-page button-icon-noborder" href="/page/<%= user.pages[i]._id %>">
-                            <p class="dashboard-page-title"><%= user.pages[i].name %></p>
-                        </a>
-                    <% }; %>
+            <h2>My Artefacts</h2>
+            <div id="DashboardGridMyArtefacts" class="dashboard-grid">
+                <% if (artefacts.owner) { %>
+                <% for (let i = 0; i < artefacts.owner.length; ++i) { %>
+                <%- include('artefact', { artefact: artefacts.owner[i] }); %>
+                <% }; %>
                 <% }; %>
 
-                <button id="DashboardButtonAddPage" class="dashboard-page page-action button-icon-noborder">
+                <button id="PageButtonAddArtefact" class="dashboard-artefact page-action button-icon-noborder">
                     <i class="material-icons-outlined">add</i>
-                    <p>Create New Page</p>
+                    <p>Add New Artefact</p>
                 </button>
             </div>
 
-            <h2>Shared Pages</h2>
-            <div id="DashboardGridSharedPages" class="dashboard-grid">
+            <h2>Shared Artefacts</h2>
+            <div id="DashboardGridSharedArtefacts" class="dashboard-grid">
+                <% if (artefacts.viewer) { %>
+                <% for (let i = 0; i < artefacts.viewer.length; ++i) { %>
+                <%- include('artefact', { artefact: artefacts.viewer[i] }); %>
+                <% }; %>
+                <% }; %>
             </div>
         </div>
 
-        <% include ../includes/dialogs/dialogAddPage %>
+        <%- include('../includes/dialogs/dialogAddArtefact'); %>
+        <%- include('../includes/dialogs/dialogViewArtefact'); %>
+        <%- include('../includes/dialogs/dialogAddViewers'); %>
+        <%- include('../includes/dialogs/dialogEditArtefact'); %>
     </div>
-    
+
     <script defer src="/js/dashboard.js"></script>
-    <% include ../includes/scripts %>
+    <%- include('../includes/scripts'); %>
 
 </body>
 

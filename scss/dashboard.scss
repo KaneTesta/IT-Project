@@ -20,7 +20,7 @@
         grid-template-columns: repeat(1, 1fr);
     }
 
-    .dashboard-page {
+    .dashboard-artefact {
         position: relative;
 
         display: flex;
@@ -29,11 +29,11 @@
 
         box-sizing: border-box;
         width: 100%;
-        height: 100%;
-        padding: 30% $padding-medium;
+        height: 0;
+        padding: 38% 0;
 
         cursor: pointer;
-        transition: transform 0.1s ease, background-color 0.1s ease;
+        transition: transform 0.1s $m-ease, background-color 0.1s $m-ease;
         transform: none;
 
         border-radius: $border-radius;
@@ -82,33 +82,139 @@
 
             font-size: 1rem;
         }
+    }
+}
 
-        .dashboard-page-title,
-        .dashboard-item-title {
-            box-sizing: border-box;
-            margin: 0;
-            padding: $padding-tiny $padding-medium;
+.dashboard-artefact-title {
+    margin-top: $padding-small;
+    margin-bottom: $padding-medium;
+    padding: 0;
 
-            pointer-events: none;
+    text-align: center;
+
+    font-family: $font-subheading;
+    font-size: 1.2rem;
+}
+
+
+$chip-height: 2rem;
+
+.chip-container {
+    display: inline-block;
+}
+
+.chip {
+    position: relative;
+
+    display: inline-block;
+
+    min-height: $chip-height;
+    margin-right: $padding-small;
+    margin-bottom: $padding-medium;
+
+    border-radius: $border-radius;
+    background-color: rgba(0, 0, 0, 0.08);
+
+    line-height: $chip-height;
+
+    .chip-image {
+        float: left;
+
+        width: $chip-height;
+        height: $chip-height;
+        margin-right: $padding-small;
+
+        border-radius: $border-radius;
+    }
+
+    .chip-text {
+        padding-right: $padding-small;
+
+        &:last-child {
+            padding-right: $padding-medium;
+        }
+    }
+
+    .chip-button {
+        float: right;
+
+        width: $chip-height;
+        height: $chip-height;
+
+        cursor: pointer;
+        transition: color 0.1s $m-ease;
+        vertical-align: middle;
+
+        i {
+            transition: color 0.1s $m-ease;
+            vertical-align: middle;
+
+            color: $icon-color;
 
             font-size: 1.5rem;
         }
 
-        .dashboard-item-title {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        &:hover,
+        &:focus {
+            &,
+            i {
+                color: $accent-color-hover;
+            }
+        }
 
-            max-height: 100%;
+        &:active {
+            &,
+            i {
+                color: $accent-color-active;
+            }
+        }
 
-            text-transform: none;
+        &.chip-button-error {
+            &:hover,
+            &:focus {
+                &,
+                i {
+                    color: $error-color-hover;
+                }
+            }
 
-            background-color: rgba($foreground-color, 0.87);
+            &:active {
+                &,
+                i {
+                    color: $error-color-active;
+                }
+            }
+        }
+    }
+}
 
-            font-family: $font-subheading;
-            font-size: 1.2rem;
-            line-height: 1.25;
+.user-results {
+    width: 100%;
+
+    border-spacing: 0;
+
+    border-collapse: collapse;
+
+    .user-picture {
+        width: $chip-height;
+        height: $chip-height;
+
+        vertical-align: middle;
+
+        border-radius: $border-radius;
+    }
+
+    td {
+        padding: $padding-small $padding-small;
+
+        vertical-align: middle;
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
         }
     }
 }

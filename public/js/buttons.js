@@ -13,4 +13,23 @@ $(() => {
 			}
 		});
 	});
+
+	// Setup file upload buttons, by looking for elements with a 'data-file-description' attribute
+	$('[data-file-description]').each((i, el) => {
+		const $fileButton = $(el);
+		$fileButton.on('change', (e) => {
+			// Get image name
+			let imageName = null;
+			if (e.target && e.target.files && e.target.files.length > 0) {
+				imageName = e.target.files[0].name;
+			}
+
+			// Get id of image description input
+			const imageDescriptionId = $fileButton.attr('data-file-description');
+			// Set image name
+			if (imageName && imageDescriptionId) {
+				$(`#${imageDescriptionId}`).val(imageName);
+			}
+		});
+	});
 });

@@ -66,13 +66,13 @@ window.dialogManager = {
 		}
 
 		$(document).focusin((e) => {
-			if (dialog.classList.contains('visible')) {
+			/* if (dialog.classList.contains('visible')) {
 				if (e && e.target && !dialog.contains(e.target)) {
 					e.preventDefault();
 					e.stopPropagation();
 					dialog.focus();
 				}
-			}
+			} */
 		});
 	},
 
@@ -115,33 +115,50 @@ window.dialogManager = {
 	createNewLoadingDialog(loadingText) {
 		// Create HTML
 		const dialogHTML = `
-		<div class="loading-chain">
-			<span class="loading-chain-link"></span>
-			<span class="loading-chain-link"></span>
-			<span class="loading-chain-link"></span>
-			<span class="loading-chain-link"></span>
-		</div>
+		<div class="dialog-panel">
+			<div class="loading-chain">
+				<span class="loading-chain-link"></span>
+				<span class="loading-chain-link"></span>
+				<span class="loading-chain-link"></span>
+				<span class="loading-chain-link"></span>
+			</div>
 
-		<p class="dialog-body-text">${loadingText}</p>
+			<p class="dialog-body-text">${loadingText}</p>
+		</div>
 		`;
 
 		// Create dialog
 		const dialog = this.createNewDialog(dialogHTML, true);
+		dialog.classList.add('dialog-centered');
 		dialog.classList.add('dialog-small');
 		return dialog;
 	},
 
 	/**
-	 * Create a loading dialog with given text
-	 * @param {String} errorText The text to display while loading
+	 * Create a error dialog with given title and message
+	 * @param {String} message The title to display
+	 * @param {String} message The message to display
 	 */
-	createNewErrorDialog(errorText) {
+	createNewMessageDialog(title, message) {
 		const dialog = this.createNewDialog(`
-		<h1 class='dialog-heading'>Error</h1>
-		<p class="dialog-body-text">${errorText}</p>
+		<div class="dialog-panel">
+			<h1 class='dialog-heading'>${title}</h1>
+		</div>
+		<div class="dialog-panel dialog-panel-scrollable">
+			<p class="dialog-body-text">${message}</p>
+		</div>
 		`, true, true);
 
+		dialog.classList.add('dialog-small');
 		return dialog;
+	},
+
+	/**
+	 * Create a error dialog with given error message
+	 * @param {String} errorText The error message to display
+	 */
+	createNewErrorDialog(errorText) {
+		return this.createNewMessageDialog('Error', errorText);
 	},
 };
 

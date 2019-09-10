@@ -14,7 +14,7 @@ $dropdown-offset-v: 1.5rem;
 
     min-width: 10rem;
 
-    transition: opacity 0.1s ease-in, transform 0.1s ease-in;
+    transition: opacity 0.12s $m-ease, transform 0.12s $m-ease-in;
     transform: translateY(-0.5rem) scale(0.9);
     transform-origin: 50% 0;
 
@@ -37,7 +37,7 @@ $dropdown-offset-v: 1.5rem;
     }
 
     &.visible {
-        transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+        transition: opacity 0.15s $m-ease, transform 0.15s $m-ease-out;
         transform: translateY(0) scale(1);
 
         opacity: 1;

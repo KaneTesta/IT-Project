@@ -1,18 +1,29 @@
 <div id="DialogAddArtefact" class="dialog" data-dialog-cancelable="true">
     <div class="dialog-background"></div>
     <div class="dialog-content">
-        <h1 class="dialog-heading">Add New Artefact</h1>
+        <div class="dialog-panel">
+            <h1 class="dialog-heading">Add New Artefact</h1>
+        </div>
 
-        <form action="/page/<%= page._id %>/addartefact" method="post" autocomplete="off" data-post-text="Adding New Artefact" enctype="multipart/form-data">
-            <p class="input-heading">Artefact Name</p>
-            <input type="text" name="artefactname" placeholder="Artefact Name" required>
+        <div class="dialog-panel dialog-panel-scrollable">
+            <form action="/artefact/create" method="post" autocomplete="off" data-post-text="Adding New Artefact" enctype="multipart/form-data">
 
-            <p class="input-heading">Description</p>
-            <textarea name="artefactdescription" rows="6" placeholder="Artefact Description"></textarea>
+                <p class="subheading">Artefact Name</p>
+                <input type="text" name="name" placeholder="Artefact Name" required>
 
-            <input type="file" name="image" accept="image/*;capture=camera">
+                <p class="subheading">Description</p>
+                <textarea name="description" rows="6" placeholder="Artefact Description" required></textarea>
 
-            <input type="submit" value="Add Artefact" class="button dialog-action">
-        </form>
+                <p class="subheading">Image</p>
+                <div class="button-group">
+                    <input id="AddArtefactImageName" class="input-description" type="text" name="imagename" placeholder="No Image Uploaded" disabled>
+
+                    <input id="AddArtefactUploadImage" data-file-description="AddArtefactImageName" type="file" name="image" accept="image/*;capture=camera">
+                    <label for="AddArtefactUploadImage" class="button">Upload Image</label>
+                </div>
+
+                <input type="submit" value="Add Artefact" class="button dialog-action">
+            </form>
+        </div>
     </div>
 </div>

@@ -1,36 +1,15 @@
-const createError = require('http-errors');
 const express = require('express');
-const userController = require('../controllers/userController');
+const oauth2 = require('../lib/oauth2');
 
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
-	userController.getUser(req, (user) => {
-		if (user) {
-			res.render('user/dashboard', { title: 'Inherit That', user });
-		} else {
-			res.render('index', { title: 'Inherit That', user });
-		}
-	});
-});
-
-/* GET page for artefact page. */
-router.get('/page/:id', (req, res, next) => {
-	userController.getUser(req, (user) => {
-		if (user && user.pages && req.params.id) {
-			const page = user.pages.find((el) => el._id
-				&& el._id.toString() === req.params.id.toString());
-
-			if (page) {
-				res.render('user/page', { title: page.name, user, page });
-			} else {
-				next(createError(403, "You don't have permission to access this page"));
-			}
-		} else {
-			next(createError(500, "You can't do this unless you are logged in"));
-		}
-	});
+router.get('/', oauth2.template, (req, res, next) => {
+	if (req.isAuthenticated()) {
+		res.redirect('/user/');
+	} else {
+		res.render('index', { title: 'Inherit That' });
+	}
 });
 
 module.exports = router;

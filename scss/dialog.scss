@@ -18,7 +18,7 @@
         top: 0;
         bottom: 0;
 
-        transition: opacity 0.2s ease;
+        transition: opacity 0.2s $m-ease;
 
         opacity: 0;
         background-color: rgba(0, 0, 0, 0.4);
@@ -27,16 +27,18 @@
     .dialog-content {
         z-index: 1;
 
-        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
 
         box-sizing: border-box;
         min-width: 24rem;
-        max-width: 40vw;
-        max-height: 90vh;
+        max-width: 50vw;
+        max-height: calc(100vh - #{$padding-small * 2});
         margin: $padding-small;
-        padding: $padding-medium $padding-large;
+        padding: 0;
 
-        transition: opacity 0.12s ease-in, transform 0.12s ease-in;
+        transition: opacity 0.15s $m-ease, transform 0.15s $m-ease-in;
         transform: scale(0.8);
 
         opacity: 0;
@@ -44,6 +46,10 @@
         border-radius: $border-radius;
         background-color: $foreground-color;
         box-shadow: $shadow-dialog;
+
+        @media screen and (max-width: $breakpoint-large) {
+            max-width: 75vw;
+        }
 
         @media screen and (max-width: $breakpoint-medium) {
             min-width: 20rem;
@@ -56,10 +62,59 @@
         }
 
         .dialog-heading {
-            margin-top: $padding-small;
+            margin-top: $padding-medium + $padding-small;
+            padding-top: 0;
             padding-right: 4rem;
 
             font-size: 1.5rem;
+        }
+
+        .dialog-panel {
+            padding: 0 $padding-large;
+
+            border-bottom: 1px solid $border-color;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &.dialog-panel-scrollable {
+                overflow: auto;
+
+                padding-top: $padding-medium;
+                padding-bottom: $padding-medium;
+
+                .dialog-action:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .dialog-image {
+            float: right;
+
+            max-width: 60%;
+            margin-top: $padding-small;
+            margin-bottom: $padding-medium;
+            margin-left: $padding-large;
+
+            border: none;
+            border-radius: $border-radius;
+
+            @media screen and (max-width: $breakpoint-large) {
+                max-width: 50%;
+            }
+
+            @media screen and (max-width: $breakpoint-medium) {
+                max-width: 40%;
+            }
+
+            @media screen and (max-width: $breakpoint-small) {
+                float: none;
+
+                max-width: 100%;
+                margin-left: 0;
+            }
         }
 
         .dialog-button-close {
@@ -75,17 +130,23 @@
 
         .dialog-action {
             width: 100%;
-            margin-top: $padding-large;
+            margin: $padding-medium 0;
         }
     }
 
     &.dialog-small {
         .dialog-content {
+            width: auto;
+            min-width: auto;
+        }
+    }
+
+    &.dialog-centered {
+        .dialog-content {
             display: flex;
             flex-direction: column;
 
-            width: auto;
-            min-width: auto;
+            padding: $padding-medium 0;
 
             align-items: center;
             justify-content: center;
@@ -94,13 +155,13 @@
 
     &.visible {
         .dialog-background {
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s $m-ease;
 
             opacity: 1;
         }
 
         .dialog-content {
-            transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+            transition: opacity 0.2s $m-ease, transform 0.2s $m-ease-out;
             transform: scale(1);
 
             opacity: 1;

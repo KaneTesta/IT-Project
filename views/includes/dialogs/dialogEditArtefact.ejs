@@ -1,23 +1,42 @@
 <div id="DialogEditArtefact" class="dialog" data-dialog-cancelable="true">
     <div class="dialog-background"></div>
     <div class="dialog-content">
-        <h1 class="dialog-heading">Edit Artefact</h1>
+        <div class="dialog-panel">
+            <h1 class="dialog-heading">Edit Artefact</h1>
+        </div>
 
-        <form action="/page/<%= page._id %>/addartefact" method="post" autocomplete="off" data-post-text="Updating Artefact">
-            <input id="EditArtefactId" type="hidden" name="artefactid" required>
+        <div class="dialog-panel dialog-panel-scrollable">
+            <div class="chip-container" id="EditArtefactViewersContainer">
+                <p class="subheading">Viewers</p>
+                <div id="EditArtefactViewers"></div>
+            </div>
 
-            <p class="input-heading">Artefact Name</p>
-            <input id="EditArtefactName" type="text" name="artefactname" placeholder="Artefact Name" required>
+            <form action="/artefact/edit" method="post" autocomplete="off" data-post-text="Updating Artefact" enctype="multipart/form-data">
+                <input id="EditArtefactId" type="hidden" name="id" required>
 
-            <p class="input-heading">Description</p>
-            <textarea id="EditArtefactDescription" name="artefactdescription" rows="4" placeholder="Artefact Description"></textarea>
+                <p class="subheading">Artefact Name</p>
+                <input id="EditArtefactName" type="text" name="name" placeholder="Artefact Name" required>
 
-            <input type="submit" value="Update Artefact" class="button dialog-action">
-        </form>
+                <p class="subheading">Description</p>
+                <textarea id="EditArtefactDescription" name="description" rows="4" placeholder="Artefact Description" required></textarea>
 
-        <form action="/page/<%= page._id %>/deleteartefact" method="post" autocomplete="off" data-post-text="Deleting Artefact">
-            <input id="EditArtefactDeleteId" type="hidden" name="artefactid" required>
-            <input type="submit" value="Delete Artefact" class="button button-error dialog-action">
-        </form>
+                <p class="subheading">Image</p>
+                <div class="button-group">
+                    <input id="EditArtefactImageName" class="input-description" type="text" name="imagename" placeholder="No Image Uploaded" disabled>
+
+                    <input id="EditArtefactUploadImage" data-file-description="EditArtefactImageName" type="file" name="image" accept="image/*;capture=camera">
+                    <label for="EditArtefactUploadImage" class="button">Upload Image</label>
+                </div>
+
+                <input type="submit" value="Update Artefact" class="button dialog-action">
+            </form>
+        </div>
+
+        <div class="dialog-panel">
+            <form action="/artefact/delete" method="post" autocomplete="off" data-post-text="Deleting Artefact">
+                <input id="EditArtefactDeleteId" type="hidden" name="id" required>
+                <input type="submit" value="Delete Artefact" class="button button-error dialog-action">
+            </form>
+        </div>
     </div>
 </div>

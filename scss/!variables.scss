@@ -5,8 +5,8 @@ $foreground-color-hover: #ffffff;
 $foreground-color-active: #f0f0f0;
 $text-color: rgba(0, 0, 0, 0.8);
 $text-color-detail: rgba(0, 0, 0, 0.6);
-$icon-color: rgba(0, 0, 0, 0.6);
-$accent-color: #669650;
+$icon-color: rgba(0, 0, 0, 0.7);
+$accent-color: #598a42;
 $accent-color-hover: lighten($accent-color, 5%);
 $accent-color-active: darken($accent-color, 2%);
 $accent-color-hover-light: transparentize($accent-color, 0.95);
@@ -15,7 +15,7 @@ $accent-text-color: #ffffff;
 $focus-color: rgba(0, 0, 0, 0.02);
 $focus-color-active: rgba(0, 0, 0, 0.05);
 // Status colors
-$success-color: #1f9c1a;
+$success-color: #1a9c4c;
 $success-color-hover: lighten($success-color, 5%);
 $success-color-active: darken($success-color, 2%);
 $warning-color: #9c5f1a;
@@ -31,10 +31,15 @@ $padding-small: 0.6rem;
 $padding-medium: 0.9rem;
 $padding-large: 1.2rem;
 // Breakpoints
-$breakpoint-large: 1200px;
-$breakpoint-medium: 800px;
-$breakpoint-small: 540px;
+$breakpoint-large: 1400px;
+$breakpoint-medium: 900px;
+$breakpoint-small: 600px;
 $breakpoint-tiny: 360px;
+
+// Motaion
+$m-ease: cubic-bezier(0.4, 0.0, 0.2, 1);
+$m-ease-in: cubic-bezier(0.4, 0.0, 1, 1);
+$m-ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
 
 // Fonts
 $font-heading: "Merriweather";
@@ -42,14 +47,14 @@ $font-subheading: "Merriweather";
 $font-body: "Source Sans Pro";
 
 // Borders
-$border-radius: 0.9rem;
+$border-radius: 0.6rem;
 $border-color: rgba(0, 0, 0, 0.15);
 
 // Shadow
-$shadow-card: 0 2px 6px rgba(0, 0, 0, 0.25);
-$shadow-heading: 0 1px 2px rgba(0, 0, 0, 0.25);
+$shadow-card: 0 2px 6px rgba(0, 0, 0, 0.2);
+$shadow-heading: 0 1px 2px rgba(0, 0, 0, 0.2);
 $shadow-dropdown: 0 2px 6px rgba(0, 0, 0, 0.4);
 $shadow-dialog: 0 4px 12px rgba(0, 0, 0, 0.4);
-$shadow-button: 0 1px 2px rgba(0, 0, 0, 0.25);
+$shadow-button: 0 1px 2px rgba(0, 0, 0, 0.2);
 $shadow-button-hover: 0 1px 4px rgba(0, 0, 0, 0.4);
-$shadow-button-active: 0 1px 2px rgba(0, 0, 0, 0.25);
+$shadow-button-active: 0 1px 2px rgba(0, 0, 0, 0.2);

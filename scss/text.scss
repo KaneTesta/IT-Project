@@ -31,8 +31,8 @@ button {
 }
 
 h1 {
-    margin-top: $padding-medium;
-    margin-bottom: $padding-large;
+    padding-top: $padding-medium;
+    padding-bottom: $padding-large;
 
     color: $text-color;
 
@@ -42,7 +42,7 @@ h1 {
 }
 
 h2 {
-    margin-bottom: $padding-medium;
+    padding-bottom: $padding-medium;
 
     color: $text-color;
 
@@ -52,7 +52,7 @@ h2 {
 }
 
 h3 {
-    margin-bottom: $padding-small;
+    padding-bottom: $padding-small;
 
     color: $text-color;
 
@@ -61,12 +61,46 @@ h3 {
     font-weight: 700;
 }
 
+.subheading {
+    margin: $padding-tiny 0;
+    padding: 0;
+
+    letter-spacing: 0.04rem;
+    text-transform: uppercase;
+
+    color: $text-color-detail;
+
+    font-size: 0.85rem;
+}
+
 a {
     color: $accent-color;
 }
 
 p {
-    margin-bottom: $padding-small;
+    padding-bottom: $padding-small;
 
-    line-height: 1.5;
+    line-height: 1.25;
+}
+
+.text-description {
+    padding-bottom: $padding-medium;
+
+    color: $text-color-detail;
+}
+
+
+.message {
+    margin: 0;
+    margin-bottom: $padding-small;
+    padding: $padding-small $padding-medium;
+
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background-color: rgba($border-color, 0.1);
+
+    &.message-error {
+        border: 1px solid $error-color;
+        background-color: rgba($error-color, 0.1);
+    }
 }
