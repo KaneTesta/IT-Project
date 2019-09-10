@@ -18,9 +18,9 @@
             <input type="text" id="tagInput" onkeyup="filterTags()" placeholder="Select Tags">
 
 		  <div class="button-group flex-left">
-			  <% const test = [0,1,2,3 %>
-			  <% for (let i = 0; i < test.length; ++i) { %>
-			     <button id ="tag", class="button"><%= test[i] %></button>
+			  <% const test = [0,1,2,3] %>
+			  <% for (let i = 0; i < page.taglength; ++i) { %>
+			     <button id ="tag", class="button"><%= page.distincttags[i] %></button>
 			     <% }; %>
 		  </div>
 
