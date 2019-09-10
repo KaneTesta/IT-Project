@@ -26,6 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 } else if (process.env.NODE_ENV === 'test') {
 	db.connect('it_project_test');
 } else {
+	app.use(logger('dev'));
 	db.connect('it_project');
 }
 
@@ -64,7 +65,6 @@ app.use(oauth2.router);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

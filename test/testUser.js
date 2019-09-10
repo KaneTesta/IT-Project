@@ -12,20 +12,24 @@ const User = require('../models/user');
 chai.use(chaiHttp);
 const { expect } = chai;
 
-after((done) => {
+before(function beforeAll(done) {
+	this.timeout(10000);
 	// Clear database
-	User.deleteMany({}, () => {
-		mongoose.disconnect((err) => {
-			done(err);
-			process.exit();
-		});
+	User.deleteMany({}, (err) => {
+		done(err);
 	});
 });
 
-describe('User', function describeUser() {
-	this.timeout(10000);
+after((done) => {
+	// Clear database
+	mongoose.disconnect((err) => {
+		done(err);
+		process.exit();
+	});
+});
 
-	beforeEach((done) => {
+describe('User', () => {
+	afterEach((done) => {
 		// Clear database
 		User.deleteMany({}, (err) => {
 			done(err);
