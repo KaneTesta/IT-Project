@@ -204,9 +204,14 @@ $chip-height: 2rem;
         border-radius: $border-radius;
     }
 
+    th,
     td {
         padding: $padding-small $padding-small;
 
+        text-align: left;
+    }
+
+    td {
         vertical-align: middle;
 
         &:first-child {
