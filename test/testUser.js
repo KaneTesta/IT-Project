@@ -28,7 +28,9 @@ after((done) => {
 	});
 });
 
-describe('User', () => {
+describe('User', function describeUser() {
+	this.timeout(10000);
+
 	afterEach((done) => {
 		// Clear database
 		User.deleteMany({}, (err) => {
