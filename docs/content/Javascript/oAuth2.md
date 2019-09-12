@@ -1,3 +1,9 @@
+---
+title: oAuth2.js
+category: Javascript
+author: 
+---
+
 #oAuth2.js
 
 OAuth2 is a version of the OAuth framework that is used in our application to delegate the authorisation of users.

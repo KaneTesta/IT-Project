@@ -1,3 +1,9 @@
+---
+title: user.js
+category: Javascript
+author: 
+---
+
 #user.js
 
 Contains the schema for our applications users. For each user, an index is created based on the name and email so that a user can be found in a search query (Important for linking artefacts to non-owners). The schema is as follows:

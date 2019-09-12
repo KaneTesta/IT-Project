@@ -1,3 +1,9 @@
+---
+title: artefact.js
+category: Javascript
+author: 
+---
+
 #artefact.js
 
 Contains the schema for images/files and also artefacts themselves.

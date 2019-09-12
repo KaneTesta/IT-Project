@@ -1,3 +1,9 @@
+---
+title: user.js & artefact.js
+category: Javascript
+author: 
+---
+
 # user.js & artefact.js
 
 Manage all the http requests for the application. The requests each are associated with a function from a controller because they define what request needs to be made in each call.

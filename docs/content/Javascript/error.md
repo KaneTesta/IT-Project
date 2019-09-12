@@ -1,3 +1,9 @@
+---
+title: error.js
+category: Javascript
+author: 
+---
+
 #Error.js
 A simple file to convert error's products by express-validator into a human-readable format, where each new error is on a new line.
 

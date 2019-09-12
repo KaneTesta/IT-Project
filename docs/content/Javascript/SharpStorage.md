@@ -1,3 +1,9 @@
+---
+title: SharpStorage.js
+category: Javascript
+author: 
+---
+
 #SharpStorage
 
 Handles the compression and conversion of images to a consistent type

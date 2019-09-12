@@ -1,3 +1,10 @@
+---
+title: db.js
+category: Javascript
+author:
+---
+
+
 #db.js
 
 Responsible for establishing the connection with the mongo database
