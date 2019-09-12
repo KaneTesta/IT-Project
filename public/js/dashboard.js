@@ -8,6 +8,11 @@ $(() => {
 		}
 	});
 
+	/**
+	 * Create a jQuery DOM element for a chip, based on an image url and text
+	 * @param {*} image The url for the image of the chip
+	 * @param {*} text The text to show in the chip
+	 */
 	function createChip(image, text) {
 		return $(`
 			<div class="chip">
@@ -28,6 +33,7 @@ $(() => {
 		// Show view artefact dialog
 		const dialogViewArtefact = document.getElementById('DialogViewArtefact');
 		if (dialogViewArtefact && artefactId) {
+			// Reset all view artefact dialog properties
 			$('#ArtefactViewName').html('');
 			$('#ArtefactViewDescription').html('');
 			$('#ArtefactViewImage').attr('src', '');
@@ -46,7 +52,7 @@ $(() => {
 			$.get(`/artefact/${artefactId}`, (artefact) => {
 				loadingDialog.hideAndRemove();
 				dialogViewArtefact.show();
-				// Get image url
+				// Get image url and filename
 				let imageUrl = '';
 				let imageFilename = '';
 				if (artefact.images && artefact.images.item) {
@@ -54,7 +60,7 @@ $(() => {
 					imageFilename = artefact.images.item.filename;
 				}
 
-				// Set fields
+				// Set fields to match artefact properties
 				$('#ArtefactViewName').html(artefact.name);
 				$('#ArtefactViewDescription').html(artefact.description);
 				$('#ArtefactViewImage').attr('src', imageUrl);
@@ -95,14 +101,16 @@ $(() => {
 					dialogViewArtefact.hide();
 					// Show edit artefact dialog
 					const dialogEditArtefact = document.getElementById('DialogEditArtefact');
+					// Set values in the dialog to match the artefact
 					$('#EditArtefactId').val(artefact._id);
 					$('#EditArtefactName').val(artefact.name);
 					$('#EditArtefactDescription').val(artefact.description);
 					$('#EditArtefactImageName').val(imageFilename);
 					$('#EditArtefactDeleteId').val(artefact._id);
-					// Create remove viewer chips
 					$('#EditArtefactViewersContainer').css('display', 'none');
+					// Create chips to remove viewers
 					if (artefact.viewers && artefact.viewers.length > 0) {
+						// Reset the viewer chips
 						$('#EditArtefactViewersContainer').css('display', '');
 						$('#EditArtefactViewers').html('');
 						artefact.viewers.forEach((viewer) => {
@@ -110,12 +118,14 @@ $(() => {
 							const chipImage = viewer.display_picture;
 							const chipName = viewer.display_name;
 							const chip = createChip(chipImage, chipName);
+							// Create the delete viewer button
 							const chipButton = $(`
 							<button class="chip-button chip-button-error">
 								<i class="material-icons-outlined">delete</i>
 							</button>
 							`).appendTo(chip);
 
+							// Setup the delete viewer button action
 							chipButton.on('click', () => {
 								// Create loading dialog
 								const loadingDialogRemoveViewer = window.dialogManager.createNewLoadingDialog(`Removing ${viewer.display_name}`);
@@ -126,6 +136,7 @@ $(() => {
 									const messageDialog = window.dialogManager.createNewMessageDialog('Viewer Removed', `
 										${viewer.display_name} has been removed as a viewer from this artefact.
 									`);
+
 									messageDialog.show();
 									// Remove chip
 									chip.remove();
@@ -135,14 +146,18 @@ $(() => {
 									}
 								}).fail((jqXHR, err, data) => {
 									loadingDialogRemoveViewer.hideAndRemove();
+									// Create an error dialog with the error message
 									const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
 									errorDialog.show();
 								});
 							});
 
+							// Add the created chip to the viewers
 							$('#EditArtefactViewers').append(chip);
 						});
 					}
+
+					// Show the edit artefact dialog, after other fields have been set
 					dialogEditArtefact.show();
 				});
 			}).fail((jqXHR, err, data) => {
@@ -158,7 +173,10 @@ $(() => {
 	});
 
 
-	// Setup search function
+	/**
+	 * Search for users based on the current values of the add viewers dialog,
+	 * and populate the results table based on the search results
+	 */
 	function searchUsers() {
 		$('#AddViewersSearchResult').html('');
 		// Get search query
@@ -174,7 +192,7 @@ $(() => {
 				// Add table for users
 				const searchResult = $('#AddViewersSearchResult');
 				const userTable = $('<table class="user-results"></table>').appendTo(searchResult);
-				// Add head
+				// Add table headings
 				$(`
 				<thead>
 					<tr>
@@ -188,6 +206,7 @@ $(() => {
 				// Add body
 				const userBody = $('<tbody></tbody>').appendTo(userTable);
 				users.forEach((user) => {
+					// Create a row for the result user
 					const userRow = $(`
 					<tr>
 						<td><img class="user-picture" src="${user.display_picture}" alt="${user.display_name}" /></td>
@@ -195,35 +214,42 @@ $(() => {
 					</tr>
 					`).appendTo(userBody);
 
+					// Create a button to add the user as a viewer
 					const userButton = $(`
 					<td>
 						<button class="button button-inline" style="margin-left: auto;">Share with User</button>
 					</td>
 					`).appendTo(userRow);
 
+					// Setup the add viewer button action
 					userButton.on('click', (e) => {
 						// Create loading dialog
 						const loadingDialogAddUser = window.dialogManager.createNewLoadingDialog(`Adding ${user.display_name}`);
 						loadingDialogAddUser.show();
 						$.post('/artefact/share/add', { viewerId: user._id, id: artefactId }, (data) => {
 							loadingDialogAddUser.hideAndRemove();
+							// Show a success dialog with the added user's name
 							const messageDialog = window.dialogManager.createNewMessageDialog('Viewer Added', `
 								${user.display_name} has been added as a viewer for this artefact.
 							`);
+
 							messageDialog.show();
 						}).fail((jqXHR, err, data) => {
 							loadingDialogAddUser.hideAndRemove();
+							// Show an error dialog with the error response
 							const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
 							errorDialog.show();
 						});
 					});
 				});
 			} else {
-				const errorDialog = window.dialogManager.createNewErrorDialog('No results found');
-				errorDialog.show();
+				// Create a message explaining that there are no resulst
+				const searchResult = $('#AddViewersSearchResult');
+				$('<p class="text-error">No results found</p>').appendTo(searchResult);
 			}
 		}).fail((jqXHR, err, data) => {
 			loadingDialog.hideAndRemove();
+			// Show an error dialog with the error response
 			const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
 			errorDialog.show();
 		});
