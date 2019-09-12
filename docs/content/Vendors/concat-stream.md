@@ -1,5 +1,9 @@
 ---
-title: concat-stream.js
+title: concat-stream
 category: Vendors
 author:
 ---
+
+# What does it do?
+
+# Where we used it

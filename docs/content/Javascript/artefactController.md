@@ -4,7 +4,7 @@ category: Javascript
 author: 
 ---
 
-#artefactController.js
+# artefactController.js
 
 
 The artefact controller file is a file containing multiple functions surrounding the management of a user's artefacts. This includes the creation, editing and removal of artefacts, and the functionality to share artefacts with other users. This is an important script as it addresses the core requirements ([Requirements] https://kanetesta.github.io/IT-Project/content/Requirements/requirements-analysis.html) wanting to be seen by our client. 
@@ -64,5 +64,5 @@ exports.removeViewer
 ```
 
 
-#Vendors
-* [Express-Validator] (https://kanetesta.github.io/IT-Project/content/Vendors/ExpressValidator.md)
+# Vendors
+* [Express-Validator](https://kanetesta.github.io/IT-Project/content/Vendors/ExpressValidator.html)

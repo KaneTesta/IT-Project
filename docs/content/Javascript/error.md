@@ -4,7 +4,7 @@ category: Javascript
 author: 
 ---
 
-#Error.js
+# Error.js
 A simple file to convert error's products by express-validator into a human-readable format, where each new error is on a new line.
 
 Key functions:
@@ -18,5 +18,5 @@ exports.errorsToMessage = function errorsToMessage(errors)
 exports.createValidationError = function createValidationError(errors)
 ```
 
-#Vendors
-* [http-errors] https://kanetesta.github.io/IT-Project/content/Vendors/http-errors.html
+# Vendors
+* [http-errors](https://kanetesta.github.io/IT-Project/content/Vendors/http-errors.html)

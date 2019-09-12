@@ -4,11 +4,11 @@ category: Javascript
 author: 
 ---
 
-#images.js
+# images.js
 
 This file handles file management between a user and Google Cloud Storage.
 
-The script works by creating a storage object containing a user's data, to be used in a Cloud Storage bucket. To see more about the deployment of the Google Cloud Client, see our documentation on the [GoogleCloudStorage] (https://kanetesta.github.io/IT-Project/content/Vendors/GoogleCloudStorage.md) Vendor page.
+The script works by creating a storage object containing a user's data, to be used in a Cloud Storage bucket. To see more about the deployment of the Google Cloud Client, see our documentation on the [GoogleCloudStorage] (https://kanetesta.github.io/IT-Project/content/Vendors/GoogleCloudStorage.html) Vendor page.
 
 ```javascript
 // Storage object containing credentials of user
@@ -39,6 +39,6 @@ function sendUploadToGCS(req, res, next)
 async function deleteFromGCS(filename)
 ```
 
-#Vendors
-* [GoogleCloudStorage] (https://kanetesta.github.io/IT-Project/content/Vendors/GoogleCloudStorage.md)
-* [Multer] (https://kanetesta.github.io/IT-Project/content/Vendors/Multer.md)
+# Vendors
+* [GoogleCloudStorage](https://kanetesta.github.io/IT-Project/content/Vendors/GoogleCloudStorage.html)
+* [Multer](https://kanetesta.github.io/IT-Project/content/Vendors/Multer.html)

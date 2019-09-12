@@ -4,7 +4,7 @@ category: Javascript
 author: 
 ---
 
-#user.js
+# user.js
 
 Contains the schema for our applications users. For each user, an index is created based on the name and email so that a user can be found in a search query (Important for linking artefacts to non-owners). The schema is as follows:
 
@@ -38,6 +38,6 @@ userSchema.index
 ```
 
 
-#Vendors
-* [async] https://kanetesta.github.io/IT-Project/content/Vendors/async.html
-* [mongoose] https://kanetesta.github.io/IT-Project/content/Vendors/mongoose.html
+# Vendors
+* [async](https://kanetesta.github.io/IT-Project/content/Vendors/async.html)
+* [mongoose](https://kanetesta.github.io/IT-Project/content/Vendors/mongoose.html)

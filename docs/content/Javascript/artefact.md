@@ -4,7 +4,7 @@ category: Javascript
 author: 
 ---
 
-#artefact.js
+# artefact.js
 
 Contains the schema for images/files and also artefacts themselves.
 
@@ -19,5 +19,5 @@ Schema for artefact objects
 Schema for image objects
 * filename - name of the file
 
-#Vendors
-* [Mongoose] (https://kanetesta.github.io/IT-Project/content/Vendors/mongoose.md)
+# Vendors
+* [Mongoose](https://kanetesta.github.io/IT-Project/content/Vendors/mongoose.html)

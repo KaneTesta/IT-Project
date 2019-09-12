@@ -5,7 +5,7 @@ author:
 ---
 
 
-#dashboard.js
+# dashboard.js
 
 This script has the focus on rendering the dashboard based on the data it recieves from the different controllers. Basically a call is made to access the user's data, and the following is rendered onto the screen:
 
