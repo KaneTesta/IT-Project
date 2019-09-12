@@ -77,6 +77,15 @@
             object-fit: cover;
         }
 
+        .dashboard-artefact-owner {
+            left: auto;
+            top: auto;
+
+            width: 1.5rem;
+            height: 1.5rem;
+            margin: $padding-tiny;
+        }
+
         p {
             margin-top: 0.5rem;
 
@@ -204,9 +213,14 @@ $chip-height: 2rem;
         border-radius: $border-radius;
     }
 
+    th,
     td {
         padding: $padding-small $padding-small;
 
+        text-align: left;
+    }
+
+    td {
         vertical-align: middle;
 
         &:first-child {
