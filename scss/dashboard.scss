@@ -33,7 +33,7 @@
         padding: 38% 0;
 
         cursor: pointer;
-        transition: transform 0.1s $m-ease;
+        transition: transform 0.12s $m-ease;
         transform: none;
 
         border-radius: $border-radius;
@@ -46,11 +46,21 @@
 
         &:hover,
         &:focus {
-            transform: scale(1.04);
+            z-index: 1;
+
+            transform: scale(1.03);
+
+            .dashboard-artefact-background {
+                transform: scale(1.02);
+            }
         }
 
         &:active {
-            transform: scale(1);
+            transform: scale(0.98);
+
+            .dashboard-artefact-background {
+                transform: scale(1);
+            }
         }
 
         &.page-action {
@@ -72,6 +82,9 @@
             width: 100%;
             height: 100%;
 
+            transition: transform 0.12s $m-ease;
+            transform: scale(1);
+
             border-radius: 0;
 
             object-fit: cover;
@@ -87,6 +100,7 @@
             margin: $padding-tiny;
 
             border-radius: $border-radius;
+            box-shadow: $shadow-image;
         }
 
         p {
