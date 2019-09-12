@@ -26,13 +26,26 @@
             </div>
 
             <h2>Shared Artefacts</h2>
+            <% if (artefacts.viewer && artefacts.viewer.length > 0) { %>
+            <% let viewerUsers = artefacts.viewer.reduce((rv, x) => {
+                    (rv[x.owner.display_name] = rv[x.owner.display_name] || []).push(x);
+                    return rv;
+                }, {}); %>
+            <% let viewerUserKeys = Object.keys(viewerUsers); %>
+
+            <% for (let i = 0; i < viewerUserKeys.length; ++i) { %>
+
+            <h3><%= viewerUserKeys[i] %></h3>
             <div id="DashboardGridSharedArtefacts" class="dashboard-grid">
-                <% if (artefacts.viewer) { %>
-                <% for (let i = 0; i < artefacts.viewer.length; ++i) { %>
-                <%- include('artefact', { artefact: artefacts.viewer[i] }); %>
-                <% }; %>
+                <% for (let j = 0; j < viewerUsers[viewerUserKeys[i]].length; ++j) { %>
+                <%- include('artefact', { artefact: viewerUsers[viewerUserKeys[i]][j] }); %>
                 <% }; %>
             </div>
+
+            <% }; %>
+            <% } else { %>
+            <p class="text-description">Artefacts that other users share with you will show up here.</p>
+            <% }; %>
         </div>
 
         <%- include('../includes/dialogs/dialogAddArtefact'); %>
