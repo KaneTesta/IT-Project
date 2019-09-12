@@ -1,13 +1,16 @@
 const createError = require('http-errors');
 const { body, validationResult, sanitizeBody } = require('express-validator');
+
 // Libraries
 const { createValidationError } = require('../lib/errors');
 const images = require('../lib/images');
 const oauth2 = require('../lib/oauth2');
+
 // Models
 const Artefact = require('../models/artefact');
 const User = require('../models/user');
 
+//Check if a user is the owner of the artefact, based on their session (login) information. If they aren't the owner of an artefact, don't let them make changes
 const checkOwner = [
 	// Must be logged in
 	oauth2.required,
@@ -38,7 +41,7 @@ const checkOwner = [
 	},
 ];
 
-
+// Get artefact if user is the owner
 exports.getArtefact = [
 	// Must be logged in
 	oauth2.required,
@@ -62,6 +65,7 @@ exports.getArtefact = [
 	},
 ];
 
+// Create and save an artefact object to the user that is logged in's GCS
 exports.createArtefact = [
 	// Must be logged in
 	oauth2.required,
@@ -81,6 +85,12 @@ exports.createArtefact = [
 	(req, res, next) => {
 		const errors = validationResult(req);
 
+		// Artefact object
+		// Inputs:
+		// Name - Name of the object to be displayed on dashboard
+		// Description - Description of the object 
+		// Tags - Categories that we want to identify our object with
+		// Owner - user ID of the owner of the artefact
 		const artefact = new Artefact({
 			name: req.body.name,
 			description: req.body.description,
@@ -106,6 +116,7 @@ exports.createArtefact = [
 	},
 ];
 
+//Edit's an artefact if it belongs to the user in the session
 exports.editArtefact = [
 	// Must be logged in
 	oauth2.required,
@@ -158,6 +169,7 @@ exports.editArtefact = [
 	},
 ];
 
+//Deletes artefact if owned by user
 exports.deleteArtefact = [
 	oauth2.required,
 	checkOwner,
@@ -172,6 +184,7 @@ exports.deleteArtefact = [
 	},
 ];
 
+// Allows specified user to gain viewing access to an artefact
 exports.addViewer = [
 	oauth2.required,
 	checkOwner,
@@ -199,7 +212,7 @@ exports.addViewer = [
 	},
 ];
 
-
+// Disallows specified user to gain viewing access to an artefact
 exports.removeViewer = [
 	oauth2.required,
 	checkOwner,

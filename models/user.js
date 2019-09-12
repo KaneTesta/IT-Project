@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const async = require('async');
 const Artefact = require('./artefact');
 
+//Mongoose schema used to store each user's data in our mongoDB
 const userSchema = mongoose.Schema({
 	user_id: {
 		type: String,
