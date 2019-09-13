@@ -27,18 +27,24 @@
 
             <h2>Shared Artefacts</h2>
             <% if (artefacts.viewer && artefacts.viewer.length > 0) { %>
-            <% let viewerUsers = artefacts.viewer.reduce((rv, x) => {
-                    (rv[x.owner.display_name] = rv[x.owner.display_name] || []).push(x);
+            <% let artefactsForUserIds = artefacts.viewer.reduce((rv, x) => {
+                    (rv[x.owner.id] = rv[x.owner.id] || []).push(x);
                     return rv;
                 }, {}); %>
-            <% let viewerUserKeys = Object.keys(viewerUsers); %>
+            <% let usersForUserIds = artefacts.viewer.reduce((rv, x) => {
+                    rv[x.owner.id] = x.owner;
+                    return rv;
+                }, {}); %>
+            <% let userIds = Object.keys(artefactsForUserIds).sort(); %>
 
-            <% for (let i = 0; i < viewerUserKeys.length; ++i) { %>
+            <% for (let i = 0; i < userIds.length; ++i) { %>
+            <% let userArtefacts = artefactsForUserIds[userIds[i]]; %>
+            <% let userOwner = usersForUserIds[userIds[i]]; %>
 
-            <h3><%= viewerUserKeys[i] %></h3>
+            <h3><%= userOwner.display_name %></h3>
             <div id="DashboardGridSharedArtefacts" class="dashboard-grid">
-                <% for (let j = 0; j < viewerUsers[viewerUserKeys[i]].length; ++j) { %>
-                <%- include('artefact', { artefact: viewerUsers[viewerUserKeys[i]][j] }); %>
+                <% for (let j = 0; j < userArtefacts.length; ++j) { %>
+                <%- include('artefact', { artefact: userArtefacts[j] }); %>
                 <% }; %>
             </div>
 
