@@ -136,7 +136,7 @@ window.dialogManager = {
 
 	/**
 	 * Create a error dialog with given title and message
-	 * @param {String} message The title to display
+	 * @param {String} title The title to display
 	 * @param {String} message The message to display
 	 */
 	createNewMessageDialog(title, message) {
@@ -159,6 +159,27 @@ window.dialogManager = {
 	 */
 	createNewErrorDialog(errorText) {
 		return this.createNewMessageDialog('Error', errorText);
+	},
+
+	/**
+	 * Create a confirmation dialog with given title, message, and action button
+	 * @param {String} title The title to display
+	 * @param {String} message The message to display
+	 * @param {String} actionHTML The HTML for the action button
+	 */
+	createNewConfirmationDialog(title, message, actionHTML) {
+		const dialog = this.createNewDialog(`
+		<div class="dialog-panel">
+			<h1 class='dialog-heading'>${title}</h1>
+		</div>
+		<div class="dialog-panel dialog-panel-scrollable">
+			<p class="dialog-body-text">${message}</p>
+			${actionHTML}
+		</div>
+		`, true, true);
+
+		dialog.classList.add('dialog-small');
+		return dialog;
 	},
 };
 
