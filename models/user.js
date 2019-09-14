@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const async = require('async');
 const Artefact = require('./artefact');
 
-//Mongoose schema used to store each user's data in our mongoDB
+// Mongoose schema used to store each user's data in our mongoDB
 const userSchema = mongoose.Schema({
 	user_id: {
 		type: String,
@@ -13,6 +13,10 @@ const userSchema = mongoose.Schema({
 	display_name: String,
 	display_picture: String,
 	email: String,
+});
+
+userSchema.pre('remove', function deleteArtefacts(next) {
+	Artefact.deleteMany({ owner: this._id }).then(next);
 });
 
 // Gets owned and viewable artefacts for a given user
