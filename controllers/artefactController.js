@@ -47,18 +47,18 @@ exports.getArtefact = [
 			if (err) {
 				res.status(500).send(err);
 			} else if (artefact) {
-				if (artefact.owner.equals(res.locals.profile.id)) {
+				if (String(artefact.owner) === String(res.locals.profile.id)) {
 					// User is owner
 					res.json(artefact);
-				} else if ((artefact.viewers.some((v) => v.id.equals(res.locals.profile)))) {
+				} else if ((artefact.viewers.some((v) => String(v.id) === String(res.locals.profile)))) {
 					// User is viewer
 					// filter artefact fields before stringify-ing
 					// https://mongoosejs.com/docs/api/document.html#document_Document-toJSON
 					// See transform
 					res.json(artefact.toJSON({
 						transform: (doc, ret, options) => {
-						// restrict view here
-						// or restrict view as a document transform function in the model
+							ret.documentation = [];
+							ret.insurance = [];
 						},
 					}));
 				} else {
