@@ -26,6 +26,10 @@ $(() => {
 		`);
 	}
 
+
+	var d_tags = $.get('/tags');
+
+
 	// Setup view artefact buttons
 	$('.dashboard-artefact').on('click', (e) => {
 		const $button = $(e.target);
@@ -45,6 +49,7 @@ $(() => {
 			$('#ArtefactViewViewersContainer').css('display', 'none');
 			$('#ArtefactViewViewers').html('');
 			$('#ArtefactViewEditPanel').css('display', 'none');
+
 			// Create loading dialog
 			const loadingDialog = window.dialogManager.createNewLoadingDialog('Loading Artefact');
 			loadingDialog.show();
@@ -70,6 +75,7 @@ $(() => {
 				$('#ArtefactViewOwnerText').html(artefact.owner.display_name);
 				$('#ArtefactViewButtonShare').css('display', artefact.isOwner ? '' : 'none');
 				$('#ArtefactViewEditPanel').css('display', artefact.isOwner ? '' : 'none');
+				$('#ArtefactViewTags').html(artefact.tags);
 				// Add viewer chips
 				$('#AddViewersShareId').val(artefact._id);
 				$('#AddViewersShareName').html(artefact.name);
@@ -171,8 +177,6 @@ $(() => {
 			});
 		}
 	});
-
-
 	/**
 	 * Search for users based on the current values of the add viewers dialog,
 	 * and populate the results table based on the search results

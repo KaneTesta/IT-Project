@@ -10,6 +10,7 @@ const oauth2 = require('../lib/oauth2');
 const Artefact = require('../models/artefact');
 const User = require('../models/user');
 
+
 //Check if a user is the owner of the artefact, based on their session (login) information. If they aren't the owner of an artefact, don't let them make changes
 const checkOwner = [
 	// Must be logged in
@@ -40,6 +41,19 @@ const checkOwner = [
 		});
 	},
 ];
+
+exports.getDistinctTags = [
+	(req, res, next) =>  {
+		Artefact.find().distinct('tags', function(error, tags) {
+			if (err) {
+				res.status(500).send(err);
+			}
+		  	// tags is an array of all distinct tags
+		     res.status(500).send(tags);
+		});
+	}
+];
+
 
 // Get artefact if user is the owner
 exports.getArtefact = [
@@ -88,7 +102,7 @@ exports.createArtefact = [
 		// Artefact object
 		// Inputs:
 		// Name - Name of the object to be displayed on dashboard
-		// Description - Description of the object 
+		// Description - Description of the object
 		// Tags - Categories that we want to identify our object with
 		// Owner - user ID of the owner of the artefact
 		const artefact = new Artefact({

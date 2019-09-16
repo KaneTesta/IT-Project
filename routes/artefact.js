@@ -7,6 +7,8 @@ const artefactController = require('../controllers/artefactController');
 
 router.get('/:id', artefactController.getArtefact);
 
+router.get('/tags', artefactController.getDistinctTags);
+
 router.post('/create', artefactController.createArtefact);
 
 router.post('/edit', artefactController.editArtefact);
@@ -16,5 +18,6 @@ router.post('/delete', artefactController.deleteArtefact);
 router.post('/share/add', artefactController.addViewer);
 
 router.post('/share/remove', artefactController.removeViewer);
+
 
 module.exports = router;
