@@ -24,6 +24,7 @@ $(() => {
 		});
 	});
 
+	//close dropdown box
 	function closeDropdown($dropdown, $button) {
 		if ($dropdown.hasClass('visible')) {
 			// Check target isn't a child of the dropdown

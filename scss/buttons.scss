@@ -33,7 +33,7 @@ button {
     width: auto;
 
     cursor: pointer;
-    transition: background-color 0.1s ease, color 0.1s ease;
+    transition: background-color 0.1s $m-ease, color 0.1s $m-ease;
     text-align: center;
     text-decoration: none;
     letter-spacing: 0.02rem;
@@ -49,9 +49,10 @@ button {
 }
 
 .button {
+    margin-bottom: $padding-medium;
     padding: $padding-small $padding-medium;
 
-    transition: background-color 0.1s ease, box-shadow 0.1s ease;
+    transition: background-color 0.1s $m-ease, box-shadow 0.1s $m-ease;
 
     color: $accent-text-color;
     border: none;
@@ -72,6 +73,10 @@ button {
     &:active {
         background-color: $accent-color-active;
         box-shadow: $shadow-button-active;
+    }
+
+    &.button-inline {
+        margin-bottom: 0;
     }
 
     &.button-success {
@@ -153,7 +158,7 @@ button {
     .button-icon-dropdown {
         width: calc(1.5rem - #{$padding-small});
 
-        transition: transform 0.15s ease-in-out;
+        transition: transform 0.15s $m-ease;
         transform: rotateX(0deg);
 
         font-size: 1.5rem;
@@ -249,7 +254,7 @@ button {
         bottom: -$padding-small;
 
         content: "";
-        transition: opacity 0.1s ease-in, background-color 0.1s ease-in, transform 0.1s ease-in;
+        transition: opacity 0.1s $m-ease-in, background-color 0.1s $m-ease-in, transform 0.1s $m-ease-in;
         transform: scale(0.95);
 
         opacity: 0;
@@ -261,14 +266,14 @@ button {
     &:hover::before,
     &:focus::before,
     &:active::before {
-        transition: opacity 0.05s ease-out, background-color 0.1s ease-out, transform 0.05s ease-out;
+        transition: opacity 0.05s $m-ease-out, background-color 0.1s $m-ease-out, transform 0.05s $m-ease-out;
         transform: scale(1);
 
         opacity: 1;
     }
 
     &:active::before {
-        transition: opacity 0.05s ease-out, background-color 0.1s ease-out, transform 0.05s ease-out;
+        transition: opacity 0.05s $m-ease-out, background-color 0.1s $m-ease-out, transform 0.05s $m-ease-out;
 
         background-color: $focus-color-active;
     }

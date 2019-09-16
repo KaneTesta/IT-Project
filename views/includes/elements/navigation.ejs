@@ -7,10 +7,6 @@
 
     <div class="navigation-top-buttons">
         <% if (user) { %>
-        <a class="button-icon" href="/">
-            <i class="material-icons-outlined">dashboard</i>
-        </a>
-
         <div class="dropdown-container">
             <button class="button-icon" data-dropdown="DropdownUser">
                 <% if (user.display_picture) { %>
@@ -28,22 +24,17 @@
                 </div>
 
                 <div class="dropdown-panel">
-                    <form action="/user/logout" method="post" data-post-text="Logging Out">
-                        <input type="submit" value="Log Out" class="button-menu">
-                    </form>
-
-                    <a class="button-menu" href="/auth/google">Switch User</a>
+                    <a class="button-menu" href="/auth/logout"><i class="material-icons-outlined">exit_to_app</i>Log Out</a>
+                    <a class="button-menu" href="/auth/login"><i class="material-icons-outlined">swap_horiz</i>Switch User</a>
                 </div>
 
                 <div class="dropdown-panel">
-                    <form action="/user/delete" method="post" data-post-text="Deleting Account">
-                        <input type="submit" value="Delete Account" class="button-menu button-error">
-                    </form>
+                    <a class="button-menu button-error" href="/auth/delete"><i class="material-icons-outlined">delete</i>Delete Account</a>
                 </div>
             </div>
         </div>
         <% } else { %>
-        <a class="button" href="/auth/google">Log In</a>
+        <a class="button" href="/auth/login">Log In</a>
         <% }; %>
     </div>
 </header>

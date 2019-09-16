@@ -39,7 +39,9 @@ input[type="file"] {
 }
 
 textarea {
-    resize: none;
+    min-height: 4rem;
+
+    resize: vertical;
 }
 
 select,
@@ -59,7 +61,7 @@ input[type="text"] {
     margin-bottom: $padding-medium;
     padding: $padding-medium $padding-medium;
 
-    transition: border-color 0.1s ease;
+    transition: border-color 0.1s $m-ease;
 
     border: 1px solid $border-color;
     border-radius: $border-radius;
@@ -75,7 +77,10 @@ input[type="text"] {
     }
 
     &:invalid {
-        border-color: $error-color;
+        background-image: url("/img/asterisk.svg");
+        background-repeat: no-repeat;
+        background-position: right $padding-medium top $padding-large;
+        background-size: 0.5rem;
     }
 
     &:focus {
@@ -86,16 +91,4 @@ input[type="text"] {
         margin-bottom: 0;
         padding: $padding-small $padding-medium;
     }
-}
-
-.input-heading {
-    margin: $padding-tiny 0;
-    padding: 0;
-
-    letter-spacing: 0.04rem;
-    text-transform: uppercase;
-
-    color: $text-color-detail;
-
-    font-size: 0.85rem;
 }

@@ -1,11 +1,29 @@
 <div id="DialogViewArtefact" class="dialog" data-dialog-cancelable="true">
     <div class="dialog-background"></div>
     <div class="dialog-content">
-        <h1 id="ArtefactViewName" class="dialog-heading"></h1>
-        <img id="ArtefactViewImage" class="dialog-image" />
-        <p id="ArtefactViewDescription"></p>
-	   <p id="ArtefactViewTags"></p>
+        <div class="dialog-panel">
+            <h1 id="ArtefactViewName" class="dialog-heading"></h1>
+        </div>
 
-        <button id="ArtefactViewButtonEdit" class="button dialog-action">Edit Artefact</button>
+        <div class="dialog-panel dialog-panel-scrollable">
+            <img id="ArtefactViewImage" class="dialog-image" />
+
+            <p class="subheading">Owner</p>
+            <%- include('../elements/chip.ejs', { idPrefix: "ArtefactViewOwner" }); %>
+
+            <div id="ArtefactViewViewersContainer">
+                <p class="subheading">Viewers</p>
+                <div id="ArtefactViewViewers"></div>
+            </div>
+
+            <button id="ArtefactViewButtonShare" class="button">Share with Users</button>
+
+            <p class="subheading">Description</p>
+            <p id="ArtefactViewDescription"></p>
+        </div>
+
+        <div id="ArtefactViewEditPanel" class="dialog-panel">
+            <button id="ArtefactViewButtonEdit" class="button dialog-action">Edit Artefact</button>
+        </div>
     </div>
 </div>
