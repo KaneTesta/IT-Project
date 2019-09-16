@@ -21,7 +21,12 @@ $(() => {
 			// Get image name
 			let imageName = null;
 			if (e.target && e.target.files && e.target.files.length > 0) {
-				imageName = e.target.files[0].name;
+				const fileNames = [];
+				for (let j = 0; j < e.target.files.length; j += 1) {
+					fileNames.push(e.target.files[j].name);
+				}
+
+				imageName = fileNames.join(', ');
 			}
 
 			// Get id of image description input
