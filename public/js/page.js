@@ -9,6 +9,10 @@ $(() => {
 	});
 
 
+	// Get distinct tags
+	const distincttags = artefact.distinct('tags',function(err, results));
+	const taglength = distincttags.length;
+
 	// Setup add artefact button
 	$('#PageButtonAddArtefact').on('click', (e) => {
 		// Show add artefact dialog
@@ -65,7 +69,4 @@ $(() => {
 		}
 	});
 
-	// Get distinct tags
-	const distincttags = artefact.distinct('tags',function(err, results));
-	const taglength = distincttags.length;
 });

@@ -18,5 +18,11 @@ const artefactSchema = mongoose.Schema({
 	}],
 });
 
+
+
 artefactSchema.plugin(mongoosePaginate);
 mongoose.model('artefact', artefactSchema);
+
+artefactSchema.statics.uniquetags = function() {
+	return this.distinct('tags');
+}
