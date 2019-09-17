@@ -55,8 +55,8 @@ exports.getArtefact = [
 					res.json(artefact.toJSON({
 						transform: (doc, ret, options) => {
 							// Filter out elements we don't want viewer's to see
-							ret.documentation = [];
-							ret.insurance = [];
+							ret.images.documentation = [];
+							ret.images.insurance = [];
 						},
 					}));
 				} else {
