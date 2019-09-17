@@ -4,8 +4,6 @@ category: Javascript
 author: 
 ---
 
-# dropdown.js
-
 Manages/listens for a user to click the dropdown box in the top right hand side of the screen on the dashboard.
 
 Dropdown listens for the following:
