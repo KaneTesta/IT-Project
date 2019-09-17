@@ -50,7 +50,7 @@ exports.getArtefact = [
 				if (String(artefact.owner) === String(res.locals.profile.id)) {
 					// User is owner
 					res.json(artefact);
-				} else if ((artefact.viewers.some((v) => String(v.id) === String(res.locals.profile)))) {
+				} else if ((artefact.viewers.some((v) => String(v.id) === String(res.locals.profile.id)))) {
 					// User is viewer
 					res.json(artefact.toJSON({
 						transform: (doc, ret, options) => {
