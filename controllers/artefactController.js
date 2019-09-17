@@ -52,11 +52,9 @@ exports.getArtefact = [
 					res.json(artefact);
 				} else if ((artefact.viewers.some((v) => String(v.id) === String(res.locals.profile)))) {
 					// User is viewer
-					// filter artefact fields before stringify-ing
-					// https://mongoosejs.com/docs/api/document.html#document_Document-toJSON
-					// See transform
 					res.json(artefact.toJSON({
 						transform: (doc, ret, options) => {
+							// Filter out elements we don't want viewer's to see
 							ret.documentation = [];
 							ret.insurance = [];
 						},
@@ -71,8 +69,6 @@ exports.getArtefact = [
 			}
 		});
 	},
-	// Do we need this?
-	// Thought it was handled in app.js:86
 	(err, req, res, next) => {
 		res.status(500).send(err);
 	},
