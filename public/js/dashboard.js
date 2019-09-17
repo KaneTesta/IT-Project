@@ -27,9 +27,6 @@ $(() => {
 	}
 
 
-	var d_tags = $.get('/tags');
-
-
 	// Setup view artefact buttons
 	$('.dashboard-artefact').on('click', (e) => {
 		const $button = $(e.target);
