@@ -1,6 +1,7 @@
 ---
 title: userController.js
 category: Javascript
+subcategory: Controllers
 author:
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: artefactController.js
 category: Javascript
+subcategory: Controllers
 author: 
 ---
 

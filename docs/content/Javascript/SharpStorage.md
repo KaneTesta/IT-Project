@@ -1,6 +1,7 @@
 ---
 title: SharpStorage.js
 category: Javascript
+subcategory: Libraries
 author: 
 ---
 

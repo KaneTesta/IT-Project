@@ -1,6 +1,7 @@
 ---
 title: dashboard.js
 category: Javascript
+subcategory: Front-End
 author:
 ---
 

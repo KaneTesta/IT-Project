@@ -1,6 +1,7 @@
 ---
 title: artefact.js
 category: Javascript
+subcategory: Models
 author: 
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: user.js
 category: Javascript
+subcategory: Models
 author: 
 ---
 
