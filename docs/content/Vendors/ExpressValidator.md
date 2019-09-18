@@ -1,6 +1,7 @@
 ---
 title: express-validator
 category: Vendors
+subcategory: Back-End
 author:
 ---
 

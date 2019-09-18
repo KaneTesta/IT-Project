@@ -1,6 +1,7 @@
 ---
 title: fullPage.js
 category: Vendors
+subcategory: Front-End
 author:
 ---
 

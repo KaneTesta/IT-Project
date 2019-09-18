@@ -4,6 +4,7 @@ theme: jekyll-theme-cayman
 content_categories: ["Requirements", "Justifications", "Standup Minutes", "Sprint Retrospectives", "Wiki", "Javascript", "Vendors", "Diagrams"]
 content_subcategories:
   Javascript: ["Database", "Models", "Routes", "Controllers", "Libraries", "Front-End"]
+  Vendors: ["Front-End", "Back-End"]
 
 defaults:
   - scope:

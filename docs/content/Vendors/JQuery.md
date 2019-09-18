@@ -1,6 +1,7 @@
 ---
 title: jQuery
 category: Vendors
+subcategory: Front-End
 author:
 ---
 

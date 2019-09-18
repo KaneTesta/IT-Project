@@ -1,6 +1,7 @@
 ---
 title: Google Cloud Storage
 category: Vendors
+subcategory: Back-End
 author:
 ---
 

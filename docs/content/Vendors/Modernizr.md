@@ -1,6 +1,7 @@
 ---
-title: modernizr
+title: Modernizr
 category: Vendors
+subcategory: Front-End
 author:
 ---
 
