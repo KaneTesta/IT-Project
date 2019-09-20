@@ -46,12 +46,13 @@ $(() => {
 			$('#ArtefactViewViewersContainer').css('display', 'none');
 			$('#ArtefactViewViewers').html('');
 			$('#ArtefactViewEditPanel').css('display', 'none');
+			$('#ArtefactViewTags').html('');
 
 			// Create loading dialog
 			const loadingDialog = window.dialogManager.createNewLoadingDialog('Loading Artefact');
 			loadingDialog.show();
 			// Get and show artefact data
-			$.get(`/artefact/${artefactId}`, (artefact) => {
+			$.get(`/artefact/find/${artefactId}`, (artefact) => {
 				loadingDialog.hideAndRemove();
 				dialogViewArtefact.show();
 				// Get image url and filename

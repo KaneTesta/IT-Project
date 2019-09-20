@@ -12,13 +12,7 @@
             <h1>Dashboard</h1>
 
 		  <div class="button-group flex-left">
-			  <% let tags = {}; %>
-			  <%for (let k=0; k< artefacts.owner.length; ++k) { %>
-				  <% for (let g = 0; g < artefacts.owner[k].tags.length; ++g){ %>
-					<% tags[artefacts.owner[k].tags[g]] = j; %>
-				<% } %>
-			  <% } %>
-			  <%for (let i=0; i < 4; ++i) { %>
+			  <%for (let i=0; i < tags.length; ++i) { %>
 				<button id ="tag-button", class="button"><% artefacts.owner.length %></button>
 			<% } %>
 		  </div>

@@ -48,7 +48,8 @@ exports.getDistinctTags = [
 				res.status(500).send(err);
 			}
 		  	// tags is an array of all distinct tags
-		     res.send(tags);
+		     //res.json(tags);
+			res.json(tags);
 		});
 	}
 ];
@@ -67,8 +68,8 @@ exports.getArtefact = [
 				// User is owner
 				res.json(artefact);
 			} else {
-				// Error getting Artefact
 				res.status(500).send('Cannot find artefact');
+
 			}
 		});
 	},
@@ -107,7 +108,7 @@ exports.createArtefact = [
 		const artefact = new Artefact({
 			name: req.body.name,
 			description: req.body.description,
-			tags: req.body.tags,
+			tags: req.body.tags.split(','),
 			owner: req.user.id,
 		});
 
