@@ -3,6 +3,7 @@ const oauth2 = require('../lib/oauth2');
 
 const User = require('../models/user');
 
+//Get all of the artefacts that are owned by a user
 exports.getUserDashboard = [
 	// Must be logged in
 	oauth2.required,
@@ -19,6 +20,7 @@ exports.getUserDashboard = [
 	},
 ];
 
+//Search for users in the user database so we can alter the visibility of an artefact to include them
 exports.searchUsers = [
 	// Get dashboard
 	(req, res, next) => {
@@ -37,6 +39,7 @@ exports.searchUsers = [
 	},
 ];
 
+// Get all users in database
 exports.getAllUsers = (req, res, next) => {
 	User.find({}, 'display_name email', (err, users) => {
 		if (err) {

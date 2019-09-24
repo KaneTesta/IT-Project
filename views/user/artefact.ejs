@@ -1,8 +1,15 @@
 <div>
     <button class="dashboard-artefact button-icon-noborder" data-artefact-id='<%= artefact._id %>'>
         <i class=" material-icons-outlined">photo</i>
+
+        <!-- Set the background image for this artefact -->
         <% if (artefact.images.item) { %>
-        <img src="<%= artefact.images.item.url %>" alt="<%= artefact.name %>" />
+        <img class="dashboard-artefact-background" src="<%= artefact.images.item.url %>" alt="<%= artefact.name %>" />
+        <% }; %>
+
+        <!-- Set the account image for this artefact -->
+        <% if (artefact.owner.display_picture && artefact.owner.id !== user.id) { %>
+        <img class="dashboard-artefact-owner" src="<%= artefact.owner.display_picture %>">
         <% }; %>
     </button>
 

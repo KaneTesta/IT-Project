@@ -13,6 +13,7 @@
 
             <h2>My Artefacts</h2>
             <div id="DashboardGridMyArtefacts" class="dashboard-grid">
+                <!-- Iterate through and render the user's artefacts sent from the user controller -->
                 <% if (artefacts.owner) { %>
                 <% for (let i = 0; i < artefacts.owner.length; ++i) { %>
                 <%- include('artefact', { artefact: artefacts.owner[i] }); %>
@@ -26,13 +27,42 @@
             </div>
 
             <h2>Shared Artefacts</h2>
+            <!-- Group the artefacts by the owner's name -->
+            <% if (artefacts.viewer && artefacts.viewer.length > 0) { %>
+
+            <% let usersForUserIds = artefacts.viewer.reduce((rv, x) => {
+                    // Add the user to the group, or create a new group
+                    if (x.owner) {
+                        rv[x.owner.id] = x.owner;
+                    }
+
+                    return rv;
+                }, {}); %>
+            <% let artefactsForUserIds = artefacts.viewer.reduce((rv, x) => {
+                    // Add the artefact to the group, or create a new group
+                    if (x.owner) {
+                        (rv[x.owner.id] = rv[x.owner.id] || []).push(x);
+                    }
+
+                    return rv;
+                }, {}); %>
+            <% let userIds = Object.keys(artefactsForUserIds).sort(); %>
+
+            <!-- Iterate through and render the artefacts shared with the user -->
+            <% for (let i = 0; i < userIds.length; ++i) { %>
+            <% let userArtefacts = artefactsForUserIds[userIds[i]]; %>
+            <% let userOwner = usersForUserIds[userIds[i]]; %>
+            <h3><%= userOwner.display_name %></h3>
             <div id="DashboardGridSharedArtefacts" class="dashboard-grid">
-                <% if (artefacts.viewer) { %>
-                <% for (let i = 0; i < artefacts.viewer.length; ++i) { %>
-                <%- include('artefact', { artefact: artefacts.viewer[i] }); %>
-                <% }; %>
+                <% for (let j = 0; j < userArtefacts.length; ++j) { %>
+                <%- include('artefact', { artefact: userArtefacts[j] }); %>
                 <% }; %>
             </div>
+            <% }; %>
+
+            <% } else { %>
+            <p class="text-description">Artefacts that other users share with you will show up here.</p>
+            <% }; %>
         </div>
 
         <%- include('../includes/dialogs/dialogAddArtefact'); %>

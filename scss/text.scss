@@ -87,6 +87,14 @@ p {
     padding-bottom: $padding-medium;
 
     color: $text-color-detail;
+
+    font-style: italic;
+}
+
+.text-error {
+    color: $error-color;
+
+    font-weight: 700;
 }
 
 

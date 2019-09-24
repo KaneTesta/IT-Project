@@ -1,7 +1,7 @@
 ---
 title: User Stories
 category: Requirements
-author: 
+author: Jordan Puckridge
 ---
 
 - As a creator of a family artifact database I want to be able to keep track of my physical artefacts with monetary or sentimental value, in order to assist in the creation of my will.

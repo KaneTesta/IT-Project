@@ -33,7 +33,7 @@
         padding: 38% 0;
 
         cursor: pointer;
-        transition: transform 0.1s $m-ease, background-color 0.1s $m-ease;
+        transition: transform 0.12s $m-ease;
         transform: none;
 
         border-radius: $border-radius;
@@ -46,11 +46,21 @@
 
         &:hover,
         &:focus {
-            transform: scale(1.04);
+            z-index: 1;
+
+            transform: scale(1.03);
+
+            .dashboard-artefact-background {
+                transform: scale(1.02);
+            }
         }
 
         &:active {
-            transform: scale(1);
+            transform: scale(0.98);
+
+            .dashboard-artefact-background {
+                transform: scale(1);
+            }
         }
 
         &.page-action {
@@ -62,7 +72,7 @@
             font-size: 2.5rem;
         }
 
-        img {
+        .dashboard-artefact-background {
             position: absolute;
             left: 0;
             right: 0;
@@ -72,9 +82,25 @@
             width: 100%;
             height: 100%;
 
-            border-radius: none;
+            transition: transform 0.12s $m-ease;
+            transform: scale(1);
+
+            border-radius: 0;
 
             object-fit: cover;
+        }
+
+        .dashboard-artefact-owner {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+            width: 1.5rem;
+            height: 1.5rem;
+            margin: $padding-tiny;
+
+            border-radius: $border-radius;
+            box-shadow: $shadow-image;
         }
 
         p {
@@ -204,9 +230,14 @@ $chip-height: 2rem;
         border-radius: $border-radius;
     }
 
+    th,
     td {
         padding: $padding-small $padding-small;
 
+        text-align: left;
+    }
+
+    td {
         vertical-align: middle;
 
         &:first-child {
