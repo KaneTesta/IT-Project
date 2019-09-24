@@ -9,7 +9,9 @@ const oauth2 = require('../lib/oauth2');
 // Models
 const Artefact = require('../models/artefact');
 
-//Check if a user is the owner of the artefact, based on their session (login) information. If they aren't the owner of an artefact, don't let them make changes
+// Check if a user is the owner of the artefact, based on their session (login) information.
+// If they aren't the owner of an artefact, don't let them make changes
+
 const checkOwner = [
 	// Must be logged in
 	oauth2.required,
@@ -46,31 +48,29 @@ exports.getArtefact = [
 	oauth2.required,
 
 	(req, res, next) => {
-		Artefact.findById(req.params.id, (err, artefact) => {
-			if (err) {
-				res.status(500).send(err);
-			} else if (artefact) {
-				if (String(artefact.owner) === String(res.locals.profile.id)) {
-					// User is owner
-					res.json(artefact);
-				} else if ((artefact.viewers.some((v) => String(v.id) === String(res.locals.profile.id)))) {
-					// User is viewer
-					res.json(artefact.toJSON({
-						transform: (doc, ret, options) => {
-							// Filter out elements we don't want viewer's to see
-							ret.images.documentation = [];
-							ret.images.insurance = [];
-						},
-					}));
+		Artefact.findById(req.params.id)
+			.populate('owner viewers')
+			.exec((err, artefact) => {
+				const a = artefact.toObject();
+				if (err) {
+					res.status(500).send(err);
+				} else if (artefact) {
+					const isOwner = String(artefact.owner) === String(res.locals.profile.id);
+					const isViewer = artefact.viewers.some((v) => {
+						return String(v.id) === String(res.locals.profile.id);
+					});
+					a.isOwner = isOwner;
+					if (isOwner || isViewer) {
+						res.json(a);
+					} else {
+						// Not an owner or viewer
+						next(createError(403, 'You do not have permission to view this artefact'));
+					}
 				} else {
-					// Not an owner or viewer
-					next(createError(403, 'You do not have permission to view this artefact'));
+					// Error getting Artefact
+					res.status(500).send('Cannot find artefact');
 				}
-			} else {
-				// Error getting Artefact
-				res.status(500).send('Cannot find artefact');
-			}
-		});
+			});
 	},
 	(err, req, res, next) => {
 		res.status(500).send(err);
@@ -100,7 +100,7 @@ exports.createArtefact = [
 		// Artefact object
 		// Inputs:
 		// Name - Name of the object to be displayed on dashboard
-		// Description - Description of the object 
+		// Description - Description of the object
 		// Tags - Categories that we want to identify our object with
 		// Owner - user ID of the owner of the artefact
 		const artefact = new Artefact({
@@ -128,7 +128,7 @@ exports.createArtefact = [
 	},
 ];
 
-//Edit's an artefact if it belongs to the user in the session
+// Edit's an artefact if it belongs to the user in the session
 exports.editArtefact = [
 	// Must be logged in
 	oauth2.required,
@@ -181,7 +181,7 @@ exports.editArtefact = [
 	},
 ];
 
-//Deletes artefact if owned by user
+// Deletes artefact if owned by user
 exports.deleteArtefact = [
 	oauth2.required,
 	checkOwner,
