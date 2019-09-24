@@ -13,7 +13,7 @@ As a user I want the user interface to be simple to navigate, so that aging user
 
 The implementation of a tagging system will aid in achieving these user stories. Since the client has a large number of artefacts there needed to be a way to navigate the items stored in the app in a way that was user friendly and intuitive. By giving each item several tags they can be sorted into categories for ease of browsing. Furthermore, a dictionary of distinct tags can be generated and displayed as buttons for a user to interact with. When the button is pressed the displayed artefacts will be filtered by the selected tag allowing users with limited technological know how to use the system with the press of a button. 
 
-![alt text](tags.png "Mockup of tag UI")
+![alt text](Tags.png "Mockup of tag UI")
 
 
 ## Functionality
