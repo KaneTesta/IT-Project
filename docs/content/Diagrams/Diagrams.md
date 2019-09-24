@@ -26,3 +26,11 @@ This Goal/Motivation model. It attempts to reflect the user requirements for the
 ### Description
 
 Much like the goal model, this use case diagram intends to reflect the application to help create a visual reference for those who would not understand a technical blueprint such as the software architecture model. As you can see, the 3 key actors are the collection owners, connections to these collection owners and the data store.
+
+## State Machine Diagram - User Dashboard
+
+![alt text](StateMachine.jpg "State Machine Diagram")
+
+### Description
+
+This state machine diagram demonstrates each state a user can be in upon login, and where each state leads to. As above, you can see that the edit and create artefacts lead the user down a similar path. If you open the dashboard on the application, it is easy to tell what stage resonates with each of the above stages, which includes the ability to have read only priveledges on shared artefacts.
