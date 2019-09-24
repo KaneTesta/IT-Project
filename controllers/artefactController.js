@@ -8,7 +8,6 @@ const oauth2 = require('../lib/oauth2');
 
 // Models
 const Artefact = require('../models/artefact');
-const User = require('../models/user');
 
 //Check if a user is the owner of the artefact, based on their session (login) information. If they aren't the owner of an artefact, don't let them make changes
 const checkOwner = [
@@ -47,19 +46,32 @@ exports.getArtefact = [
 	oauth2.required,
 
 	(req, res, next) => {
-		User.getArtefact(req.user.id, req.params.id, (err, artefact) => {
+		Artefact.findById(req.params.id, (err, artefact) => {
 			if (err) {
 				res.status(500).send(err);
 			} else if (artefact) {
-				// User is owner
-				res.json(artefact);
+				if (String(artefact.owner) === String(res.locals.profile.id)) {
+					// User is owner
+					res.json(artefact);
+				} else if ((artefact.viewers.some((v) => String(v.id) === String(res.locals.profile.id)))) {
+					// User is viewer
+					res.json(artefact.toJSON({
+						transform: (doc, ret, options) => {
+							// Filter out elements we don't want viewer's to see
+							ret.images.documentation = [];
+							ret.images.insurance = [];
+						},
+					}));
+				} else {
+					// Not an owner or viewer
+					next(createError(403, 'You do not have permission to view this artefact'));
+				}
 			} else {
 				// Error getting Artefact
 				res.status(500).send('Cannot find artefact');
 			}
 		});
 	},
-
 	(err, req, res, next) => {
 		res.status(500).send(err);
 	},
