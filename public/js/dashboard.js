@@ -26,6 +26,9 @@ $(() => {
 		`);
 	}
 
+	$('.tag-button').on('click', () => {
+		console.log("v");
+	});
 
 	// Setup view artefact buttons
 	$('.dashboard-artefact').on('click', (e) => {

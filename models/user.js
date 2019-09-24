@@ -34,10 +34,15 @@ userSchema.statics.getArtefacts = function getArtefacts(userId, done) {
 				.sort('name')
 				.exec(callback);
 		},
+		tags: function tags(callback) {
+			Artefact.distinct('tags')
+			.exec(callback);
+		}
 	}, (err, artefacts) => {
 		done(err, artefacts);
 	});
 };
+
 
 // Gets visible artefact data visible for a given viewer
 userSchema.statics.getArtefact = function getArtefact(userId, artefactId, done) {
