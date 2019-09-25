@@ -49,16 +49,23 @@ exports.getArtefact = [
 
 	(req, res, next) => {
 		Artefact.findById(req.params.id)
-			.populate('owner viewers')
+			.populate('owner', '-email')
+			.populate('viewers', '-email')
 			.exec((err, artefact) => {
 				const a = artefact.toObject();
 				if (err) {
 					res.status(500).send(err);
 				} else if (artefact) {
 					const isOwner = String(artefact.owner.id) === String(res.locals.profile.id);
+					// eslint-disable-next-line max-len
 					const isViewer = artefact.viewers.some((v) => String(v.id) === String(res.locals.profile.id));
 					a.isOwner = isOwner;
-					if (isOwner || isViewer) {
+					if (isOwner) {
+						res.json(a);
+					} else if (isViewer) {
+						delete a.viewers;
+						delete a.images.documentation;
+						delete a.images.insurance;
 						res.json(a);
 					} else {
 						// Not an owner or viewer
