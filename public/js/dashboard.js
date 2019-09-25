@@ -26,9 +26,24 @@ $(() => {
 		`);
 	}
 
-	$('.tag-button').on('click', () => {
-		console.log("v");
+	$('.tag-button').on('change', (e) => {
+		const $tagbutton = $(e.target);
+		const id = $tagbutton.attr('id');
+
+// Build an array of tags that have been selected
+// if tag array empty display all 
+		$('.dashboard-individual-artefact').each( (i,el) => {
+				var tagsstring = JSON.parse($(el).attr('data-tags'));
+				if(!tagsstring.includes(id)) {
+					$(el).css('display','none');
+				}
+		})
 	});
+
+	//$('.dashboard-artefact').each()
+	// set to .css('display','none') if the tag doesn't match
+	//  JSON.parse($().attr('data-tags') ) turns it into an array
+	// iterate over array and set display to none if it has that tag
 
 	// Setup view artefact buttons
 	$('.dashboard-artefact').on('click', (e) => {
