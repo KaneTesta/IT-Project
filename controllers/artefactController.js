@@ -56,9 +56,11 @@ exports.getArtefact = [
 				if (err) {
 					res.status(500).send(err);
 				} else if (artefact) {
-					const isOwner = String(artefact.owner.id) === String(res.locals.profile.id);
+					const ownerId = String(artefact.owner.id);
+					const profileId = String(res.locals.profile.id);
+					const isOwner = ownerId === profileId;
 					// eslint-disable-next-line max-len
-					const isViewer = artefact.viewers.some((v) => String(v.id) === String(res.locals.profile.id));
+					const isViewer = artefact.viewers.some((v) => String(v.id) === profileId);
 					a.isOwner = isOwner;
 					if (isOwner) {
 						res.json(a);
