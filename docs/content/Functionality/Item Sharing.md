@@ -1,6 +1,6 @@
 ---
 title: Artefact Creation & Sharing
-category: Justifications
+category: Functionality
 author:
 ---
 

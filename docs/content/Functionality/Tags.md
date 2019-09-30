@@ -1,6 +1,6 @@
 ---
 title: Advantages of a Tagging System
-category: Justifications
+category: Functionality
 author: Jordan Puckridge
 ---
 
