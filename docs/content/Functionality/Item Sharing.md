@@ -42,9 +42,15 @@ Upon adding artefacts, a user will be prompted to enter a name and description f
 Once an item has been created, a user can select to share with another registered user. This user can be found by searching for them when prompted, after clicking the "Share with users" button as shown below. The user who has had an item shared with them can now see this artefact in their dashboard under the "Shared Artefacts" section. This user can only see the artefact's information and who the owner of the artefact is, meaning that other users that the item is shared with are hidden.
 
 Sharer:
+
+
 ![alt text](Share.png "Share with users")
 ![alt text](Search.png "Search for users")
 
+
+
 User item is shared with's dashboard:
-![alt text](Sharee.png "Shared Dashboard")
-![alt text](Shareditem.png "Shared Item View")
+
+
+![alt text](sharee.png "Shared Dashboard")
+![alt text](SharedItem.png "Shared Item View")
