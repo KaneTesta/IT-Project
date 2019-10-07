@@ -26,24 +26,37 @@ $(() => {
 		`);
 	}
 
+
+
+// Setup tag functionality
 	$('.tag-button').on('change', (e) => {
 		const $tagbutton = $(e.target);
 		const id = $tagbutton.attr('id');
 
-// Build an array of tags that have been selected
-// if tag array empty display all 
+		const selectedtags = []
+		$("input:checkbox[name=tag]:checked").each(function(){
+		    selectedtags.push($(this).attr('id'));
+
+		});
+
 		$('.dashboard-individual-artefact').each( (i,el) => {
+			// If no selected tags show all elements
+			if(selectedtags.length == 0){
+				$(el).show();
+			}
+			// Otherwise show only elements with ALL matching tags
+			else {
 				var tagsstring = JSON.parse($(el).attr('data-tags'));
-				if(!tagsstring.includes(id)) {
-					$(el).css('display','none');
+				for(let j = 0; j < selectedtags.length; ++j){
+					if(!tagsstring.includes(selectedtags[j])) {
+						$(el).css('display','none');
+					}
 				}
+			}
+
 		})
 	});
 
-	//$('.dashboard-artefact').each()
-	// set to .css('display','none') if the tag doesn't match
-	//  JSON.parse($().attr('data-tags') ) turns it into an array
-	// iterate over array and set display to none if it has that tag
 
 	// Setup view artefact buttons
 	$('.dashboard-artefact').on('click', (e) => {
