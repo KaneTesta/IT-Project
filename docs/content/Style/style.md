@@ -17,6 +17,14 @@ author:
 
 <script>
     function resizeFrame(obj) {
-        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+        function applyResize() {
+            obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+        }
+
+        applyResize();
+        // Adjust frame size on window resize
+        window.onresize = function() {
+            applyResize();
+        }
     }
 </script>
