@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const { body, validationResult, sanitizeBody } = require('express-validator');
 const archiver = require('archiver');
-const request = require('request');
 const csvStringify = require('csv-stringify');
 
 // Libraries
@@ -292,7 +291,7 @@ exports.getDatabaseZip = [
 			.on('data', (artefact) => {
 				// Download and add image if it exists to archive
 				if (artefact.images.item) {
-					zip.append(request(artefact.images.item.url), {
+					zip.append(images.getFileStream(artefact.images.item.filename), {
 						name: `files/${artefact.images.item.filename}`,
 						store: true,
 					});
