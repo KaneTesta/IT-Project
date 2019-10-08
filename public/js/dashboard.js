@@ -29,20 +29,20 @@ $(() => {
 
 	// Setup tag functionality
 	$('.tag-button').on('change', (e) => {
-		const selectedtags = [];
+		const selectedTags = [];
 		$('input:checkbox[name=tag]:checked').each((i, el) => {
-			selectedtags.push($(el).attr('id'));
+			selectedTags.push($(el).attr('id'));
 		});
 
 		$('.dashboard-individual-artefact').each((i, el) => {
 			// If no selected tags show all elements
-			if (selectedtags.length === 0) {
-				$(el).show();
+			if (selectedTags.length === 0) {
+				$(el).css('display', '');
 			} else {
 				// Otherwise show only elements with ALL matching tags
-				const tagsstring = JSON.parse($(el).attr('data-tags'));
-				for (let j = 0; j < selectedtags.length; j += 1) {
-					if (!tagsstring.includes(selectedtags[j])) {
+				const tagsString = JSON.parse($(el).attr('data-tags'));
+				for (let j = 0; j < selectedTags.length; j += 1) {
+					if (!tagsString.includes(selectedTags[j])) {
 						$(el).css('display', 'none');
 					}
 				}

@@ -11,11 +11,12 @@
         <div class="page-content">
             <h1>Dashboard</h1>
 
-		  <div class="button-group flex-left">
-			  <%for (let i=0; i < artefacts.tags.length; ++i) { %>
-				<input type='checkbox' id ="<%=artefacts.tags[i]%>" class="tag-button" name="tag"><%= artefacts.tags[i] %></input>
-			<% } %>
-		  </div>
+            <div class="button-group flex-left">
+                <%for (let i = 0; i < artefacts.tags.length; ++i) { %>
+                <input type='checkbox' id="<%=artefacts.tags[i]%>" class="tag-button"
+                    name="tag"><%= artefacts.tags[i] %></input>
+                <% } %>
+            </div>
 
             <h2>My Artefacts</h2>
             <div id="DashboardGridMyArtefacts" class="dashboard-grid">
