@@ -5,8 +5,6 @@ const router = express.Router();
 const artefactController = require('../controllers/artefactController');
 
 
-
-
 router.get('/tags', artefactController.getDistinctTags);
 
 router.get('/find/:id', artefactController.getArtefact);

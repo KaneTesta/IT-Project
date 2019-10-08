@@ -27,34 +27,27 @@ $(() => {
 	}
 
 
-
-// Setup tag functionality
+	// Setup tag functionality
 	$('.tag-button').on('change', (e) => {
-		const $tagbutton = $(e.target);
-		const id = $tagbutton.attr('id');
-
-		const selectedtags = []
-		$("input:checkbox[name=tag]:checked").each(function(){
-		    selectedtags.push($(this).attr('id'));
-
+		const selectedtags = [];
+		$('input:checkbox[name=tag]:checked').each((i, el) => {
+			selectedtags.push($(el).attr('id'));
 		});
 
-		$('.dashboard-individual-artefact').each( (i,el) => {
+		$('.dashboard-individual-artefact').each((i, el) => {
 			// If no selected tags show all elements
-			if(selectedtags.length == 0){
+			if (selectedtags.length === 0) {
 				$(el).show();
-			}
-			// Otherwise show only elements with ALL matching tags
-			else {
-				var tagsstring = JSON.parse($(el).attr('data-tags'));
-				for(let j = 0; j < selectedtags.length; ++j){
-					if(!tagsstring.includes(selectedtags[j])) {
-						$(el).css('display','none');
+			} else {
+				// Otherwise show only elements with ALL matching tags
+				const tagsstring = JSON.parse($(el).attr('data-tags'));
+				for (let j = 0; j < selectedtags.length; j += 1) {
+					if (!tagsstring.includes(selectedtags[j])) {
+						$(el).css('display', 'none');
 					}
 				}
 			}
-
-		})
+		});
 	});
 
 
