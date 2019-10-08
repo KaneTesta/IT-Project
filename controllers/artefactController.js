@@ -1,5 +1,8 @@
 const createError = require('http-errors');
 const { body, validationResult, sanitizeBody } = require('express-validator');
+const archiver = require('archiver');
+const request = require('request');
+const csvStringify = require('csv-stringify');
 
 // Libraries
 const { createValidationError } = require('../lib/errors');
@@ -256,5 +259,50 @@ exports.removeViewer = [
 
 	(err, req, res, next) => {
 		res.status(500).send(err);
+	},
+];
+
+exports.getDatabaseZip = [
+	oauth2.required,
+
+	(req, res, next) => {
+		const zip = archiver('zip');
+		// Set up csv stringifier
+		const csv = csvStringify({
+			header: true,
+			columns: [
+				{ key: 'name', header: 'Name' },
+				{ key: 'description', header: 'Description' },
+				{ key: 'images.item.filename', header: 'Image filename' },
+			],
+		});
+		// Set up response to dated backup zip
+		res.attachment(`inheritthat_backup_${Date.now()}.zip`);
+		// Pipe zip to response as it is created
+		zip.pipe(res);
+		// Finalise connection on archive end
+		zip.on('end', () => res.end());
+		// Add csv stream to archive
+		zip.append(csv, { name: 'backup.csv' });
+		// Stream owned artefacts to zip, finalise on end
+		Artefact
+			.find({ owner: res.locals.profile.id })
+			.select('-viewers -owner -_id -__v')
+			.cursor()
+			.on('data', (artefact) => {
+				// Download and add image if it exists to archive
+				if (artefact.images.item) {
+					zip.append(request(artefact.images.item.url), {
+						name: `files/${artefact.images.item.filename}`,
+						store: true,
+					});
+				}
+				// Stringify artefact to csv
+				csv.write(artefact.toObject());
+			})
+			.on('end', () => {
+				csv.end();
+				zip.finalize();
+			});
 	},
 ];
