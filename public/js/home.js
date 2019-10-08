@@ -1,4 +1,4 @@
-//Seperates the home page into sections and creates the full page scroll effect
+// Seperates the home page into sections and creates the full page scroll effect
 $(() => {
 	const $main = $('#HomeMain');
 	// Get anchors

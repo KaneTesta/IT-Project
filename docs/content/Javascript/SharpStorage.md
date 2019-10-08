@@ -1,10 +1,9 @@
 ---
 title: SharpStorage.js
 category: Javascript
+subcategory: Libraries
 author: 
 ---
-
-# SharpStorage
 
 Handles the compression and conversion of images to a consistent type
 
@@ -17,7 +16,7 @@ module.exports._handleFile = function _handleFile(req, file, cb)
 module.exports._removeFile = function _removeFile(req, file, cb)
 ```
 
+## Vendors
 
-# Vendors
 * [concat-stream](https://kanetesta.github.io/IT-Project/content/Vendors/concat-stream.html)
 * [sharp](https://kanetesta.github.io/IT-Project/content/Vendors/sharp.html)

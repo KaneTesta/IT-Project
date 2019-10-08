@@ -1,13 +1,12 @@
 ---
 title: db.js
 category: Javascript
+subcategory: Database
 author:
 ---
 
-
-# db.js
-
 Responsible for establishing the connection with the mongo database
 
-# Vendors
+## Vendors
+
 * [Mongoose](https://kanetesta.github.io/IT-Project/content/Vendors/mongoose..html)

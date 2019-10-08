@@ -19,17 +19,24 @@
             </button>
 
             <div id="DropdownUser" class="dropdown-content dropdown-right">
-                <div class="dropdown-panel dropdown-heading">
-                    <p><%= user.display_name %></p>
+                <div class="dropdown-panel dropdown-heading"><%= user.display_name %></div>
+
+                <div class="dropdown-panel">
+                    <a class="button-menu" href="/auth/logout">
+                        <i class="material-icons-outlined">exit_to_app</i>
+                        <span>Log Out</span>
+                    </a>
+                    <a class="button-menu" href="/auth/login">
+                        <i class="material-icons-outlined">swap_horiz</i>
+                        <span>Switch User</span>
+                    </a>
                 </div>
 
                 <div class="dropdown-panel">
-                    <a class="button-menu" href="/auth/logout"><i class="material-icons-outlined">exit_to_app</i>Log Out</a>
-                    <a class="button-menu" href="/auth/login"><i class="material-icons-outlined">swap_horiz</i>Switch User</a>
-                </div>
-
-                <div class="dropdown-panel">
-                    <a class="button-menu button-error" href="/auth/delete"><i class="material-icons-outlined">delete</i>Delete Account</a>
+                    <button id="DropdownUserButtonDelete" class="button-menu button-error">
+                        <i class="material-icons-outlined">delete</i>
+                        <span>Delete Account</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -38,3 +45,5 @@
         <% }; %>
     </div>
 </header>
+
+<script defer src="/js/navigation.js"></script>

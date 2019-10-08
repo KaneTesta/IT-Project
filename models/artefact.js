@@ -6,7 +6,7 @@ const images = require('../lib/images');
 // filename - name of the file
 const imageSchema = mongoose.Schema({
 	filename: String,
-}, { toJSON: { virtuals: true } });
+}, { toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
 imageSchema.pre('remove', { query: true, document: true }, function deleteImage(next) {
 	images.deleteFromGCS(this.image).then(next());

@@ -36,38 +36,10 @@ userSchema.statics.getArtefacts = function getArtefacts(userId, done) {
 		},
 		tags: function tags(callback) {
 			Artefact.distinct('tags')
-			.exec(callback);
-		}
+				.exec(callback);
+		},
 	}, (err, artefacts) => {
 		done(err, artefacts);
-	});
-};
-
-
-// Gets visible artefact data visible for a given viewer
-userSchema.statics.getArtefact = function getArtefact(userId, artefactId, done) {
-	userSchema.statics.getArtefacts(userId, (err, artefacts) => {
-		if (err) {
-			done(err, null);
-		} else {
-			// Define function for matching artefacts with the given id
-			const artefactMatch = (artefact) => artefact._id.toString() === artefactId.toString();
-			// Check if the user owns or can view an artefact with the given id
-			const ownerArtefact = artefacts.owner.find(artefactMatch);
-			const viewerArtefact = artefacts.viewer.find(artefactMatch);
-			// Return the artefact
-			if (ownerArtefact) {
-				const outputArtefact = ownerArtefact.toJSON();
-				outputArtefact.isOwner = true;
-				done(err, outputArtefact);
-			} else if (viewerArtefact) {
-				const outputArtefact = viewerArtefact.toJSON();
-				outputArtefact.isOwner = false;
-				done(err, outputArtefact);
-			} else {
-				done(err, null);
-			}
-		}
 	});
 };
 

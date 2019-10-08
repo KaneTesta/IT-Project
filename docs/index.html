@@ -10,10 +10,25 @@ title: Home
 {% for category in site.content_categories %}
 <h3>{{ category }}</h3>
 <ul>
+    {% if site.content_subcategories[category] %}
+
+    {% for subcategory in site.content_subcategories[category] %}
+    <h4>{{ subcategory }}</h4>
+    {% for page in site.pages %}
+    {% if page.content and page.subcategory == subcategory %}
+    <li><a href="{{ page.url | relative_url }}">{{ page.title }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+
+    {% else %}
+
     {% for page in site.pages %}
     {% if page.content and page.category == category %}
     <li><a href="{{ page.url | relative_url }}">{{ page.title }}</a></li>
     {% endif %}
     {% endfor %}
+
+    {% endif %}
 </ul>
 {% endfor %}

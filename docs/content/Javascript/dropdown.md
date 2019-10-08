@@ -1,10 +1,9 @@
 ---
 title: dropdown.js
 category: Javascript
+subcategory: Front-End
 author: 
 ---
-
-# dropdown.js
 
 Manages/listens for a user to click the dropdown box in the top right hand side of the screen on the dashboard.
 

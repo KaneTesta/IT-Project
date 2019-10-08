@@ -36,8 +36,7 @@
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
     "minipass": "2.7.0",
-    "sharp": "^0.23.0",
-    "zip-stream": "^2.1.2"
+    "sharp": "^0.23.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -54,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm test"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {

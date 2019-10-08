@@ -8,9 +8,10 @@ const oauth2 = require('../lib/oauth2');
 
 // Models
 const Artefact = require('../models/artefact');
-const User = require('../models/user');
 
-//Check if a user is the owner of the artefact, based on their session (login) information. If they aren't the owner of an artefact, don't let them make changes
+// Check if a user is the owner of the artefact, based on their session (login) information.
+// If they aren't the owner of an artefact, don't let them make changes
+
 const checkOwner = [
 	// Must be logged in
 	oauth2.required,
@@ -42,16 +43,16 @@ const checkOwner = [
 ];
 
 exports.getDistinctTags = [
-	(req, res, next) =>  {
-		Artefact.distinct('tags', function(err, tags) {
+	(req, res, next) => {
+		Artefact.distinct('tags', (err, tags) => {
 			if (err) {
 				res.status(500).send(err);
 			}
-		  	// tags is an array of all distinct tags
-		     //res.json(tags);
+			// tags is an array of all distinct tags
+			// res.json(tags);
 			res.json(tags);
 		});
-	}
+	},
 ];
 
 
@@ -61,19 +62,37 @@ exports.getArtefact = [
 	oauth2.required,
 
 	(req, res, next) => {
-		User.getArtefact(req.user.id, req.params.id, (err, artefact) => {
-			if (err) {
-				res.status(500).send(err);
-			} else if (artefact) {
-				// User is owner
-				res.json(artefact);
-			} else {
-				res.status(500).send('Cannot find artefact');
-
-			}
-		});
+		Artefact.findById(req.params.id)
+			.populate('owner', '-email')
+			.populate('viewers', '-email')
+			.exec((err, artefact) => {
+				const a = artefact.toObject();
+				if (err) {
+					res.status(500).send(err);
+				} else if (artefact) {
+					const ownerId = String(artefact.owner.id);
+					const profileId = String(res.locals.profile.id);
+					const isOwner = ownerId === profileId;
+					// eslint-disable-next-line max-len
+					const isViewer = artefact.viewers.some((v) => String(v.id) === profileId);
+					a.isOwner = isOwner;
+					if (isOwner) {
+						res.json(a);
+					} else if (isViewer) {
+						delete a.viewers;
+						delete a.images.documentation;
+						delete a.images.insurance;
+						res.json(a);
+					} else {
+						// Not an owner or viewer
+						next(createError(403, 'You do not have permission to view this artefact'));
+					}
+				} else {
+					// Error getting Artefact
+					res.status(500).send('Cannot find artefact');
+				}
+			});
 	},
-
 	(err, req, res, next) => {
 		res.status(500).send(err);
 	},
@@ -130,7 +149,7 @@ exports.createArtefact = [
 	},
 ];
 
-//Edit's an artefact if it belongs to the user in the session
+// Edit's an artefact if it belongs to the user in the session
 exports.editArtefact = [
 	// Must be logged in
 	oauth2.required,
@@ -183,7 +202,7 @@ exports.editArtefact = [
 	},
 ];
 
-//Deletes artefact if owned by user
+// Deletes artefact if owned by user
 exports.deleteArtefact = [
 	oauth2.required,
 	checkOwner,
