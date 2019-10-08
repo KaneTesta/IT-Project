@@ -112,3 +112,11 @@ p {
         background-color: rgba($error-color, 0.1);
     }
 }
+
+hr {
+    margin: $padding-small 0;
+
+    border: none;
+    border-style: none;
+    border-top: 1px solid $border-color;
+}
