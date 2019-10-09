@@ -20,4 +20,4 @@ A questionnaire was then filled out by each user and the results are as per belo
 
 ![alt text](Tests.jpg "Test Results")
 
-Key recommendations from the testing coincedentally asked for functionalities that we are implementing in Sprint 3.
+Key recommendations from the testing coincedentally asked for functionalities that we are implementing in Sprint 3. Most of the feedback was consistent and demonstrated ane asy to use website however the users that had more problems were those that were more senior. The key findings were that majority of the users had trouble finding how to share an artefact with another user without assistance. It became clear through testing that sharing users after the artefact was created threw a few users off, and many indicated they would prefer to share it at creation time. At the moment, users can only share artefacts after they have created it. 
