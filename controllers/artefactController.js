@@ -182,7 +182,7 @@ exports.editArtefact = [
 					// Update artefact values
 					artefact.name = req.body.name;
 					artefact.description = req.body.description;
-					artefact.tages = req.body.tags;
+					artefact.tags = req.body.tags.split(',').map((tag) => tag.trim());
 					// Update image
 					if (req.file) {
 						artefact.images.item = { filename: req.file.cloudStorageObject };

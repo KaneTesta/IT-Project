@@ -13,7 +13,7 @@ $(() => {
 	 * @param {*} image The url for the image of the chip
 	 * @param {*} text The text to show in the chip
 	 */
-	function createChip(image, text) {
+	function createImageChip(image, text) {
 		return $(`
 			<div class="chip">
 				<img class="chip-image"
@@ -48,7 +48,6 @@ $(() => {
 			}
 		});
 	});
-
 
 	// Setup view artefact buttons
 	$('.dashboard-artefact').on('click', (e) => {
@@ -96,7 +95,7 @@ $(() => {
 				$('#ArtefactViewOwnerText').html(artefact.owner.display_name);
 				$('#ArtefactViewButtonShare').css('display', artefact.isOwner ? '' : 'none');
 				$('#ArtefactViewEditPanel').css('display', artefact.isOwner ? '' : 'none');
-				$('#ArtefactViewTags').html(artefact.tags);
+				$('#ArtefactViewTags').html(artefact.tags.join(', '));
 				// Add viewer chips
 				$('#AddViewersShareId').val(artefact._id);
 				$('#AddViewersShareName').html(artefact.name);
@@ -106,7 +105,7 @@ $(() => {
 						// Create and add a viewer chip to the dialog
 						const chipImage = viewer.display_picture;
 						const chipName = viewer.display_name;
-						$('#ArtefactViewViewers').append(createChip(chipImage, chipName));
+						$('#ArtefactViewViewers').append(createImageChip(chipImage, chipName));
 					});
 				}
 
@@ -134,6 +133,7 @@ $(() => {
 					$('#EditArtefactDescription').val(artefact.description);
 					$('#EditArtefactImageName').val(imageFilename);
 					$('#EditArtefactDeleteId').val(artefact._id);
+					$('#EditArtefactTags').val(artefact.tags.join(', '));
 					$('#EditArtefactViewersContainer').css('display', 'none');
 					// Create chips to remove viewers
 					if (artefact.viewers && artefact.viewers.length > 0) {
@@ -144,7 +144,7 @@ $(() => {
 							// Create and add a viewer chip to the dialog
 							const chipImage = viewer.display_picture;
 							const chipName = viewer.display_name;
-							const chip = createChip(chipImage, chipName);
+							const chip = createImageChip(chipImage, chipName);
 							// Create the delete viewer button
 							const chipButton = $(`
 							<button class="chip-button chip-button-error">
@@ -198,6 +198,7 @@ $(() => {
 			});
 		}
 	});
+
 	/**
 	 * Search for users based on the current values of the add viewers dialog,
 	 * and populate the results table based on the search results
