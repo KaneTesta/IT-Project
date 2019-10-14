@@ -127,7 +127,7 @@ exports.createArtefact = [
 		const artefact = new Artefact({
 			name: req.body.name,
 			description: req.body.description,
-			tags: req.body.tags.split(','),
+			tags: req.body.tags.split(',').map((tag) => tag.trim()),
 			owner: req.user.id,
 		});
 

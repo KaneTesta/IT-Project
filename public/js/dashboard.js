@@ -1,6 +1,6 @@
 $(() => {
 	// Setup add artefact button
-	$('#PageButtonAddArtefact').on('click', (e) => {
+	$('#DashboardButtonAddArtefact').on('click', (e) => {
 		// Show add artefact dialog
 		const dialogAddArtefact = document.getElementById('DialogAddArtefact');
 		if (dialogAddArtefact) {
@@ -30,15 +30,14 @@ $(() => {
 	// Setup tag functionality
 	$('.tag-button').on('change', (e) => {
 		const selectedTags = [];
-		$('input:checkbox[name=tag]:checked').each((i, el) => {
-			selectedTags.push($(el).attr('id'));
+		$('.tag-button:checked').each((i, el) => {
+			selectedTags.push($(el).attr('data-tag'));
 		});
 
 		$('.dashboard-individual-artefact').each((i, el) => {
+			$(el).css('display', '');
 			// If no selected tags show all elements
-			if (selectedTags.length === 0) {
-				$(el).css('display', '');
-			} else {
+			if (selectedTags.length >= 0) {
 				// Otherwise show only elements with ALL matching tags
 				const tagsString = JSON.parse($(el).attr('data-tags'));
 				for (let j = 0; j < selectedTags.length; j += 1) {
