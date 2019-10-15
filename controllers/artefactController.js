@@ -119,6 +119,11 @@ exports.createArtefact = [
 	// Continue
 	(req, res, next) => {
 		const errors = validationResult(req);
+		// Set tags for artefact
+		let artefactTags;
+		if (req.body.tags) {
+			artefactTags = req.body.tags.split(',').map((tag) => tag.trim());
+		}
 
 		// Artefact object
 		// Inputs:
@@ -129,7 +134,7 @@ exports.createArtefact = [
 		const artefact = new Artefact({
 			name: req.body.name,
 			description: req.body.description,
-			tags: req.body.tags.split(',').map((tag) => tag.trim()),
+			tags: artefactTags,
 			owner: req.user.id,
 		});
 
@@ -184,7 +189,11 @@ exports.editArtefact = [
 					// Update artefact values
 					artefact.name = req.body.name;
 					artefact.description = req.body.description;
-					artefact.tags = req.body.tags.split(',').map((tag) => tag.trim());
+					// Update tags
+					if (req.body.tags) {
+						artefact.tags = req.body.tags.split(',').map((tag) => tag.trim());
+					}
+
 					// Update image
 					if (req.file) {
 						artefact.images.item = { filename: req.file.cloudStorageObject };
