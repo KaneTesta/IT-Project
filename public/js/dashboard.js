@@ -58,6 +58,7 @@ $(() => {
 		if (dialogViewArtefact && artefactId) {
 			// Reset all view artefact dialog properties
 			$('#ArtefactViewName').html('');
+			$('#ArtefactViewDescriptionContainer').css('display', 'none');
 			$('#ArtefactViewDescription').html('');
 			$('#ArtefactViewImage').attr('src', '');
 			$('#ArtefactViewImage').attr('alt', '');
@@ -68,6 +69,7 @@ $(() => {
 			$('#ArtefactViewViewersContainer').css('display', 'none');
 			$('#ArtefactViewViewers').html('');
 			$('#ArtefactViewEditPanel').css('display', 'none');
+			$('#ArtefactViewTagsContainer').css('display', 'none');
 			$('#ArtefactViewTags').html('');
 
 			// Create loading dialog
@@ -87,6 +89,7 @@ $(() => {
 
 				// Set fields to match artefact properties
 				$('#ArtefactViewName').html(artefact.name);
+				$('#ArtefactViewDescriptionContainer').css('display', '');
 				$('#ArtefactViewDescription').html(artefact.description);
 				$('#ArtefactViewImage').attr('src', imageUrl);
 				$('#ArtefactViewImage').attr('alt', imageFilename);
@@ -95,7 +98,12 @@ $(() => {
 				$('#ArtefactViewOwnerText').html(artefact.owner.display_name);
 				$('#ArtefactViewButtonShare').css('display', artefact.isOwner ? '' : 'none');
 				$('#ArtefactViewEditPanel').css('display', artefact.isOwner ? '' : 'none');
-				$('#ArtefactViewTags').html(artefact.tags.join(', '));
+
+				if (artefact.tags && artefact.tags.length > 0) {
+					$('#ArtefactViewTagsContainer').css('display', '');
+					$('#ArtefactViewTags').html(artefact.tags.join(', '));
+				}
+
 				// Add viewer chips
 				$('#AddViewersShareId').val(artefact._id);
 				$('#AddViewersShareName').html(artefact.name);
