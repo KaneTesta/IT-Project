@@ -19,5 +19,6 @@ router.post('/share/add', artefactController.addViewer);
 
 router.post('/share/remove', artefactController.removeViewer);
 
+router.get('/export', artefactController.getDatabaseZip);
 
 module.exports = router;

@@ -1,3 +1,9 @@
+---
+title: Users
+category: Justifications
+author: 
+---
+
 # Rewrite
 
 To better align the project with the specifications outlined by the User Stories a backend rewrite/refactor was undertaken.
