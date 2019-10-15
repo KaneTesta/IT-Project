@@ -34,6 +34,11 @@ userSchema.statics.getArtefacts = function getArtefacts(userId, done) {
 				.sort('name')
 				.exec(callback);
 		},
+		tags: function tags(callback) {
+			Artefact.find({ owner: userId })
+				.distinct('tags')
+				.exec(callback);
+		},
 	}, (err, artefacts) => {
 		done(err, artefacts);
 	});

@@ -44,6 +44,20 @@ const checkOwner = [
 	},
 ];
 
+exports.getDistinctTags = [
+	(req, res, next) => {
+		Artefact.distinct('tags', (err, tags) => {
+			if (err) {
+				res.status(500).send(err);
+			}
+			// tags is an array of all distinct tags
+			// res.json(tags);
+			res.json(tags);
+		});
+	},
+];
+
+
 // Get artefact if user is the owner
 exports.getArtefact = [
 	// Must be logged in
@@ -115,7 +129,7 @@ exports.createArtefact = [
 		const artefact = new Artefact({
 			name: req.body.name,
 			description: req.body.description,
-			tags: req.body.tags,
+			tags: req.body.tags.split(',').map((tag) => tag.trim()),
 			owner: req.user.id,
 		});
 
@@ -170,7 +184,7 @@ exports.editArtefact = [
 					// Update artefact values
 					artefact.name = req.body.name;
 					artefact.description = req.body.description;
-					artefact.tages = req.body.tags;
+					artefact.tags = req.body.tags.split(',').map((tag) => tag.trim());
 					// Update image
 					if (req.file) {
 						artefact.images.item = { filename: req.file.cloudStorageObject };

@@ -92,3 +92,100 @@ input[type="text"] {
         padding: $padding-small $padding-medium;
     }
 }
+
+$checkbox-size: 1.5rem;
+
+label.checkbox {
+    position: relative;
+
+    display: inline-block;
+
+    margin: 0;
+    margin-top: $padding-tiny;
+    margin-bottom: $padding-large;
+    padding: 0;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    user-select: none;
+
+    input[type="checkbox"] {
+        display: block;
+
+        width: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+
+        opacity: 0;
+        border: none;
+
+        flex: 0;
+
+        & + svg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: $checkbox-size;
+            height: $checkbox-size;
+            margin: auto;
+            padding: 0;
+
+            transition: background-color 0.1s $m-ease;
+
+            border: 1px solid $accent-color;
+            border-radius: $border-radius;
+            background-color: $foreground-color;
+
+            polyline {
+                transition: stroke-dashoffset 0.15s $m-ease, stroke 0.02s $m-ease 0.15s;
+
+                fill: none;
+                stroke: transparent;
+                stroke-dasharray: 18px;
+                stroke-dashoffset: 18px;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 1px;
+            }
+        }
+
+        &:hover + svg,
+        &:focus + svg {
+            background-color: $accent-color-hover;
+        }
+
+        &:active + svg {
+            background-color: $accent-color-active;
+        }
+
+        &:checked {
+            & + svg {
+                polyline {
+                    transition: stroke-dashoffset 0.15s $m-ease 0.02s, stroke 0.02s $m-ease;
+
+                    stroke: $accent-color;
+                    stroke-dashoffset: 0;
+                }
+            }
+
+            &:hover,
+            &:focus,
+            &:active {
+                & + svg {
+                    polyline {
+                        stroke: $foreground-color;
+                    }
+                }
+            }
+        }
+    }
+
+    span {
+        margin-left: $checkbox-size;
+        padding: $padding-small;
+    }
+}

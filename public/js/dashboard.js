@@ -1,6 +1,6 @@
 $(() => {
 	// Setup add artefact button
-	$('#PageButtonAddArtefact').on('click', (e) => {
+	$('#DashboardButtonAddArtefact').on('click', (e) => {
 		// Show add artefact dialog
 		const dialogAddArtefact = document.getElementById('DialogAddArtefact');
 		if (dialogAddArtefact) {
@@ -13,7 +13,7 @@ $(() => {
 	 * @param {*} image The url for the image of the chip
 	 * @param {*} text The text to show in the chip
 	 */
-	function createChip(image, text) {
+	function createImageChip(image, text) {
 		return $(`
 			<div class="chip">
 				<img class="chip-image"
@@ -26,6 +26,29 @@ $(() => {
 		`);
 	}
 
+
+	// Setup tag functionality
+	$('.tag-button').on('change', (e) => {
+		const selectedTags = [];
+		$('.tag-button:checked').each((i, el) => {
+			selectedTags.push($(el).attr('data-tag'));
+		});
+
+		$('.dashboard-individual-artefact').each((i, el) => {
+			$(el).css('display', '');
+			// If no selected tags show all elements
+			if (selectedTags.length >= 0) {
+				// Otherwise show only elements with ALL matching tags
+				const tagsString = JSON.parse($(el).attr('data-tags'));
+				for (let j = 0; j < selectedTags.length; j += 1) {
+					if (!tagsString.includes(selectedTags[j])) {
+						$(el).css('display', 'none');
+					}
+				}
+			}
+		});
+	});
+
 	// Setup view artefact buttons
 	$('.dashboard-artefact').on('click', (e) => {
 		const $button = $(e.target);
@@ -35,6 +58,7 @@ $(() => {
 		if (dialogViewArtefact && artefactId) {
 			// Reset all view artefact dialog properties
 			$('#ArtefactViewName').html('');
+			$('#ArtefactViewDescriptionContainer').css('display', 'none');
 			$('#ArtefactViewDescription').html('');
 			$('#ArtefactViewImage').attr('src', '');
 			$('#ArtefactViewImage').attr('alt', '');
@@ -45,11 +69,14 @@ $(() => {
 			$('#ArtefactViewViewersContainer').css('display', 'none');
 			$('#ArtefactViewViewers').html('');
 			$('#ArtefactViewEditPanel').css('display', 'none');
+			$('#ArtefactViewTagsContainer').css('display', 'none');
+			$('#ArtefactViewTags').html('');
+
 			// Create loading dialog
 			const loadingDialog = window.dialogManager.createNewLoadingDialog('Loading Artefact');
 			loadingDialog.show();
 			// Get and show artefact data
-			$.get(`/artefact/${artefactId}`, (artefact) => {
+			$.get(`/artefact/find/${artefactId}`, (artefact) => {
 				loadingDialog.hideAndRemove();
 				dialogViewArtefact.show();
 				// Get image url and filename
@@ -62,6 +89,7 @@ $(() => {
 
 				// Set fields to match artefact properties
 				$('#ArtefactViewName').html(artefact.name);
+				$('#ArtefactViewDescriptionContainer').css('display', '');
 				$('#ArtefactViewDescription').html(artefact.description);
 				$('#ArtefactViewImage').attr('src', imageUrl);
 				$('#ArtefactViewImage').attr('alt', imageFilename);
@@ -70,6 +98,12 @@ $(() => {
 				$('#ArtefactViewOwnerText').html(artefact.owner.display_name);
 				$('#ArtefactViewButtonShare').css('display', artefact.isOwner ? '' : 'none');
 				$('#ArtefactViewEditPanel').css('display', artefact.isOwner ? '' : 'none');
+
+				if (artefact.tags && artefact.tags.length > 0) {
+					$('#ArtefactViewTagsContainer').css('display', '');
+					$('#ArtefactViewTags').html(artefact.tags.join(', '));
+				}
+
 				// Add viewer chips
 				$('#AddViewersShareId').val(artefact._id);
 				$('#AddViewersShareName').html(artefact.name);
@@ -79,7 +113,7 @@ $(() => {
 						// Create and add a viewer chip to the dialog
 						const chipImage = viewer.display_picture;
 						const chipName = viewer.display_name;
-						$('#ArtefactViewViewers').append(createChip(chipImage, chipName));
+						$('#ArtefactViewViewers').append(createImageChip(chipImage, chipName));
 					});
 				}
 
@@ -107,6 +141,7 @@ $(() => {
 					$('#EditArtefactDescription').val(artefact.description);
 					$('#EditArtefactImageName').val(imageFilename);
 					$('#EditArtefactDeleteId').val(artefact._id);
+					$('#EditArtefactTags').val(artefact.tags.join(', '));
 					$('#EditArtefactViewersContainer').css('display', 'none');
 					// Create chips to remove viewers
 					if (artefact.viewers && artefact.viewers.length > 0) {
@@ -117,7 +152,7 @@ $(() => {
 							// Create and add a viewer chip to the dialog
 							const chipImage = viewer.display_picture;
 							const chipName = viewer.display_name;
-							const chip = createChip(chipImage, chipName);
+							const chip = createImageChip(chipImage, chipName);
 							// Create the delete viewer button
 							const chipButton = $(`
 							<button class="chip-button chip-button-error">
@@ -171,7 +206,6 @@ $(() => {
 			});
 		}
 	});
-
 
 	/**
 	 * Search for users based on the current values of the add viewers dialog,

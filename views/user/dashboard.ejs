@@ -11,6 +11,19 @@
         <div class="page-content">
             <h1>Dashboard</h1>
 
+            <% if (artefacts.tags && artefacts.tags.length > 0) { %>
+            <p class="subheading">Tags</p>
+            <% for (let i = 0; i < artefacts.tags.length; ++i) { %>
+            <label class="checkbox">
+                <input type="checkbox" class="tag-button" data-tag="<%=artefacts.tags[i]%>" />
+                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                    <polyline points="4 11 8 15 16 6"></polyline>
+                </svg>
+                <span><%= artefacts.tags[i] %></span>
+            </label>
+            <% }; %>
+            <% }; %>
+
             <h2>My Artefacts</h2>
             <div id="DashboardGridMyArtefacts" class="dashboard-grid">
                 <!-- Iterate through and render the user's artefacts sent from the user controller -->
@@ -20,7 +33,7 @@
                 <% }; %>
                 <% }; %>
 
-                <button id="PageButtonAddArtefact" class="dashboard-artefact page-action button-icon-noborder">
+                <button id="DashboardButtonAddArtefact" class="dashboard-artefact page-action button-icon-noborder">
                     <i class="material-icons-outlined">add</i>
                     <p>Add New Artefact</p>
                 </button>
