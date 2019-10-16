@@ -52,6 +52,9 @@ const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const artefactRouter = require('./routes/artefact');
 
+//ADDED BY KANE
+const printRouter = require('./routes/print');
+
 // OAuth2
 
 const oauth2 = require('./lib/oauth2');
@@ -76,6 +79,9 @@ app.use('/', oauth2.template); // Include res.locals
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/artefact', artefactRouter);
+
+//ADDED BY KANE
+app.use('/print', printRouter);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -20,6 +20,58 @@
         grid-template-columns: repeat(1, 1fr);
     }
 
+    .print-button {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        box-sizing: border-box;
+        width: 100%;
+        height: 0;
+        padding: 38% 0;
+
+        cursor: pointer;
+        transition: transform 0.12s $m-ease;
+        transform: none;
+
+        border-radius: $border-radius;
+        background-color: $foreground-color;
+        box-shadow: $shadow-card;
+
+        &::before {
+            content: none;
+        }
+
+        &:hover,
+        &:focus {
+            z-index: 1;
+
+            transform: scale(1.03);
+
+            .dashboard-artefact-background {
+                transform: scale(1.02);
+            }
+        }
+
+        &:active {
+            transform: scale(0.98);
+
+            .dashboard-artefact-background {
+                transform: scale(1);
+            }
+        }
+
+        &.page-action {
+            color: $accent-text-color;
+            background-color: $accent-color;
+        }
+
+        i {
+            font-size: 2.5rem;
+        }
+    }
+
     .dashboard-artefact {
         position: relative;
 

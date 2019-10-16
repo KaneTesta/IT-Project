@@ -63,6 +63,16 @@
             <% } else { %>
             <p class="text-description">Artefacts that other users share with you will show up here.</p>
             <% }; %>
+        
+            <!--ADD SCRIPT TO SEPERATE FILE. ADDE BY KANE-->
+            <input type="submit" value="Print Mode" class="button dialog-action" onclick="openPrint()">
+            <script>
+                function openPrint() {
+                    var win = window.open("/print", '_blank');
+                    win.focus();
+                }
+            </script>
+        
         </div>
 
         <%- include('../includes/dialogs/dialogAddArtefact'); %>
