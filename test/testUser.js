@@ -4,6 +4,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 // Controllers
 process.env.NODE_ENV = 'test';
+const passport = require('passport');
 const app = require('../app');
 // Models
 const User = require('../models/user');
@@ -14,6 +15,7 @@ const { expect } = chai;
 
 before(function beforeAll(done) {
 	this.timeout(10000);
+
 	// Clear database
 	User.deleteMany({}, (err) => {
 		done(err);
@@ -31,10 +33,36 @@ after((done) => {
 describe('User', function describeUser() {
 	this.timeout(10000);
 
+	beforeEach((done) => {
+		passport.authenticate();
+	});
+
 	afterEach((done) => {
 		// Clear database
 		User.deleteMany({}, (err) => {
 			done(err);
+		});
+	});
+
+	describe('GET /user/', () => {
+		it('check when user is logged in', (done) => {
+			chai.request(app)
+				.get('/user/')
+				.end((err, res) => {
+					expect(res, 'Should have status code 200').to.have.status(200);
+					done();
+				});
+		});
+
+		it('check redirect from base url', (done) => {
+			chai.request(app)
+				.get('/')
+				.end((err, res) => {
+					console.log(app.request.user);
+					expect(res, 'Should have status code 200').to.have.status(200);
+					expect(res.body, 'Should have redirected to /user/').to.equal('/user/');
+					done();
+				});
 		});
 	});
 
@@ -54,7 +82,7 @@ describe('User', function describeUser() {
 				.get(`/user/search/${query}`)
 				.end((err, res) => {
 					expect(res, 'Should have status code 200').to.have.status(200);
-					expect(res.body, 'Body should have one result').to.be.empty;
+					expect(res.body, 'Body should have no results').to.be.empty;
 					done(err);
 				});
 		});
