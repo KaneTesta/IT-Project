@@ -1,5 +1,3 @@
-//ADDED BY KANE
-
 const createError = require('http-errors');
 const oauth2 = require('../lib/oauth2');
 
