@@ -68,15 +68,21 @@ exports.getArtefact = [
 			.populate('owner', '-email')
 			.populate('viewers', '-email')
 			.exec((err, artefact) => {
-				const a = artefact.toObject();
 				if (err) {
 					res.status(500).send(err);
 				} else if (artefact) {
-					const ownerId = String(artefact.owner.id);
-					const profileId = String(res.locals.profile.id);
-					const isOwner = ownerId === profileId;
+					const a = artefact.toObject();
+					let isOwner = false;
+					let isViewer = false;
+					if (!artefact.owner) {
+						isOwner = true;
+					} else {
+						const ownerId = String(artefact.owner.id);
+						const profileId = String(req.user.id);
+						isOwner = ownerId === profileId;
+						isViewer = artefact.viewers.some((v) => String(v.id) === profileId);
+					}
 					// eslint-disable-next-line max-len
-					const isViewer = artefact.viewers.some((v) => String(v.id) === profileId);
 					a.isOwner = isOwner;
 					if (isOwner) {
 						res.json(a);
@@ -87,7 +93,7 @@ exports.getArtefact = [
 						res.json(a);
 					} else {
 						// Not an owner or viewer
-						next(createError(403, 'You do not have permission to view this artefact'));
+						res.status(403).send('You do not have permission to view this artefact');
 					}
 				} else {
 					// Error getting Artefact
@@ -119,11 +125,6 @@ exports.createArtefact = [
 	// Continue
 	(req, res, next) => {
 		const errors = validationResult(req);
-		// Set tags for artefact
-		let artefactTags;
-		if (req.body.tags) {
-			artefactTags = req.body.tags.split(',').map((tag) => tag.trim());
-		}
 
 		// Artefact object
 		// Inputs:
@@ -134,9 +135,13 @@ exports.createArtefact = [
 		const artefact = new Artefact({
 			name: req.body.name,
 			description: req.body.description,
-			tags: artefactTags,
 			owner: req.user.id,
 		});
+
+		// Set tags for artefact
+		if (req.body.tags) {
+			artefact.tags = req.body.tags.split(',').map((tag) => tag.trim());
+		}
 
 		if (req.file) {
 			artefact.images.item = { filename: req.file.cloudStorageObject };

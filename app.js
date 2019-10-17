@@ -84,9 +84,10 @@ app.use((req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
+	const env = req.app.get('env');
 	// Set locals, only providing error in development
 	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
+	res.locals.error = (env === 'development' || env === 'test') ? err : {};
 
 	// Render the error page
 	res.status(err.status || 500);

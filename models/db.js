@@ -5,7 +5,7 @@ const { MONGODB_HOST, MONGODB_USER, MONGODB_PASS } = process.env;
 const dbURI = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}`;
 
 // Create connection with database
-const connect = function connect(dbName, callback) {
+function connect(dbName, callback) {
 	const options = {
 		useNewUrlParser: true,
 		useCreateIndex: true,
@@ -22,7 +22,7 @@ const connect = function connect(dbName, callback) {
 			console.error('Error connecting Database instance due to: ', err);
 		},
 	);
-};
+}
 
 module.exports = {
 	connect,

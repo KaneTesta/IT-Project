@@ -8,19 +8,11 @@ const passport = require('passport');
 const app = require('../app');
 // Models
 const User = require('../models/user');
+const Artefact = require('../models/artefact');
 
 // Configure chai
 chai.use(chaiHttp);
 const { expect } = chai;
-
-before(function beforeAll(done) {
-	this.timeout(10000);
-
-	// Clear database
-	User.deleteMany({}, (err) => {
-		done(err);
-	});
-});
 
 after((done) => {
 	// Clear database
@@ -31,36 +23,86 @@ after((done) => {
 });
 
 describe('User', function describeUser() {
-	this.timeout(10000);
+	this.timeout(60000);
 
 	beforeEach((done) => {
-		passport.authenticate();
-	});
-
-	afterEach((done) => {
 		// Clear database
 		User.deleteMany({}, (err) => {
-			done(err);
+			if (err) {
+				done(err);
+			} else {
+				const provider = 'google';
+				const strategy = passport._strategies[provider];
+
+				strategy._token_response = {
+					access_token: 'at-1234',
+					expires_in: 3600,
+				};
+
+				strategy._profile = {
+					id: 1234,
+					provider,
+					displayName: 'Jon Smith',
+					email: 'jonsmith@example.com',
+				};
+
+				// Auth user
+				chai.request(app)
+					.get('/auth/login/mock')
+					.end((errLogin, res) => {
+						done(errLogin);
+					});
+			}
 		});
 	});
 
-	describe('GET /user/', () => {
-		it('check when user is logged in', (done) => {
+	describe('GET /artefact/find/', () => {
+		it('check find with no artefacts', (done) => {
 			chai.request(app)
-				.get('/user/')
+				.get('/artefact/find/0')
 				.end((err, res) => {
-					expect(res, 'Should have status code 200').to.have.status(200);
+					expect(err, 'Should be no errors').to.not.exist;
+					expect(res.redirects, 'Should be no redirects').to.be.empty;
+					expect(res, 'Should have status code 500').to.have.status(500);
+					expect(res.body).to.be.empty;
 					done();
 				});
 		});
 
-		it('check redirect from base url', (done) => {
+		it('check find with one artefact', (done) => {
+			new Artefact({
+				name: 'a',
+				description: 'b',
+			}).save((err, artefact) => {
+				if (err) {
+					done(err);
+				} else {
+					chai.request(app)
+						.get(`/artefact/find/${artefact.id}`)
+						.end((errFind, res) => {
+							expect(errFind, 'Should be no errors').to.not.exist;
+							expect(res.redirects, 'Should be no redirects').to.be.empty;
+							expect(res, 'Should have status code 200').to.have.status(200);
+							expect(res.body.name).to.equal('a');
+							expect(res.body.description).to.equal('b');
+							done();
+						});
+				}
+			});
+		});
+	});
+
+	describe('GET /artefact/create/', () => {
+		it('create new artefact', (done) => {
 			chai.request(app)
-				.get('/')
+				.post('/artefact/create')
+				.field('name', 'Artefact')
+				.field('description', 'Description')
 				.end((err, res) => {
-					console.log(app.request.user);
+					expect(err, 'Should be no errors').to.not.exist;
 					expect(res, 'Should have status code 200').to.have.status(200);
-					expect(res.body, 'Should have redirected to /user/').to.equal('/user/');
+					expect('Location', '/user');
+					// Check artefact in user's account
 					done();
 				});
 		});
@@ -71,6 +113,7 @@ describe('User', function describeUser() {
 			chai.request(app)
 				.get('/user/search/')
 				.end((err, res) => {
+					expect(err, 'Should be no errors').to.not.exist;
 					expect(res, 'Should have status code 400').to.have.status(400);
 					done();
 				});
@@ -81,17 +124,18 @@ describe('User', function describeUser() {
 			chai.request(app)
 				.get(`/user/search/${query}`)
 				.end((err, res) => {
+					expect(err, 'Should be no errors').to.not.exist;
 					expect(res, 'Should have status code 200').to.have.status(200);
 					expect(res.body, 'Body should have no results').to.be.empty;
-					done(err);
+					done();
 				});
 		});
 
 		it('search user with no query', (done) => {
 			// Create a new user
 			new User({
-				user_id: 'user1',
-				display_name: 'Test User 1',
+				user_id: 'queryuser',
+				display_name: 'Query',
 			}).save((err, user) => {
 				if (err) {
 					done(err);
@@ -100,8 +144,9 @@ describe('User', function describeUser() {
 					chai.request(app)
 						.get(`/user/search/${query}`)
 						.end((errReq, res) => {
+							expect(errReq, 'Should be no errors').to.not.exist;
 							expect(res, 'Should have status code 400').to.have.status(400);
-							done(errReq);
+							done();
 						});
 				}
 			});
@@ -110,8 +155,8 @@ describe('User', function describeUser() {
 		it('search user with matching query', (done) => {
 			// Create a new user
 			new User({
-				user_id: 'user1',
-				display_name: 'Test User 1',
+				user_id: 'queryuser',
+				display_name: 'Query',
 			}).save((err, user) => {
 				if (err) {
 					done(err);
@@ -120,6 +165,7 @@ describe('User', function describeUser() {
 					chai.request(app)
 						.get(`/user/search/${query}`)
 						.end((errReq, res) => {
+							expect(errReq, 'Should be no errors').to.not.exist;
 							expect(res, 'Should have status code 200').to.have.status(200);
 							expect(res.body, 'Body should have one result').to.have.length(1);
 							res.body.forEach((result) => {
@@ -127,7 +173,7 @@ describe('User', function describeUser() {
 								expect(result.display_name, 'Result name should match query').to.equal(query);
 							});
 
-							done(errReq);
+							done();
 						});
 				}
 			});
@@ -136,19 +182,20 @@ describe('User', function describeUser() {
 		it('search user with non-matching query', (done) => {
 			// Create a new user
 			new User({
-				user_id: 'user1',
-				display_name: 'Test User 1',
+				user_id: 'queryuser',
+				display_name: 'Query',
 			}).save((err, user) => {
 				if (err) {
 					done(err);
 				} else {
-					const query = 'query';
+					const query = 'nomatch';
 					chai.request(app)
 						.get(`/user/search/${query}`)
 						.end((errReq, res) => {
+							expect(errReq, 'Should be no errors').to.not.exist;
 							expect(res, 'Should have status code 200').to.have.status(200);
 							expect(res.body, 'Body should have one result').to.be.empty;
-							done(errReq);
+							done();
 						});
 				}
 			});
