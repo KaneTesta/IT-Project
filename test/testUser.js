@@ -80,18 +80,19 @@ describe('User', function describeUser() {
 			}).save((err, artefact) => {
 				if (err) {
 					done(err);
-				} else {
-					chai.request(app)
-						.get(`/artefact/find/${artefact.id}`)
-						.redirects(0)
-						.end((errFind, res) => {
-							expect(errFind, 'Should be no errors').to.not.exist;
-							expect(res, 'Should have status code 200').to.have.status(200);
-							expect(res.body.name).to.equal('a');
-							expect(res.body.description).to.equal('b');
-							done();
-						});
+					return;
 				}
+
+				chai.request(app)
+					.get(`/artefact/find/${artefact.id}`)
+					.redirects(0)
+					.end((errFind, res) => {
+						expect(errFind, 'Should be no errors').to.not.exist;
+						expect(res, 'Should have status code 200').to.have.status(200);
+						expect(res.body.name).to.equal('a');
+						expect(res.body.description).to.equal('b');
+						done();
+					});
 			});
 		});
 
@@ -103,17 +104,18 @@ describe('User', function describeUser() {
 			}).save((err, artefact) => {
 				if (err) {
 					done(err);
-				} else {
-					chai.request(app)
-						.get(`/artefact/find/${mongoose.Types.ObjectId(1)}`)
-						.redirects(0)
-						.end((errFind, res) => {
-							expect(errFind, 'Should be no errors').to.not.exist;
-							expect(res, 'Should have status code 500').to.have.status(500);
-							expect(res.body).to.be.empty;
-							done();
-						});
+					return;
 				}
+
+				chai.request(app)
+					.get(`/artefact/find/${mongoose.Types.ObjectId(1)}`)
+					.redirects(0)
+					.end((errFind, res) => {
+						expect(errFind, 'Should be no errors').to.not.exist;
+						expect(res, 'Should have status code 500').to.have.status(500);
+						expect(res.body).to.be.empty;
+						done();
+					});
 			});
 		});
 	});
@@ -190,17 +192,18 @@ describe('User', function describeUser() {
 			}).save((err, user) => {
 				if (err) {
 					done(err);
-				} else {
-					const query = '';
-					chai.request(app)
-						.get(`/user/search/${query}`)
-						.redirects(0)
-						.end((errReq, res) => {
-							expect(errReq, 'Should be no errors').to.not.exist;
-							expect(res, 'Should have status code 400').to.have.status(400);
-							done();
-						});
+					return;
 				}
+
+				const query = '';
+				chai.request(app)
+					.get(`/user/search/${query}`)
+					.redirects(0)
+					.end((errReq, res) => {
+						expect(errReq, 'Should be no errors').to.not.exist;
+						expect(res, 'Should have status code 400').to.have.status(400);
+						done();
+					});
 			});
 		});
 
@@ -212,23 +215,24 @@ describe('User', function describeUser() {
 			}).save((err, user) => {
 				if (err) {
 					done(err);
-				} else {
-					const query = user.display_name;
-					chai.request(app)
-						.get(`/user/search/${query}`)
-						.redirects(0)
-						.end((errReq, res) => {
-							expect(errReq, 'Should be no errors').to.not.exist;
-							expect(res, 'Should have status code 200').to.have.status(200);
-							expect(res.body, 'Body should have one result').to.have.length(1);
-							res.body.forEach((result) => {
-								expect(result, 'Result should be an object').to.be.an('object');
-								expect(result.display_name, 'Result name should match query').to.equal(query);
-							});
-
-							done();
-						});
+					return;
 				}
+
+				const query = user.display_name;
+				chai.request(app)
+					.get(`/user/search/${query}`)
+					.redirects(0)
+					.end((errReq, res) => {
+						expect(errReq, 'Should be no errors').to.not.exist;
+						expect(res, 'Should have status code 200').to.have.status(200);
+						expect(res.body, 'Body should have one result').to.have.length(1);
+						res.body.forEach((result) => {
+							expect(result, 'Result should be an object').to.be.an('object');
+							expect(result.display_name, 'Result name should match query').to.equal(query);
+						});
+
+						done();
+					});
 			});
 		});
 
@@ -240,18 +244,19 @@ describe('User', function describeUser() {
 			}).save((err, user) => {
 				if (err) {
 					done(err);
-				} else {
-					const query = 'nomatch';
-					chai.request(app)
-						.get(`/user/search/${query}`)
-						.redirects(0)
-						.end((errReq, res) => {
-							expect(errReq, 'Should be no errors').to.not.exist;
-							expect(res, 'Should have status code 200').to.have.status(200);
-							expect(res.body, 'Body should have one result').to.be.empty;
-							done();
-						});
+					return;
 				}
+
+				const query = 'nomatch';
+				chai.request(app)
+					.get(`/user/search/${query}`)
+					.redirects(0)
+					.end((errReq, res) => {
+						expect(errReq, 'Should be no errors').to.not.exist;
+						expect(res, 'Should have status code 200').to.have.status(200);
+						expect(res.body, 'Body should have one result').to.be.empty;
+						done();
+					});
 			});
 		});
 	});
