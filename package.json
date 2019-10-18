@@ -37,7 +37,7 @@
     "node-sass": "^4.12.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
-    "passport-mock-strategy": "^2.0.0",
+    "passport-stub": "^1.1.1",
     "sharp": "^0.23.0"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm test && lint-staged"
     }
   },
   "lint-staged": {

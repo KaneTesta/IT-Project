@@ -70,18 +70,13 @@ exports.getArtefact = [
 			.exec((err, artefact) => {
 				if (err) {
 					res.status(500).send(err);
-				} else if (artefact) {
+				} else if (artefact && artefact.owner) {
 					const a = artefact.toObject();
-					let isOwner = false;
-					let isViewer = false;
-					if (!artefact.owner) {
-						isOwner = true;
-					} else {
-						const ownerId = String(artefact.owner.id);
-						const profileId = String(req.user.id);
-						isOwner = ownerId === profileId;
-						isViewer = artefact.viewers.some((v) => String(v.id) === profileId);
-					}
+					const ownerId = String(artefact.owner.id);
+					const profileId = String(req.user.id);
+					const isOwner = ownerId === profileId;
+					const isViewer = artefact.viewers.some((v) => String(v.id) === profileId);
+
 					// eslint-disable-next-line max-len
 					a.isOwner = isOwner;
 					if (isOwner) {

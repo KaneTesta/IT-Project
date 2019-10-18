@@ -52,13 +52,8 @@ const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const artefactRouter = require('./routes/artefact');
 
-// OAuth2
-
-const oauth2 = require('./lib/oauth2');
-
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(oauth2.router);
 
 
 // Setup view engine
@@ -70,6 +65,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.SESSION_USER_SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// OAuth2
+const oauth2 = require('./lib/oauth2');
+
+app.use(oauth2.router);
 
 // Mount routes
 app.use('/', oauth2.template); // Include res.locals

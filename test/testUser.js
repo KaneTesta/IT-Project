@@ -4,7 +4,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 // Controllers
 process.env.NODE_ENV = 'test';
-const passport = require('passport');
+const passportStub = require('passport-stub');
 const app = require('../app');
 // Models
 const User = require('../models/user');
@@ -13,6 +13,7 @@ const Artefact = require('../models/artefact');
 // Configure chai
 chai.use(chaiHttp);
 const { expect } = chai;
+passportStub.install(app);
 
 after((done) => {
 	// Clear database
@@ -24,45 +25,47 @@ after((done) => {
 
 describe('User', function describeUser() {
 	this.timeout(60000);
+	let authUser = null;
 
 	beforeEach((done) => {
 		// Clear database
-		User.deleteMany({}, (err) => {
-			if (err) {
-				done(err);
-			} else {
-				const provider = 'google';
-				const strategy = passport._strategies[provider];
-
-				strategy._token_response = {
-					access_token: 'at-1234',
-					expires_in: 3600,
-				};
-
-				strategy._profile = {
-					id: 1234,
-					provider,
-					displayName: 'Jon Smith',
-					email: 'jonsmith@example.com',
-				};
-
-				// Auth user
-				chai.request(app)
-					.get('/auth/login/mock')
-					.end((errLogin, res) => {
-						done(errLogin);
-					});
+		Artefact.deleteMany({}, (errArtefact) => {
+			if (errArtefact) {
+				done(errArtefact);
+				return;
 			}
+
+			User.deleteMany({}, (errUser) => {
+				if (errUser) {
+					done(errUser);
+					return;
+				}
+
+				new User({
+					user_id: 1234,
+					display_name: 'Test User',
+					email: 'test@example.com',
+				}).save((err, user) => {
+					authUser = user;
+					passportStub.login(user);
+					done(err);
+				});
+			});
 		});
+	});
+
+	afterEach((done) => {
+		passportStub.logout();
+		done();
 	});
 
 	describe('GET /artefact/find/', () => {
 		it('check find with no artefacts', (done) => {
 			chai.request(app)
-				.get('/artefact/find/0')
+				.get(`/artefact/find/${new mongoose.Types.ObjectId(1)}`)
+				.redirects(0)
 				.end((err, res) => {
 					expect(err, 'Should be no errors').to.not.exist;
-					expect(res.redirects, 'Should be no redirects').to.be.empty;
 					expect(res, 'Should have status code 500').to.have.status(500);
 					expect(res.body).to.be.empty;
 					done();
@@ -73,18 +76,41 @@ describe('User', function describeUser() {
 			new Artefact({
 				name: 'a',
 				description: 'b',
+				owner: authUser.id,
 			}).save((err, artefact) => {
 				if (err) {
 					done(err);
 				} else {
 					chai.request(app)
 						.get(`/artefact/find/${artefact.id}`)
+						.redirects(0)
 						.end((errFind, res) => {
 							expect(errFind, 'Should be no errors').to.not.exist;
-							expect(res.redirects, 'Should be no redirects').to.be.empty;
 							expect(res, 'Should have status code 200').to.have.status(200);
 							expect(res.body.name).to.equal('a');
 							expect(res.body.description).to.equal('b');
+							done();
+						});
+				}
+			});
+		});
+
+		it('check find with one artefact with non-matching id', (done) => {
+			new Artefact({
+				name: 'a',
+				description: 'b',
+				owner: authUser.id,
+			}).save((err, artefact) => {
+				if (err) {
+					done(err);
+				} else {
+					chai.request(app)
+						.get(`/artefact/find/${mongoose.Types.ObjectId(1)}`)
+						.redirects(0)
+						.end((errFind, res) => {
+							expect(errFind, 'Should be no errors').to.not.exist;
+							expect(res, 'Should have status code 500').to.have.status(500);
+							expect(res.body).to.be.empty;
 							done();
 						});
 				}
@@ -96,13 +122,36 @@ describe('User', function describeUser() {
 		it('create new artefact', (done) => {
 			chai.request(app)
 				.post('/artefact/create')
-				.field('name', 'Artefact')
-				.field('description', 'Description')
+				.field('name', 'Test Artefact')
+				.field('description', 'Test description.')
+				.redirects(1)
 				.end((err, res) => {
 					expect(err, 'Should be no errors').to.not.exist;
 					expect(res, 'Should have status code 200').to.have.status(200);
-					expect('Location', '/user');
+					expect(res, 'Should redirect to /user/').to.redirectTo(/\/user\/$/);
 					// Check artefact in user's account
+					User.getArtefacts(authUser.id, (errArtefacts, artefacts) => {
+						expect(errArtefacts, 'Should be no errors').to.not.exist;
+
+						expect(artefacts).to.exist;
+						expect(artefacts.owner).to.exist;
+						expect(artefacts.owner.length).to.equal(1);
+						expect(artefacts.owner[0].name).to.equal('Test Artefact');
+						expect(artefacts.owner[0].description).to.equal('Test description.');
+
+						done();
+					});
+				});
+		});
+
+		it('create artefact with missing fields', (done) => {
+			chai.request(app)
+				.post('/artefact/create')
+				.field('name', 'Test Artefact')
+				.redirects(0)
+				.end((err, res) => {
+					expect(err, 'Should be no errors').to.not.exist;
+					expect(res, 'Should have status code 400').to.have.status(400);
 					done();
 				});
 		});
@@ -112,6 +161,7 @@ describe('User', function describeUser() {
 		it('search no users with no query', (done) => {
 			chai.request(app)
 				.get('/user/search/')
+				.redirects(0)
 				.end((err, res) => {
 					expect(err, 'Should be no errors').to.not.exist;
 					expect(res, 'Should have status code 400').to.have.status(400);
@@ -123,6 +173,7 @@ describe('User', function describeUser() {
 			const query = 'query';
 			chai.request(app)
 				.get(`/user/search/${query}`)
+				.redirects(0)
 				.end((err, res) => {
 					expect(err, 'Should be no errors').to.not.exist;
 					expect(res, 'Should have status code 200').to.have.status(200);
@@ -143,6 +194,7 @@ describe('User', function describeUser() {
 					const query = '';
 					chai.request(app)
 						.get(`/user/search/${query}`)
+						.redirects(0)
 						.end((errReq, res) => {
 							expect(errReq, 'Should be no errors').to.not.exist;
 							expect(res, 'Should have status code 400').to.have.status(400);
@@ -164,6 +216,7 @@ describe('User', function describeUser() {
 					const query = user.display_name;
 					chai.request(app)
 						.get(`/user/search/${query}`)
+						.redirects(0)
 						.end((errReq, res) => {
 							expect(errReq, 'Should be no errors').to.not.exist;
 							expect(res, 'Should have status code 200').to.have.status(200);
@@ -191,6 +244,7 @@ describe('User', function describeUser() {
 					const query = 'nomatch';
 					chai.request(app)
 						.get(`/user/search/${query}`)
+						.redirects(0)
 						.end((errReq, res) => {
 							expect(errReq, 'Should be no errors').to.not.exist;
 							expect(res, 'Should have status code 200').to.have.status(200);
