@@ -28,6 +28,15 @@
                 <p class="subheading">Tags</p>
                 <input type="text" name="tags" placeholder="Tags" />
                 <p class="text-description">Multiple tags can be added by separating them with commas.</p>
+                <p class="subheading">Files</p>
+                <div class="button-group">
+                    <input id="AddArtefactFileNames" class="input-description" type="text" name="filenames"
+                        placeholder="No Files Uploaded" disabled>
+
+                    <input id="AddArtefactUploadFiles" data-file-description="AddArtefactFileNames" type="file"
+                        name="other" multiple>
+                    <label for="AddArtefactUploadFiles" class="button">Upload Files</label>
+                </div>
 
                 <input type="submit" value="Add Artefact" class="button dialog-action">
             </form>

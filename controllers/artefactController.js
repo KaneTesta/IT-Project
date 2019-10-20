@@ -5,7 +5,7 @@ const csvStringify = require('csv-stringify');
 
 // Libraries
 const { createValidationError } = require('../lib/errors');
-const images = require('../lib/images');
+const gcs = require('../lib/gcs');
 const oauth2 = require('../lib/oauth2');
 
 // Models
@@ -13,7 +13,6 @@ const Artefact = require('../models/artefact');
 
 // Check if a user is the owner of the artefact, based on their session (login) information.
 // If they aren't the owner of an artefact, don't let them make changes
-
 const checkOwner = [
 	// Must be logged in
 	oauth2.required,
@@ -75,7 +74,6 @@ exports.getArtefact = [
 					const ownerId = String(artefact.owner.id);
 					const profileId = String(res.locals.profile.id);
 					const isOwner = ownerId === profileId;
-					// eslint-disable-next-line max-len
 					const isViewer = artefact.viewers.some((v) => String(v.id) === profileId);
 					a.isOwner = isOwner;
 					if (isOwner) {
@@ -106,8 +104,8 @@ exports.createArtefact = [
 	oauth2.required,
 
 	// Upload image
-	images.multer.single('image'),
-	images.sendUploadToGCS,
+	gcs.multer.fields([{ name: 'image', maxCount: 1 }, { name: 'other' }]),
+	gcs.uploadFilesToGCS,
 
 	// Validate Body
 	body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
@@ -138,8 +136,13 @@ exports.createArtefact = [
 			owner: req.user.id,
 		});
 
-		if (req.file) {
-			artefact.images.item = { filename: req.file.cloudStorageObject };
+
+		if (req.files.image) {
+			artefact.images.item = { filename: req.files.image[0].originalname };
+		}
+
+		if (req.files.other && Array.isArray(req.files.other)) {
+			artefact.files = req.files.other.map((f) => ({ filename: f.originalname }));
 		}
 
 		if (!errors.isEmpty()) {
@@ -162,8 +165,8 @@ exports.editArtefact = [
 	oauth2.required,
 
 	// Upload image
-	images.multer.single('image'),
-	images.sendUploadToGCS,
+	gcs.multer.fields([{ name: 'image', maxCount: 1 }, { name: 'other' }]),
+	gcs.uploadFilesToGCS,
 
 	// Check permissions
 	checkOwner,
@@ -195,8 +198,13 @@ exports.editArtefact = [
 					}
 
 					// Update image
-					if (req.file) {
-						artefact.images.item = { filename: req.file.cloudStorageObject };
+					if (req.files.image) {
+						artefact.images.item = { filename: req.files.image[0].originalname };
+					}
+
+					// Add files
+					if (req.files.other && Array.isArray(req.files.other)) {
+						artefact.files.push(req.files.other.map((f) => ({ filename: f.originalname })));
 					}
 
 					// Save modified artefact
@@ -218,10 +226,11 @@ exports.deleteArtefact = [
 	oauth2.required,
 	checkOwner,
 	(req, res, next) => {
-		Artefact.findByIdAndDelete(req.body.id, (err) => {
+		Artefact.findById(req.body.id, (err, artefact) => {
 			if (err) {
 				next(createError(500, err));
 			} else {
+				artefact.remove();
 				res.redirect('/user/');
 			}
 		});
@@ -296,7 +305,20 @@ exports.getDatabaseZip = [
 				{ key: 'name', header: 'Name' },
 				{ key: 'description', header: 'Description' },
 				{ key: 'images.item.filename', header: 'Image filename' },
+				{ key: 'files', header: 'Files' },
 			],
+			cast: {
+				object: (value) => {
+					// If stringifying `files` array, concatenate filenames instead of entire object
+					if (Array.isArray(value)
+						&& value.length !== 0
+						&& value[0]
+						&& value[0].filename) {
+						return value.map((f) => f.filename).join(';');
+					}
+					return JSON.stringify(value);
+				},
+			},
 		});
 		// Set up response to dated backup zip
 		res.attachment(`inheritthat_backup_${Date.now()}.zip`);
@@ -314,9 +336,19 @@ exports.getDatabaseZip = [
 			.on('data', (artefact) => {
 				// Download and add image if it exists to archive
 				if (artefact.images.item) {
-					zip.append(images.getFileStream(artefact.images.item.filename), {
+					zip.append(gcs.getFileStream(artefact.images.item.filename), {
 						name: `files/${artefact.images.item.filename}`,
 						store: true,
+					});
+				}
+				if (artefact.files && Array.isArray(artefact.files)) {
+					artefact.files.forEach((f) => {
+						if (f) {
+							zip.append(gcs.getFileStream(f.filename), {
+								name: `files/${f.filename}`,
+								store: true,
+							});
+						}
 					});
 				}
 				// Stringify artefact to csv

@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
-const images = require('../lib/images');
+const gcs = require('../lib/gcs');
 
 // Schema for image objects
 // Inputs:
 // filename - name of the file
-const imageSchema = mongoose.Schema({
+const fileSchema = mongoose.Schema({
 	filename: String,
 }, { toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
-imageSchema.pre('remove', { query: true, document: true }, function deleteImage(next) {
-	images.deleteFromGCS(this.image).then(next());
+fileSchema.virtual('url').get(function getFileUrl() {
+	return gcs.getPublicUrl(this.filename);
 });
 
-imageSchema.virtual('url').get(function getImageUrl() {
-	return images.getPublicUrl(this.filename);
+fileSchema.pre('remove', { query: true, document: true }, function deleteImage(next) {
+	gcs.deleteFromGCS(this.filename).then(next());
 });
 
 // Schema for artefact objects
@@ -28,13 +28,12 @@ imageSchema.virtual('url').get(function getImageUrl() {
 const artefactSchema = mongoose.Schema({
 	name: String,
 	description: String,
-	// TODO Decide on map of arrays for future additions or as is
-	// TODO add ability to upload files (pdf?) too?
+	// Probably a better way to organise this
 	images: {
-		item: imageSchema,
-		documentation: [imageSchema],
-		insurance: [imageSchema],
+		item: fileSchema,
+		other: [fileSchema],
 	},
+	files: [fileSchema],
 	tags: [String],
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
@@ -44,6 +43,14 @@ const artefactSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 	}],
+});
+
+artefactSchema.pre('remove', function cleanUpFiles(next) {
+	console.log(`removing ${this.name}`);
+	this.images.item.remove();
+	this.images.other.forEach((item) => item.remove());
+	this.files.forEach((file) => file.remove());
+	next();
 });
 
 // Can be directly invoked by a model
