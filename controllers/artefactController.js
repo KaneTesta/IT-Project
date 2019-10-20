@@ -359,7 +359,7 @@ exports.getDatabaseZip = [
 				{ key: 'name', header: 'Name' },
 				{ key: 'description', header: 'Description' },
 				{ key: 'recipients', header: 'Recipient(s)' },
-				{ tags: 'tags', header: 'Tags' },
+				{ key: 'tags', header: 'Tags' },
 				{ key: 'images.item.filename', header: 'Image filename' },
 				{ key: 'files', header: 'Files' },
 			],
