@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<%- include('../includes/head'); %>
+
+<body>
+
+    <div class="main-content">
+        <%- include('../includes/elements/navigation'); %>
+
+        <div class="page-content">
+            <h1 class="dialog-heading">My Artefacts</h1>
+
+            <!-- Iterate through and render the user's artefacts sent from the user controller -->
+            <% if (artefacts.owner) { %>
+            <% for (let i = 0; i < artefacts.owner.length; ++i) { %>
+            <hr style = "width: 50%;padding:25px;">
+
+            <div class="dialog-content">
+                <div class="dialog-panel">
+                    <h2 id="ArtefactViewName"><%=artefacts.owner[i].name%></h2>
+                </div>
+        
+                <div class="dialog-panel dialog-panel-scrollable">
+                    <% if (artefacts.owner[i].images.item) {%>
+                    <img id="ArtefactViewImage" style="width: 25%; height: 25%;" src = "<%=artefacts.owner[i].images.item.url%>"class="dialog-image" alt="<%=artefacts.owner[i].images.item.filename%>"/>
+                    <%};%>
+                    <p class="subheading">Owner</p>
+                    <div class="chip">
+                        <img id="<%= artefacts.owner[i].idPrefix %>Image" class="chip-image" src="<%=artefacts.owner[i].owner.display_picture%>" alt="<%=artefacts.owner[i].display_name%>" >
+                        <span id="<%= artefacts.owner[i].idPrefix %>Text" class="chip-text"><%=artefacts.owner[i].owner.display_name%></span>
+                    </div>
+                    
+                    <% if (artefacts.owner[i].viewers && artefacts.owner[i].viewers.length > 0) {%>
+                    <div id="ArtefactViewViewersContainer">
+                        <p class="subheading">Viewers</p>
+                        <div id="ArtefactViewViewers">
+                            <% for (let j = 0; j < artefacts.owner[i].viewers.length; ++j) {%>
+                                <div class="chip">
+                                    <img id="<%= artefacts.owner[i].viewers[j].idPrefix %>Image" class="chip-image" src="<%=artefacts.owner[i].viewers[j].display_picture%>" alt="<%=artefacts.owner[i].display_name%>">
+                                    <span id="<%= artefacts.owner[i].viewers[j].idPrefix %>Text" class="chip-text"><%=artefacts.owner[i].viewers[j].display_name%></span>
+                                </div>
+                            <% };%>
+                        </div>
+                    </div>
+                    <%};%>
+
+                            
+                    <p class="subheading">Description</p>
+                    <p id="ArtefactViewDescription"><%=artefacts.owner[i].description%></p>
+                </div>
+                
+
+            <% }; %>
+            <hr style = "width: 50%;padding:25px;">
+
+            <% }; %>
+
+
+
+            <!-- Group the artefacts by the owner's name -->
+            <% if (artefacts.viewer && artefacts.viewer.length > 0) { %>
+                <h1 style = "padding-top:25px;">Shared Artefacts</h1>
+
+
+                <% for (let i = 0; i < artefacts.viewer.length; ++i) { %>
+                    <hr style = "width: 50%;padding:25px;">
+        
+                    <div class="dialog-content">
+                        <div class="dialog-panel">
+                            <h2 id="ArtefactViewName"><%=artefacts.viewer[i].name%></h2>
+                        </div>
+                
+                        <div class="dialog-panel dialog-panel-scrollable">
+                            <% if (artefacts.viewer[i].images.item) {%>
+                            <img id="ArtefactViewImage" style="width: 25%; height: 25%;" src = "<%=artefacts.viewer[i].images.item.url%>"class="dialog-image" alt="<%=artefacts.viewer[i].images.item.filename%>"/>
+                            <%};%>
+                            <p class="subheading">Owner</p>
+                            <div class="chip">
+                                <img id="<%= artefacts.viewer[i].idPrefix %>Image" class="chip-image" src="<%=artefacts.viewer[i].owner.display_picture%>" alt="<%=artefacts.viewer[i].display_name%>" >
+                                <span id="<%= artefacts.viewer[i].idPrefix %>Text" class="chip-text"><%=artefacts.viewer[i].owner.display_name%></span>
+                            </div> 
+                                    
+                            <p class="subheading">Description</p>
+                            <p id="ArtefactViewDescription"><%=artefacts.owner[i].description%></p>
+                        </div>
+                        
+        
+                    <% }; %>        
+            </div>
+            <hr style = "width: 50%;padding:25px;">
+        <% }; %>
+
+        <%- include('../includes/dialogs/dialogAddArtefact'); %>
+        <%- include('../includes/dialogs/dialogViewPrintArtefact'); %>
+        <%- include('../includes/dialogs/dialogAddViewers'); %>
+        <%- include('../includes/dialogs/dialogEditArtefact'); %>
+    </div>
+
+    <%- include('../includes/scripts'); %>
+
+</body>
+
+</html>
