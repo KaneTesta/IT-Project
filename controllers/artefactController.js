@@ -293,6 +293,60 @@ exports.removeViewer = [
 	},
 ];
 
+exports.addRecipient = [
+	oauth2.required,
+	checkOwner,
+	(req, res, next) => {
+		const { recipientId } = req.body;
+		const artefactId = req.body.id;
+
+		if (req.user.id.toString() === recipientId.toString()) {
+			res.status(400).send('User is already the owner of this artefact');
+		} else {
+			Artefact.findByIdAndUpdate(artefactId,
+				{ $addToSet: { recipients: recipientId } },
+				(err, artefact) => {
+					if (err) {
+						res.status(500).send(err);
+					} else {
+						res.json(artefact);
+					}
+				});
+		}
+	},
+
+	(err, req, res, next) => {
+		res.status(500).send(err);
+	},
+];
+
+exports.removeRecipient = [
+	oauth2.required,
+	checkOwner,
+	(req, res, next) => {
+		const { recipientId } = req.body;
+		const artefactId = req.body.id;
+
+		if (req.user.id.toString() === recipientId.toString()) {
+			res.status(400).send('User is already owner');
+		} else {
+			Artefact.findByIdAndUpdate(artefactId,
+				{ $pull: { recipients: recipientId } },
+				(err, artefact) => {
+					if (err) {
+						res.status(500).send(err);
+					} else {
+						res.json(artefact);
+					}
+				});
+		}
+	},
+
+	(err, req, res, next) => {
+		res.status(500).send(err);
+	},
+];
+
 exports.getDatabaseZip = [
 	oauth2.required,
 
@@ -304,17 +358,21 @@ exports.getDatabaseZip = [
 			columns: [
 				{ key: 'name', header: 'Name' },
 				{ key: 'description', header: 'Description' },
+				{ key: 'recipients', header: 'Recipient(s)' },
+				{ tags: 'tags', header: 'Tags' },
 				{ key: 'images.item.filename', header: 'Image filename' },
 				{ key: 'files', header: 'Files' },
 			],
 			cast: {
-				object: (value) => {
-					// If stringifying `files` array, concatenate filenames instead of entire object
-					if (Array.isArray(value)
-						&& value.length !== 0
-						&& value[0]
-						&& value[0].filename) {
+				object: (value, context) => {
+					if (context.column === 'files') {
 						return value.map((f) => f.filename).join(';');
+					}
+					if (context.column === 'recipients') {
+						return value.map((r) => r.display_name).join(';');
+					}
+					if (context.column === 'tags') {
+						return value.join(';');
 					}
 					return JSON.stringify(value);
 				},
@@ -332,6 +390,7 @@ exports.getDatabaseZip = [
 		Artefact
 			.find({ owner: res.locals.profile.id })
 			.select('-viewers -owner -_id -__v')
+			.populate('recipients')
 			.cursor()
 			.on('data', (artefact) => {
 				// Download and add image if it exists to archive

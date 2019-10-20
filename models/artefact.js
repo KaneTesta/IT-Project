@@ -43,6 +43,10 @@ const artefactSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 	}],
+	recipients: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
+	}],
 });
 
 artefactSchema.pre('remove', function cleanUpFiles(next) {
