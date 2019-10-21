@@ -71,6 +71,8 @@ $(() => {
 			$('#ArtefactViewRecipientsContainer').css('display', 'none');
 			$('#ArtefactViewRecipients').html('');
 			$('#ArtefactViewEditPanel').css('display', 'none');
+			$('#ArtefactViewFilesContainer').css('display', 'none');
+			$('#ArtefactViewFiles').html('');
 			$('#ArtefactViewTagsContainer').css('display', 'none');
 			$('#ArtefactViewTags').html('');
 
@@ -100,6 +102,17 @@ $(() => {
 				$('#ArtefactViewOwnerText').html(artefact.owner.display_name);
 				$('#ArtefactViewButtonShare').css('display', artefact.isOwner ? '' : 'none');
 				$('#ArtefactViewEditPanel').css('display', artefact.isOwner ? '' : 'none');
+
+				if (artefact.files && artefact.files.length > 0) {
+					$('#ArtefactViewFilesContainer').css('display', '');
+					artefact.files.forEach((file) => {
+						$(`
+						<li>
+							<a href="${file.url}" target="_blank">${file.filename}</a>
+						</li>
+						`).appendTo($('#ArtefactViewFiles'));
+					});
+				}
 
 				if (artefact.tags && artefact.tags.length > 0) {
 					$('#ArtefactViewTagsContainer').css('display', '');
@@ -156,6 +169,7 @@ $(() => {
 					$('#EditArtefactDeleteId').val(artefact._id);
 					$('#EditArtefactTags').val(artefact.tags.join(', '));
 					$('#EditArtefactViewersContainer').css('display', 'none');
+					$('#EditArtefactRecipientsContainer').css('display', 'none');
 					// Create chips to remove viewers
 					if (artefact.viewers && artefact.viewers.length > 0) {
 						// Reset the viewer chips
@@ -206,7 +220,10 @@ $(() => {
 							// Add the created chip to the viewers
 							$('#EditArtefactViewers').append(chip);
 						});
+					}
 
+					// Create chips to remove recipients
+					if (artefact.recipients && artefact.recipients.length > 0) {
 						// Reset the recipient chips
 						$('#EditArtefactRecipientsContainer').css('display', '');
 						$('#EditArtefactRecipients').html('');
