@@ -68,6 +68,8 @@ $(() => {
 			$('#ArtefactViewButtonShare').css('display', 'none');
 			$('#ArtefactViewViewersContainer').css('display', 'none');
 			$('#ArtefactViewViewers').html('');
+			$('#ArtefactViewRecipientsContainer').css('display', 'none');
+			$('#ArtefactViewRecipients').html('');
 			$('#ArtefactViewEditPanel').css('display', 'none');
 			$('#ArtefactViewTagsContainer').css('display', 'none');
 			$('#ArtefactViewTags').html('');
@@ -105,8 +107,6 @@ $(() => {
 				}
 
 				// Add viewer chips
-				$('#AddViewersShareId').val(artefact._id);
-				$('#AddViewersShareName').html(artefact.name);
 				if (artefact.viewers && artefact.viewers.length > 0) {
 					$('#ArtefactViewViewersContainer').css('display', '');
 					artefact.viewers.forEach((viewer) => {
@@ -117,15 +117,28 @@ $(() => {
 					});
 				}
 
-				// Set add viewers button action
+				// Add recipient chips
+				if (artefact.recipients && artefact.recipients.length > 0) {
+					$('#ArtefactViewRecipientsContainer').css('display', '');
+					artefact.recipients.forEach((recipient) => {
+						// Create and add a viewer chip to the dialog
+						const chipImage = recipient.display_picture;
+						const chipName = recipient.display_name;
+						$('#ArtefactViewRecipients').append(createImageChip(chipImage, chipName));
+					});
+				}
+
+				// Set share button action
+				$('#DialogShareArtefactId').val(artefact._id);
+				$('#DialogShareArtefactName').html(artefact.name);
 				$('#ArtefactViewButtonShare').off('click');
 				$('#ArtefactViewButtonShare').on('click', () => {
 					dialogViewArtefact.hide();
-					// Show add viewers dialog
-					const dialogAddViewers = document.getElementById('DialogAddViewers');
-					if (dialogAddViewers) {
-						$('#AddViewersSearchResult').html('');
-						dialogAddViewers.show();
+					// Show share dialog
+					const dialogShare = document.getElementById('DialogShareArtefact');
+					if (dialogShare) {
+						$('#DialogShareSearchResult').html('');
+						dialogShare.show();
 					}
 				});
 
@@ -212,10 +225,10 @@ $(() => {
 	 * and populate the results table based on the search results
 	 */
 	function searchUsers() {
-		$('#AddViewersSearchResult').html('');
+		$('#DialogShareSearchResult').html('');
 		// Get search query
-		const query = $('#AddViewersInputSearch').val();
-		const artefactId = $('#AddViewersShareId').val();
+		const query = $('#DialogShareInputSearch').val();
+		const artefactId = $('#DialogShareArtefactId').val();
 		// Create loading dialog
 		const loadingDialog = window.dialogManager.createNewLoadingDialog('Searching for Users');
 		loadingDialog.show();
@@ -224,7 +237,7 @@ $(() => {
 			loadingDialog.hideAndRemove();
 			if (users && users.length > 0) {
 				// Add table for users
-				const searchResult = $('#AddViewersSearchResult');
+				const searchResult = $('#DialogShareSearchResult');
 				const userTable = $('<table class="user-results"></table>').appendTo(searchResult);
 				// Add table headings
 				$(`
@@ -232,6 +245,7 @@ $(() => {
 					<tr>
 						<th></th>
 						<th>Name</th>
+						<th></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -248,20 +262,30 @@ $(() => {
 					</tr>
 					`).appendTo(userBody);
 
+					const userButtons = $(`
+					<td class="flex-horizontal-responsive-small"></td>
+					`).appendTo(userRow);
+
 					// Create a button to add the user as a viewer
 					const userButton = $(`
-					<td>
-						<button class="button button-inline" style="margin-left: auto;">Share with User</button>
-					</td>
-					`).appendTo(userRow);
+					<button class="button" style="margin-left: auto;">Share with User</button>
+					`).appendTo(userButtons);
+
+					// Create a button to add the user as a recipient
+					const recipientButton = $(`
+					<button class="button" style="margin-left: auto;">Add as Recipient</button>
+					`).appendTo(userButtons);
 
 					// Setup the add viewer button action
 					userButton.on('click', (e) => {
 						// Create loading dialog
-						const loadingDialogAddUser = window.dialogManager.createNewLoadingDialog(`Adding ${user.display_name}`);
-						loadingDialogAddUser.show();
+						const loadingDialogAddViewer = window.dialogManager.createNewLoadingDialog(
+							`Adding ${user.display_name}`,
+						);
+
+						loadingDialogAddViewer.show();
 						$.post('/artefact/share/add', { viewerId: user._id, id: artefactId }, (data) => {
-							loadingDialogAddUser.hideAndRemove();
+							loadingDialogAddViewer.hideAndRemove();
 							// Show a success dialog with the added user's name
 							const messageDialog = window.dialogManager.createNewMessageDialog('Viewer Added', `
 								${user.display_name} has been added as a viewer for this artefact.
@@ -269,7 +293,31 @@ $(() => {
 
 							messageDialog.show();
 						}).fail((jqXHR, err, data) => {
-							loadingDialogAddUser.hideAndRemove();
+							loadingDialogAddViewer.hideAndRemove();
+							// Show an error dialog with the error response
+							const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
+							errorDialog.show();
+						});
+					});
+
+					// Setup the add recipient button action
+					recipientButton.on('click', (e) => {
+						// Create loading dialog
+						const loadingDialogAddRecipient = window.dialogManager.createNewLoadingDialog(
+							`Adding ${user.display_name}`,
+						);
+
+						loadingDialogAddRecipient.show();
+						$.post('/artefact/recipient/add', { recipientId: user._id, id: artefactId }, (data) => {
+							loadingDialogAddRecipient.hideAndRemove();
+							// Show a success dialog with the added user's name
+							const messageDialog = window.dialogManager.createNewMessageDialog('Recipient Added', `
+								${user.display_name} has been added as a recipient for this artefact.
+							`);
+
+							messageDialog.show();
+						}).fail((jqXHR, err, data) => {
+							loadingDialogAddRecipient.hideAndRemove();
 							// Show an error dialog with the error response
 							const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
 							errorDialog.show();
@@ -278,7 +326,7 @@ $(() => {
 				});
 			} else {
 				// Create a message explaining that there are no resulst
-				const searchResult = $('#AddViewersSearchResult');
+				const searchResult = $('#DialogShareSearchResult');
 				$('<p class="text-error">No results found</p>').appendTo(searchResult);
 			}
 		}).fail((jqXHR, err, data) => {
@@ -290,14 +338,14 @@ $(() => {
 	}
 
 	// Setup search on enter in input search
-	$('#AddViewersInputSearch').on('keydown', (e) => {
+	$('#DialogShareInputSearch').on('keydown', (e) => {
 		if (e.key === 'Enter') {
 			searchUsers();
 		}
 	});
 
 	// Setup search button
-	$('#AddViewersButtonSearch').on('click', (e) => {
+	$('#DialogShareButtonSearch').on('click', (e) => {
 		searchUsers();
 	});
 });

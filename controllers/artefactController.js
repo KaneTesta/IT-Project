@@ -66,6 +66,7 @@ exports.getArtefact = [
 		Artefact.findById(req.params.id)
 			.populate('owner', '-email')
 			.populate('viewers', '-email')
+			.populate('recipients', '-email')
 			.exec((err, artefact) => {
 				const a = artefact.toObject();
 				if (err) {
@@ -80,6 +81,7 @@ exports.getArtefact = [
 						res.json(a);
 					} else if (isViewer) {
 						delete a.viewers;
+						delete a.recipients;
 						delete a.images.documentation;
 						delete a.images.insurance;
 						res.json(a);
