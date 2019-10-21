@@ -176,7 +176,10 @@ $(() => {
 							// Setup the delete viewer button action
 							chipButton.on('click', () => {
 								// Create loading dialog
-								const loadingDialogRemoveViewer = window.dialogManager.createNewLoadingDialog(`Removing ${viewer.display_name}`);
+								const loadingDialogRemoveViewer = window.dialogManager.createNewLoadingDialog(
+									`Removing ${viewer.display_name}`,
+								);
+
 								loadingDialogRemoveViewer.show();
 								$.post('/artefact/share/remove', { viewerId: viewer._id, id: artefactId }, (data) => {
 									loadingDialogRemoveViewer.hideAndRemove();
@@ -202,6 +205,55 @@ $(() => {
 
 							// Add the created chip to the viewers
 							$('#EditArtefactViewers').append(chip);
+						});
+
+						// Reset the recipient chips
+						$('#EditArtefactRecipientsContainer').css('display', '');
+						$('#EditArtefactRecipients').html('');
+						artefact.recipients.forEach((recipient) => {
+							// Create and add a recipient chip to the dialog
+							const chipImage = recipient.display_picture;
+							const chipName = recipient.display_name;
+							const chip = createImageChip(chipImage, chipName);
+							// Create the delete viewer button
+							const chipButton = $(`
+							<button class="chip-button chip-button-error">
+								<i class="material-icons-outlined">delete</i>
+							</button>
+							`).appendTo(chip);
+
+							// Setup the delete viewer button action
+							chipButton.on('click', () => {
+								// Create loading dialog
+								const loadingDialogRemoveRecipient = window.dialogManager.createNewLoadingDialog(
+									`Removing ${recipient.display_name}`,
+								);
+
+								loadingDialogRemoveRecipient.show();
+								$.post('/artefact/recipient/remove', { recipientId: recipient._id, id: artefactId }, (data) => {
+									loadingDialogRemoveRecipient.hideAndRemove();
+									// Show success dialog
+									const messageDialog = window.dialogManager.createNewMessageDialog('Recipient Removed', `
+										${recipient.display_name} has been removed as a recipient from this artefact.
+									`);
+
+									messageDialog.show();
+									// Remove chip
+									chip.remove();
+									// Hide viewers panel if no viewers
+									if ($('#EditArtefactRecipients').children().length === 0) {
+										$('#EditArtefactRecipientsContainer').css('display', 'none');
+									}
+								}).fail((jqXHR, err, data) => {
+									loadingDialogRemoveRecipient.hideAndRemove();
+									// Create an error dialog with the error message
+									const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
+									errorDialog.show();
+								});
+							});
+
+							// Add the created chip to the viewers
+							$('#EditArtefactRecipients').append(chip);
 						});
 					}
 
