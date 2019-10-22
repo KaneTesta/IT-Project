@@ -23,19 +23,26 @@ exports.getUserDashboard = [
 // Search for users in the user database so we can
 // alter the visibility of an artefact to include them
 exports.searchUsers = [
+	oauth2.required,
 	// Get dashboard
 	(req, res, next) => {
 		const { query } = req.params;
 		if (!query) {
 			res.status(400).send('Must have a search query');
 		} else {
-			User.find({ $text: { $search: query } }, (err, users) => {
-				if (err) {
-					res.status(500).send(err);
-				} else {
-					res.json(users);
-				}
-			});
+			User
+				.find({
+					$text: { $search: query },
+					_id: { $ne: res.locals.profile.id },
+				})
+				.select('-email -__v -user_id')
+				.exec((err, users) => {
+					if (err) {
+						res.status(500).send(err);
+					} else {
+						res.json(users);
+					}
+				});
 		}
 	},
 ];
