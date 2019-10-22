@@ -50,8 +50,7 @@ const artefactSchema = mongoose.Schema({
 });
 
 artefactSchema.pre('remove', function cleanUpFiles(next) {
-	console.log(`removing ${this.name}`);
-	this.images.item.remove();
+	if (this.images.item) this.images.item.remove();
 	this.images.other.forEach((item) => item.remove());
 	this.files.forEach((file) => file.remove());
 	next();
