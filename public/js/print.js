@@ -69,8 +69,8 @@ $(() => {
 				$('#ArtefactViewOwnerText').html(artefact.owner.display_name);
 				$('#ArtefactViewEditPanel').css('display', artefact.isOwner ? '' : 'none');
 				// Add viewer chips
-				$('#AddViewersShareId').val(artefact._id);
-				$('#AddViewersShareName').html(artefact.name);
+				$('#DialogShareArtefactId').val(artefact._id);
+				$('#DialogShareArtefactName').html(artefact.name);
 				if (artefact.viewers && artefact.viewers.length > 0) {
 					$('#ArtefactViewViewersContainer').css('display', '');
 					artefact.viewers.forEach((viewer) => {
@@ -80,8 +80,6 @@ $(() => {
 						$('#ArtefactViewViewers').append(createChip(chipImage, chipName));
 					});
 				}
-
-
 			}).fail((jqXHR, err, data) => {
 				loadingDialog.hideAndRemove();
 				// Show error dialog
