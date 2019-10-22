@@ -68,7 +68,11 @@ $(() => {
 			$('#ArtefactViewButtonShare').css('display', 'none');
 			$('#ArtefactViewViewersContainer').css('display', 'none');
 			$('#ArtefactViewViewers').html('');
+			$('#ArtefactViewRecipientsContainer').css('display', 'none');
+			$('#ArtefactViewRecipients').html('');
 			$('#ArtefactViewEditPanel').css('display', 'none');
+			$('#ArtefactViewFilesContainer').css('display', 'none');
+			$('#ArtefactViewFiles').html('');
 			$('#ArtefactViewTagsContainer').css('display', 'none');
 			$('#ArtefactViewTags').html('');
 
@@ -99,14 +103,23 @@ $(() => {
 				$('#ArtefactViewButtonShare').css('display', artefact.isOwner ? '' : 'none');
 				$('#ArtefactViewEditPanel').css('display', artefact.isOwner ? '' : 'none');
 
+				if (artefact.files && artefact.files.length > 0) {
+					$('#ArtefactViewFilesContainer').css('display', '');
+					artefact.files.forEach((file) => {
+						$(`
+						<li>
+							<a href="${file.url}" target="_blank">${file.filename}</a>
+						</li>
+						`).appendTo($('#ArtefactViewFiles'));
+					});
+				}
+
 				if (artefact.tags && artefact.tags.length > 0) {
 					$('#ArtefactViewTagsContainer').css('display', '');
 					$('#ArtefactViewTags').html(artefact.tags.join(', '));
 				}
 
 				// Add viewer chips
-				$('#AddViewersShareId').val(artefact._id);
-				$('#AddViewersShareName').html(artefact.name);
 				if (artefact.viewers && artefact.viewers.length > 0) {
 					$('#ArtefactViewViewersContainer').css('display', '');
 					artefact.viewers.forEach((viewer) => {
@@ -117,15 +130,28 @@ $(() => {
 					});
 				}
 
-				// Set add viewers button action
+				// Add recipient chips
+				if (artefact.recipients && artefact.recipients.length > 0) {
+					$('#ArtefactViewRecipientsContainer').css('display', '');
+					artefact.recipients.forEach((recipient) => {
+						// Create and add a viewer chip to the dialog
+						const chipImage = recipient.display_picture;
+						const chipName = recipient.display_name;
+						$('#ArtefactViewRecipients').append(createImageChip(chipImage, chipName));
+					});
+				}
+
+				// Set share button action
+				$('#DialogShareArtefactId').val(artefact._id);
+				$('#DialogShareArtefactName').html(artefact.name);
 				$('#ArtefactViewButtonShare').off('click');
 				$('#ArtefactViewButtonShare').on('click', () => {
 					dialogViewArtefact.hide();
-					// Show add viewers dialog
-					const dialogAddViewers = document.getElementById('DialogAddViewers');
-					if (dialogAddViewers) {
-						$('#AddViewersSearchResult').html('');
-						dialogAddViewers.show();
+					// Show share dialog
+					const dialogShare = document.getElementById('DialogShareArtefact');
+					if (dialogShare) {
+						$('#DialogShareSearchResult').html('');
+						dialogShare.show();
 					}
 				});
 
@@ -143,6 +169,7 @@ $(() => {
 					$('#EditArtefactDeleteId').val(artefact._id);
 					$('#EditArtefactTags').val(artefact.tags.join(', '));
 					$('#EditArtefactViewersContainer').css('display', 'none');
+					$('#EditArtefactRecipientsContainer').css('display', 'none');
 					// Create chips to remove viewers
 					if (artefact.viewers && artefact.viewers.length > 0) {
 						// Reset the viewer chips
@@ -163,7 +190,10 @@ $(() => {
 							// Setup the delete viewer button action
 							chipButton.on('click', () => {
 								// Create loading dialog
-								const loadingDialogRemoveViewer = window.dialogManager.createNewLoadingDialog(`Removing ${viewer.display_name}`);
+								const loadingDialogRemoveViewer = window.dialogManager.createNewLoadingDialog(
+									`Removing ${viewer.display_name}`,
+								);
+
 								loadingDialogRemoveViewer.show();
 								$.post('/artefact/share/remove', { viewerId: viewer._id, id: artefactId }, (data) => {
 									loadingDialogRemoveViewer.hideAndRemove();
@@ -192,6 +222,58 @@ $(() => {
 						});
 					}
 
+					// Create chips to remove recipients
+					if (artefact.recipients && artefact.recipients.length > 0) {
+						// Reset the recipient chips
+						$('#EditArtefactRecipientsContainer').css('display', '');
+						$('#EditArtefactRecipients').html('');
+						artefact.recipients.forEach((recipient) => {
+							// Create and add a recipient chip to the dialog
+							const chipImage = recipient.display_picture;
+							const chipName = recipient.display_name;
+							const chip = createImageChip(chipImage, chipName);
+							// Create the delete viewer button
+							const chipButton = $(`
+							<button class="chip-button chip-button-error">
+								<i class="material-icons-outlined">delete</i>
+							</button>
+							`).appendTo(chip);
+
+							// Setup the delete viewer button action
+							chipButton.on('click', () => {
+								// Create loading dialog
+								const loadingDialogRemoveRecipient = window.dialogManager.createNewLoadingDialog(
+									`Removing ${recipient.display_name}`,
+								);
+
+								loadingDialogRemoveRecipient.show();
+								$.post('/artefact/recipient/remove', { recipientId: recipient._id, id: artefactId }, (data) => {
+									loadingDialogRemoveRecipient.hideAndRemove();
+									// Show success dialog
+									const messageDialog = window.dialogManager.createNewMessageDialog('Recipient Removed', `
+										${recipient.display_name} has been removed as a recipient from this artefact.
+									`);
+
+									messageDialog.show();
+									// Remove chip
+									chip.remove();
+									// Hide viewers panel if no viewers
+									if ($('#EditArtefactRecipients').children().length === 0) {
+										$('#EditArtefactRecipientsContainer').css('display', 'none');
+									}
+								}).fail((jqXHR, err, data) => {
+									loadingDialogRemoveRecipient.hideAndRemove();
+									// Create an error dialog with the error message
+									const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
+									errorDialog.show();
+								});
+							});
+
+							// Add the created chip to the viewers
+							$('#EditArtefactRecipients').append(chip);
+						});
+					}
+
 					// Show the edit artefact dialog, after other fields have been set
 					dialogEditArtefact.show();
 				});
@@ -212,10 +294,10 @@ $(() => {
 	 * and populate the results table based on the search results
 	 */
 	function searchUsers() {
-		$('#AddViewersSearchResult').html('');
+		$('#DialogShareSearchResult').html('');
 		// Get search query
-		const query = $('#AddViewersInputSearch').val();
-		const artefactId = $('#AddViewersShareId').val();
+		const query = $('#DialogShareInputSearch').val();
+		const artefactId = $('#DialogShareArtefactId').val();
 		// Create loading dialog
 		const loadingDialog = window.dialogManager.createNewLoadingDialog('Searching for Users');
 		loadingDialog.show();
@@ -224,7 +306,7 @@ $(() => {
 			loadingDialog.hideAndRemove();
 			if (users && users.length > 0) {
 				// Add table for users
-				const searchResult = $('#AddViewersSearchResult');
+				const searchResult = $('#DialogShareSearchResult');
 				const userTable = $('<table class="user-results"></table>').appendTo(searchResult);
 				// Add table headings
 				$(`
@@ -232,6 +314,7 @@ $(() => {
 					<tr>
 						<th></th>
 						<th>Name</th>
+						<th></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -248,20 +331,30 @@ $(() => {
 					</tr>
 					`).appendTo(userBody);
 
+					const userButtons = $(`
+					<td class="flex-horizontal-responsive-small"></td>
+					`).appendTo(userRow);
+
 					// Create a button to add the user as a viewer
 					const userButton = $(`
-					<td>
-						<button class="button button-inline" style="margin-left: auto;">Share with User</button>
-					</td>
-					`).appendTo(userRow);
+					<button class="button" style="margin-left: auto;">Share with User</button>
+					`).appendTo(userButtons);
+
+					// Create a button to add the user as a recipient
+					const recipientButton = $(`
+					<button class="button" style="margin-left: auto;">Add as Recipient</button>
+					`).appendTo(userButtons);
 
 					// Setup the add viewer button action
 					userButton.on('click', (e) => {
 						// Create loading dialog
-						const loadingDialogAddUser = window.dialogManager.createNewLoadingDialog(`Adding ${user.display_name}`);
-						loadingDialogAddUser.show();
+						const loadingDialogAddViewer = window.dialogManager.createNewLoadingDialog(
+							`Adding ${user.display_name}`,
+						);
+
+						loadingDialogAddViewer.show();
 						$.post('/artefact/share/add', { viewerId: user._id, id: artefactId }, (data) => {
-							loadingDialogAddUser.hideAndRemove();
+							loadingDialogAddViewer.hideAndRemove();
 							// Show a success dialog with the added user's name
 							const messageDialog = window.dialogManager.createNewMessageDialog('Viewer Added', `
 								${user.display_name} has been added as a viewer for this artefact.
@@ -269,7 +362,31 @@ $(() => {
 
 							messageDialog.show();
 						}).fail((jqXHR, err, data) => {
-							loadingDialogAddUser.hideAndRemove();
+							loadingDialogAddViewer.hideAndRemove();
+							// Show an error dialog with the error response
+							const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
+							errorDialog.show();
+						});
+					});
+
+					// Setup the add recipient button action
+					recipientButton.on('click', (e) => {
+						// Create loading dialog
+						const loadingDialogAddRecipient = window.dialogManager.createNewLoadingDialog(
+							`Adding ${user.display_name}`,
+						);
+
+						loadingDialogAddRecipient.show();
+						$.post('/artefact/recipient/add', { recipientId: user._id, id: artefactId }, (data) => {
+							loadingDialogAddRecipient.hideAndRemove();
+							// Show a success dialog with the added user's name
+							const messageDialog = window.dialogManager.createNewMessageDialog('Recipient Added', `
+								${user.display_name} has been added as a recipient for this artefact.
+							`);
+
+							messageDialog.show();
+						}).fail((jqXHR, err, data) => {
+							loadingDialogAddRecipient.hideAndRemove();
 							// Show an error dialog with the error response
 							const errorDialog = window.dialogManager.createNewErrorDialog(`${jqXHR.responseText}`);
 							errorDialog.show();
@@ -278,7 +395,7 @@ $(() => {
 				});
 			} else {
 				// Create a message explaining that there are no resulst
-				const searchResult = $('#AddViewersSearchResult');
+				const searchResult = $('#DialogShareSearchResult');
 				$('<p class="text-error">No results found</p>').appendTo(searchResult);
 			}
 		}).fail((jqXHR, err, data) => {
@@ -290,14 +407,14 @@ $(() => {
 	}
 
 	// Setup search on enter in input search
-	$('#AddViewersInputSearch').on('keydown', (e) => {
+	$('#DialogShareInputSearch').on('keydown', (e) => {
 		if (e.key === 'Enter') {
 			searchUsers();
 		}
 	});
 
 	// Setup search button
-	$('#AddViewersButtonSearch').on('click', (e) => {
+	$('#DialogShareButtonSearch').on('click', (e) => {
 		searchUsers();
 	});
 });

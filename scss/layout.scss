@@ -17,6 +17,15 @@
     }
 }
 
+.flex-horizontal-responsive-small {
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (max-width: $breakpoint-small) {
+        flex-direction: column;
+    }
+}
+
 .flex-center {
     display: flex;
 
