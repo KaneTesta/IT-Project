@@ -15,8 +15,37 @@ const userSchema = mongoose.Schema({
 	email: String,
 });
 
+// eslint-disable-next-line prefer-arrow-callback
 userSchema.pre('remove', function deleteArtefacts(next) {
-	Artefact.deleteMany({ owner: this._id }).then(next);
+	async.parallel({
+		// Remove owned artefacts
+		owner: function deleteOwned(callback) {
+			Artefact.deleteMany({ owner: this._id }, callback());
+		},
+		// Remove viewer permission from artefacts
+		viewer: function removeViewPermission(callback) {
+			Artefact.find({ viewers: this._id })
+				.exec((err, artefacts) => {
+					if (!err) {
+						artefacts.forEach((artefact) => artefact.viewers.pull(this._id));
+					}
+					callback(err, artefacts);
+				});
+		},
+		// Remove recipient permission from artefacts
+		recipient: function removeRecipientPermission(callback) {
+			Artefact.find({ recipients: this._id })
+				.exec((err, artefacts) => {
+					if (!err) {
+						artefacts.forEach((artefact) => artefact.recipients.pull(this._id));
+					}
+					callback(err, artefacts);
+				});
+		},
+	}, (err, _results) => {
+		if (err) next(err);
+		else next();
+	});
 });
 
 // Gets owned and viewable artefacts for a given user
