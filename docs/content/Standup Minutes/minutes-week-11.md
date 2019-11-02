@@ -25,7 +25,7 @@ author:
 ## James
 
 - Tried to get file support into master
-- Won't run after he tidied up the code, its still an ongoing issue.
+  - Won't run after he tidied up the code, its still an ongoing issue.
 - Slow week over all
 - Next week he needs to finish adding the feature to assign inheritance
 

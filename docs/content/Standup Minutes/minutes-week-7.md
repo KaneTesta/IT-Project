@@ -25,6 +25,6 @@ author:
 
 - Continuing work on tag system some failed prototypes
 - Showed client the current prototype app and he was pleased with it
-- Didn;t have any major issues, liked the change we were making moving away from pages of artefacts to a main dashboard with all of it.
+  - Didn;t have any major issues, liked the change we were making moving away from pages of artefacts to a main dashboard with all of it.
 
 ## Kane (Late)
